@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="vi" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tiện Ích - ALIZE Luxury Real Estate</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body
+  class="bg-jet-black text-pearl-white font-sans antialiased selection:bg-gold selection:text-jet-black overflow-x-hidden transition-colors duration-1000">
+
+  <!-- HEADER -->
+  <header id="header"
+    class="fixed w-full z-50 transition-all duration-500 bg-transparent py-6 text-pearl-white border-b border-white/5">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="flex justify-between items-center">
+        <div class="flex-shrink-0">
+          <a href="index.html"
+            class="font-serif text-2xl lg:text-3xl font-normal tracking-[0.25em] text-pearl-white hover:text-gold transition-colors duration-500">
+            ALIZE<span class="text-gold">.</span>
+          </a>
+        </div>
+
+        <nav class="hidden 2xl:flex space-x-10">
+          <a href="index.html#overview"
+            class="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">Tổng
+            Quan</a>
+          <a href="values.html"
+            class="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">Giá
+            Trị</a>
+          <a href="location.html"
+            class="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">Vị
+            Trí</a>
+          <a href="architecture.html"
+            class="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">Kiến
+            Trúc</a>
+          <a href="amenities.html"
+            class="text-[10px] font-light tracking-[0.2em] text-gold border-b border-gold pb-1 uppercase">Tiện
+            Ích</a>
+          <a href="services.html"
+            class="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">Dịch
+            Vụ</a>
+          <a href="floorplans.html"
+            class="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">Mặt
+            Bằng</a>
+          <a href="gallery.html"
+            class="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">Không
+            Gian</a>
+        </nav>
+
+        <div class="hidden lg:flex">
+          <a href="contact.html"
+            class="px-8 py-3 border border-pearl-white/30 text-pearl-white hover:bg-pearl-white hover:text-jet-black transition-all duration-500 text-[11px] font-light uppercase tracking-[0.2em] whitespace-nowrap">
+            Nhận Đặc Quyền
+          </a>
+        </div>
+
+        <div class="2xl:hidden flex items-center">
+          <button id="mobile-menu-btn"
+            class="text-pearl-white hover:text-gold focus:outline-none transition-colors duration-300">
+            <svg class="h-6 w-6 stroke-1 border-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu"
+      class="2xl:hidden absolute top-full left-0 w-full bg-jet-black/98 backdrop-blur-xl hidden border-t border-white/5 max-h-[80vh] overflow-y-auto">
+      <div class="px-6 py-10 space-y-6">
+        <a href="index.html#overview"
+          class="block text-sm font-light tracking-[0.2em] text-pearl-white/80 hover:text-gold uppercase text-center">Tổng
+          Quan</a>
+        <a href="values.html"
+          class="block text-sm font-light tracking-[0.2em] text-pearl-white/80 hover:text-gold uppercase text-center">Giá
+          Trị</a>
+        <a href="location.html"
+          class="block text-sm font-light tracking-[0.2em] text-pearl-white/80 hover:text-gold uppercase text-center">Vị
+          Trí</a>
+        <a href="architecture.html"
+          class="block text-sm font-light tracking-[0.2em] text-pearl-white/80 hover:text-gold uppercase text-center">Kiến
+          Trúc</a>
+        <a href="amenities.html"
+          class="block text-sm font-light tracking-[0.2em] text-gold uppercase text-center">Tiện
+          Ích</a>
+        <a href="services.html"
+          class="block text-sm font-light tracking-[0.2em] text-pearl-white/80 hover:text-gold uppercase text-center">Dịch
+          Vụ</a>
+        <a href="floorplans.html"
+          class="block text-sm font-light tracking-[0.2em] text-pearl-white/80 hover:text-gold uppercase text-center">Mặt
+          Bằng</a>
+        <a href="gallery.html"
+          class="block text-sm font-light tracking-[0.2em] text-pearl-white/80 hover:text-gold uppercase text-center">Không
+          Gian</a>
+        <a href="contact.html"
+          class="block w-full text-center mt-10 px-6 py-4 border border-gold/50 text-gold hover:bg-gold hover:text-jet-black transition-all duration-500 text-sm font-light tracking-[0.2em] uppercase">Nhận
+          Đặc Quyền</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- AMENITIES HERO -->
+  <section class="relative h-[85vh] min-h-[700px] w-full flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0 bg-jet-black">
+      <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2070&auto=format&fit=crop" alt="Hồ bơi vô cực ALIZE"
+        class="w-full h-[140%] -top-[15%] object-cover absolute gsap-parallax-bg filter brightness-[0.6] grayscale-[10%]" />
+      <div class="absolute inset-0 bg-gradient-to-t from-jet-black/100 via-jet-black/30 to-transparent"></div>
+    </div>
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20">
+      <span
+        class="gsap-hero-fade opacity-0 block text-gold text-[10px] md:text-xs tracking-[0.5em] font-light uppercase mb-6">ĐẶC QUYỀN THƯỢNG LƯU</span>
+      <h1
+        class="split-text-target font-serif text-5xl md:text-6xl lg:text-7xl font-normal text-pearl-white mb-8 tracking-tighter leading-[1.05]">
+        TRẢI NGHIỆM ĐẲNG CẤP <br /><span class="font-serif italic font-light text-pearl-white/90">Chuẩn 5 Sao</span>
+      </h1>
+      <p
+        class="gsap-hero-fade opacity-0 text-champagne/80 text-base md:text-lg font-light tracking-wide max-w-2xl mx-auto leading-relaxed">
+        Với mật độ xây dựng thấp chỉ 38.55%, cư dân hòa mình trọn vẹn vào công viên nội khu 1.655m2 và hệ sinh thái tiện ích khép kín. Từ vườn hoa 4 mùa, trung tâm thể thao đến dãy Shophouse sầm uất đa dạng.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 1: SKY POOL -->
+  <section class="py-32 bg-jet-black text-pearl-white border-t border-white/5 relative">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+        <!-- Text Content -->
+        <div class="lg:col-span-5 scroll-split-target order-2 lg:order-1 lg:pr-10 relative">
+          <span class="text-[10px] text-gold tracking-[0.4em] uppercase font-light mb-8 block opacity-80 border-b border-white/10 pb-4 inline-block">Tiện Ích Tầng Không</span>
+          <h2 class="font-serif text-4xl lg:text-5xl font-light tracking-tight split-text-target mb-10 leading-tight">
+            Hồ Bơi Vô Cực<br/><span class="italic font-serif text-pearl-white/70">Trên Cao</span>
+          </h2>
+          <p class="text-champagne/70 font-light leading-[2] text-sm md:text-base mb-10 gsap-hero-fade">
+             Sở hữu hồ bơi vô cực trên không (Sky Pool), nơi ranh giới giữa mặt nước và chân trời bị xóa nhòa. Một không gian hoàn mỹ giúp bạn thư giãn đón bình minh và phục hồi năng lượng giữa vòm mây bao la.
+          </p>
+          <div class="pl-6 border-l border-gold/40 text-[13px] text-champagne/60 leading-relaxed font-light gsap-hero-fade">
+             Hệ thống lọc nước muối sinh lý chuẩn quốc tế bảo vệ làn da, nhiệt độ nước thông minh điều chỉnh theo khí hậu, đảm bảo trải nghiệm bơi lội 4 mùa bất tận.
+          </div>
+        </div>
+        <!-- Split Image Collage -->
+        <div class="lg:col-span-7 order-1 lg:order-2">
+           <div class="gsap-image-mask aspect-[16/9] lg:aspect-[4/3] rounded-tl-[100px] rounded-br-[100px] relative overflow-hidden bg-charcoal/20 border border-white/5">
+              <img src="/images/sky-pool-alize-da-nang.webp" alt="Sky Pool" class="w-full h-full object-cover filter brightness-[0.8]" />
+              <div class="absolute inset-0 bg-gradient-to-tr from-midnight-blue/40 to-transparent pointer-events-none"></div>
+           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: SKY GARDEN & GYM -->
+  <section class="py-32 bg-midnight-blue text-pearl-white border-t border-white/5">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+        <!-- Image Content -->
+        <div class="lg:col-span-7 relative">
+           <div class="gsap-image-mask aspect-square relative overflow-hidden bg-charcoal/20">
+              <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2120&auto=format&fit=crop" alt="Yoga Element" class="w-full h-[120%] -top-[10%] object-cover absolute gsap-parallax-bg filter brightness-[0.7]" />
+              <div class="absolute inset-0 bg-gradient-to-t from-midnight-blue/60 to-transparent pointer-events-none"></div>
+           </div>
+           
+           <!-- Floating Info Box -->
+           <div class="absolute bottom-10 -right-4 md:-right-10 bg-jet-black backdrop-blur-md border border-white/10 p-8 w-64 md:w-80 transform translate-y-10 gsap-scroll-reveal z-20 shadow-2xl">
+             <div class="text-[10px] text-gold uppercase tracking-[0.2em] mb-4">Mảng Xanh 1.655m2</div>
+             <div class="font-serif text-3xl font-light text-pearl-white mb-2">Yoga & Spa</div>
+             <p class="text-[11px] text-champagne/60 leading-relaxed font-light mt-4">Trang thiết bị Gym & Yoga chuẩn quốc tế đáp ứng nhu cầu khắt khe của tầng lớp doanh nhân.</p>
+           </div>
+        </div>
+
+        <!-- Text Content -->
+        <div class="lg:col-span-5 scroll-split-target">
+          <span class="text-[10px] text-gold tracking-[0.4em] uppercase font-light mb-8 block opacity-80 border-b border-white/10 pb-4 inline-block">Tiện Ích Nội Khu</span>
+          <h2 class="font-serif text-4xl lg:text-5xl font-light tracking-tight split-text-target mb-10 leading-tight">
+            Sky Garden <br/><span class="italic font-serif text-pearl-white/70">& Thể Thao</span>
+          </h2>
+          <p class="text-champagne/70 font-light leading-[2] text-sm mb-6 gsap-hero-fade">
+             Vườn treo trên không xanh mướt hòa nhịp cùng trung tâm thể dục thể thao hiện đại, tạo nên một ốc đảo yên bình ngay thềm nhà.
+          </p>
+          <ul class="space-y-6 mt-10 text-sm font-light text-champagne/60 gsap-stagger-parent">
+             <li class="gsap-stagger-child flex items-center border-b border-white/5 pb-4"><div class="w-1.5 h-1.5 bg-gold rounded-full mr-4"></div> Vườn Zen tịnh tâm phong cách Nhật Bản</li>
+             <li class="gsap-stagger-child flex items-center border-b border-white/5 pb-4"><div class="w-1.5 h-1.5 bg-gold rounded-full mr-4"></div> Phòng Gym với máy móc tân tiến nhập khẩu Châu Âu</li>
+             <li class="gsap-stagger-child flex items-center border-b border-white/5 pb-4"><div class="w-1.5 h-1.5 bg-gold rounded-full mr-4"></div> Thư phòng Đọc sách & Cigar Lounge khép kín</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: MUA SẮM & THIẾU NHI -->
+  <section class="py-32 bg-jet-black text-pearl-white border-t border-white/5 relative">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="text-center mb-20 scroll-split-target">
+        <span class="text-[10px] text-gold tracking-[0.4em] uppercase font-light mb-6 block opacity-80">Tiện Ích Khối Đế</span>
+        <h2 class="font-serif text-4xl md:text-5xl lg:text-[4rem] font-light tracking-tight split-text-target leading-tight">Mua Sắm Sầm Uất <br/><span class="italic font-serif text-pearl-white/70">& Vun Vén Ước Mơ</span></h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 gsap-stagger-parent">
+         <!-- Image 1 -->
+         <div class="gsap-stagger-child group relative overflow-hidden border border-white/5 aspect-[4/3] bg-charcoal/20">
+             <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1974&auto=format&fit=crop" alt="Shophouse" class="w-full h-full object-cover filter brightness-[0.7] group-hover:scale-105 group-hover:brightness-[0.9] transition-all duration-[2s]">
+             <div class="absolute bottom-10 left-10 z-10">
+                <span class="text-gold text-[10px] uppercase tracking-[0.3em] block mb-2 font-bold bg-black/50 px-3 py-1 inline-block rounded">Shophouse</span>
+                <h3 class="font-serif text-2xl text-pearl-white drop-shadow-md">Thương Mại & Giải Trí</h3>
+             </div>
+             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
+         </div>
+         <!-- Image 2 -->
+         <div class="gsap-stagger-child group relative overflow-hidden border border-white/5 aspect-[4/3] bg-charcoal/20 mt-0 md:mt-24">
+             <img src="https://images.unsplash.com/photo-1560662105-57f8ad6ae2d1?q=80&w=2070&auto=format&fit=crop" alt="Kids Space" class="w-full h-full object-cover filter brightness-[0.7] group-hover:scale-105 group-hover:brightness-[0.9] transition-all duration-[2s]">
+             <div class="absolute bottom-10 left-10 z-10">
+                <span class="text-gold text-[10px] uppercase tracking-[0.3em] block mb-2 font-bold bg-black/50 px-3 py-1 inline-block rounded">Thiếu Nhi</span>
+                <h3 class="font-serif text-2xl text-pearl-white drop-shadow-md">Khu Vui Chơi An Toàn</h3>
+             </div>
+             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
+         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DỊCH VỤ KIM CƯƠNG (Formerly Services) -->
+  <section id="services" class="pt-40 pb-32 border-t border-white/5 bg-midnight-blue relative">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="text-center mb-24 scroll-split-target">
+        <span class="text-[10px] text-gold tracking-[0.4em] uppercase font-light mb-6 block opacity-80">Dịch Vụ Kim Cương</span>
+        <h2
+          class="font-serif text-4xl md:text-5xl lg:text-[4rem] font-light tracking-tight split-text-target leading-tight">
+          Chăm Sóc Cá Nhân <br /><span class="italic font-serif text-pearl-white/70">Xứng Tầm Tỷ Phú</span></h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 gsap-stagger-parent">
+        <!-- Service 1 -->
+        <div
+          class="gsap-stagger-child bg-charcoal/20 border border-white/5 p-12 text-center group hover:bg-white/5 transition-colors duration-700 hover:border-gold/30">
+          <svg class="w-12 h-12 mx-auto mb-8 text-gold/60 group-hover:text-gold transition-colors duration-500"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <h3 class="text-2xl font-serif font-light mb-4 text-pearl-white">Quản Gia Tư Nhân 24/7</h3>
+          <p class="text-[13px] text-champagne/60 leading-relaxed font-light">Mỗi một phân khu căn hộ đều có sự túc
+            trực 24/7 của đội ngũ quản gia chuẩn Marriott, đáp ứng mọi yêu cầu từ đặt tiệc đến đưa đón siêu xe tại
+            nhà.</p>
+        </div>
+        <!-- Service 2 -->
+        <div
+          class="gsap-stagger-child bg-charcoal/20 border border-white/5 p-12 text-center group hover:bg-white/5 transition-colors duration-700 hover:border-gold/30">
+          <svg class="w-12 h-12 mx-auto mb-8 text-gold/60 group-hover:text-gold transition-colors duration-500"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+            </path>
+          </svg>
+          <h3 class="text-2xl font-serif font-light mb-4 text-pearl-white">An Ninh Khép Kín</h3>
+          <p class="text-[13px] text-champagne/60 leading-relaxed font-light">Hệ thống nhận diện vòng mống mắt và
+            thẻ từ định danh tuyệt đối tại sảnh riêng. Đội ngũ an ninh tinh anh bảo vệ không gian sống không tì vết.
+          </p>
+        </div>
+        <!-- Service 3 -->
+        <div
+          class="gsap-stagger-child bg-charcoal/20 border border-white/5 p-12 text-center group hover:bg-white/5 transition-colors duration-700 hover:border-gold/30">
+          <svg class="w-12 h-12 mx-auto mb-8 text-gold/60 group-hover:text-gold transition-colors duration-500"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+              d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
+            </path>
+          </svg>
+          <h3 class="text-2xl font-serif font-light mb-4 text-pearl-white">Nghệ Thuật Ẩm Thực</h3>
+          <p class="text-[13px] text-champagne/60 leading-relaxed font-light">Đầu bếp nổi tiếng từ chuỗi nhà hàng
+            Michelin luôn sẵn sàng tại gia, chế biến trực tiếp nguyên liệu thượng hạng trong gian bếp siêu sang của
+            bạn.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FOOTER SECTION -->
+  <footer class="bg-jet-black pt-32 pb-12 border-t border-white/5">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
+        
+        <div class="md:col-span-12 text-center border-b border-light-gray/10 pb-24 mb-20 relative">
+          <span class="text-[10px] text-gold tracking-[0.4em] uppercase font-light mb-8 block opacity-80">Trải Nghiệm Trọn Vẹn</span>
+          <h2 class="font-serif text-4xl lg:text-5xl font-light text-pearl-white mb-10 tracking-tight leading-tight">Yêu Cầu Brochure Tiện Ích<br/><span class="italic font-serif text-champagne/60">& Danh Mục Dịch Vụ</span></h2>
+          <a href="contact.html"
+             class="inline-block bg-transparent border border-gold/40 text-gold py-4 px-12 font-light text-[11px] uppercase tracking-[0.3em] hover:bg-gold hover:text-jet-black transition-all duration-700">Đăng
+             Ký Nhận Tin</a>
+        </div>
+
+        <div class="md:col-span-5">
+          <a href="index.html"
+            class="font-serif text-3xl font-light tracking-[0.2em] text-pearl-white inline-block mb-8">ALIZE<span
+              class="text-gold">.</span></a>
+          <p class="text-sm text-champagne/40 font-light leading-relaxed max-w-md">
+            Chạm vào đỉnh cao không gian sống. Tuyệt tác kiến trúc ALIZE - Vùng đất dành cho sự tĩnh tại và phong cách
+            sống vô song.
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center text-[11px] tracking-widest text-champagne/30 font-light uppercase">
+        <p>&copy; 2026 ALIZE Residence.</p>
+        <div class="space-x-8 mt-6 md:mt-0">
+          <a href="#" class="hover:text-gold transition-colors">Bảo Mật</a>
+          <a href="#" class="hover:text-gold transition-colors">Điều Khoản</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP CDNs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- App Script -->
+  <script type="module" src="/src/main.js"></script>
+  <!-- FLOATING CONTACT BUTTONS -->
+  <div class="fixed bottom-6 right-6 z-[100] flex flex-col gap-4 items-end">
+    <!-- Call -->
+    <a href="tel:0799036842" class="w-12 h-12 bg-gold text-jet-black rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.5)] hover:bg-white transition-all hover:-translate-y-1 relative group">
+      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" /></svg>
+      <div class="absolute right-full mr-4 bg-jet-black/90 text-gold text-[10px] px-3 py-1.5 rounded uppercase tracking-widest whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border border-gold/30">Gọi Ngay 0799.036.842</div>
+      <!-- Pulse Effect -->
+      <div class="absolute inset-0 rounded-full border border-gold animate-ping opacity-50"></div>
+    </a>
+    <!-- Contact / Booking -->
+    <a href="contact.html" class="w-12 h-12 bg-jet-black border border-gold/50 text-gold rounded-full flex items-center justify-center shadow-lg hover:bg-gold hover:text-jet-black transition-all hover:-translate-y-1 relative group">
+      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.804 21.644A6.707 6.707 0 006 21.75a6.721 6.721 0 003.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 2.409 1.025 4.587 2.674 6.192.232.226.277.428.254.543a3.73 3.73 0 01-.814 1.686.75.75 0 00.44 1.223zM8.25 10.875a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25zM10.875 12a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875-1.125a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25z" clip-rule="evenodd" /></svg>
+      <div class="absolute right-full mr-4 bg-jet-black/90 text-gold text-[10px] px-3 py-1.5 rounded uppercase tracking-widest whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border border-gold/30">Nhận Tư Vấn VIP</div>
+    </a>
+  </div>
+</body>
+</html>

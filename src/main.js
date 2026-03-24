@@ -52,6 +52,37 @@ function splitTextToSpans(selector) {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* =========================================
+     Page Transition (Luxury Curtain)
+  ========================================= */
+  const transitionOverlay = document.createElement('div');
+  transitionOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background-color:#050505;z-index:99999;pointer-events:none;transform-origin:bottom;';
+  document.body.appendChild(transitionOverlay);
+
+  // Entrance: Curtain slides up revealing the page
+  gsap.fromTo(transitionOverlay, 
+    { scaleY: 1 }, 
+    { scaleY: 0, duration: 1.5, ease: "expo.inOut" }
+  );
+
+  // Exit: Curtain slides down to cover the page before navigating
+  const internalLinks = document.querySelectorAll('a[href]:not([href^="#"]):not([target="_blank"]):not([href^="mailto:"]):not([href^="tel:"])');
+  internalLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const targetUrl = link.getAttribute('href');
+      if (targetUrl && !targetUrl.startsWith('http') && targetUrl.endsWith('.html')) {
+        e.preventDefault();
+        transitionOverlay.style.transformOrigin = 'top';
+        gsap.to(transitionOverlay, {
+          scaleY: 1,
+          duration: 1.2,
+          ease: "expo.inOut",
+          onComplete: () => window.location.href = targetUrl
+        });
+      }
+    });
+  });
+
   // Sticky Header Effect
   const header = document.getElementById('header');
   window.addEventListener('scroll', () => {
