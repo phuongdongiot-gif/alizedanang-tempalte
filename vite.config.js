@@ -8,6 +8,7 @@ export default defineConfig({
   ],
   build: {
     target: 'esnext',
+    cssCodeSplit: true,
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
@@ -19,6 +20,15 @@ export default defineConfig({
         floorplans: resolve(__dirname, 'floorplans.html'),
         gallery: resolve(__dirname, 'gallery.html'),
         contact: resolve(__dirname, 'contact.html'),
+        en_main: resolve(__dirname, 'en/index.html'),
+        en_location: resolve(__dirname, 'en/location.html'),
+        en_values: resolve(__dirname, 'en/values.html'),
+        en_architecture: resolve(__dirname, 'en/architecture.html'),
+        en_amenities: resolve(__dirname, 'en/amenities.html'),
+        en_services: resolve(__dirname, 'en/services.html'),
+        en_floorplans: resolve(__dirname, 'en/floorplans.html'),
+        en_gallery: resolve(__dirname, 'en/gallery.html'),
+        en_contact: resolve(__dirname, 'en/contact.html'),
       },
       output: {
         entryFileNames: 'assets/js/[name]-[hash].js',
