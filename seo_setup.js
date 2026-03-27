@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const domain = 'https://alizedanang.vn';
+const domain = 'https://alizedanang.net';
 const dir = 'd:\\Iworkspaces\\alize-template';
 
 const pageData = {
