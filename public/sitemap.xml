@@ -1,102 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- Tiếng Việt -->
   <url>
     <loc>https://alizedanang.net/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/" />
   </url>
   <url>
-    <loc>https://alizedanang.net/amenities.html</loc>
+    <loc>https://alizedanang.net/values</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/values" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/values" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/values" />
+  </url>
+  <url>
+    <loc>https://alizedanang.net/services</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/services" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/services" />
+  </url>
+  <url>
+    <loc>https://alizedanang.net/location</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/location" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/location" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/location" />
+  </url>
+  <url>
+    <loc>https://alizedanang.net/gallery</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/gallery" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/gallery" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/gallery" />
   </url>
   <url>
-    <loc>https://alizedanang.net/architecture.html</loc>
+    <loc>https://alizedanang.net/floorplans</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/floorplans" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/floorplans" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/floorplans" />
+  </url>
+  <url>
+    <loc>https://alizedanang.net/architecture</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/architecture" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/architecture" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/architecture" />
   </url>
   <url>
-    <loc>https://alizedanang.net/contact.html</loc>
+    <loc>https://alizedanang.net/amenities</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/amenities" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/amenities" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/amenities" />
+  </url>
+  <url>
+    <loc>https://alizedanang.net/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/contact" />
   </url>
-  <url>
-    <loc>https://alizedanang.net/floorplans.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alizedanang.net/gallery.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alizedanang.net/location.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alizedanang.net/services.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alizedanang.net/values.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Tiếng Anh -->
   <url>
     <loc>https://alizedanang.net/en/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/" />
   </url>
   <url>
-    <loc>https://alizedanang.net/en/amenities.html</loc>
+    <loc>https://alizedanang.net/en/values</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/values" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/values" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/values" />
+  </url>
+  <url>
+    <loc>https://alizedanang.net/en/services</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/services" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/services" />
+  </url>
+  <url>
+    <loc>https://alizedanang.net/en/location</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/location" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/location" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/location" />
+  </url>
+  <url>
+    <loc>https://alizedanang.net/en/gallery</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/gallery" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/gallery" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/gallery" />
   </url>
   <url>
-    <loc>https://alizedanang.net/en/architecture.html</loc>
+    <loc>https://alizedanang.net/en/floorplans</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/floorplans" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/floorplans" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/floorplans" />
+  </url>
+  <url>
+    <loc>https://alizedanang.net/en/architecture</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/architecture" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/architecture" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/architecture" />
   </url>
   <url>
-    <loc>https://alizedanang.net/en/contact.html</loc>
+    <loc>https://alizedanang.net/en/amenities</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/amenities" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/amenities" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/amenities" />
+  </url>
+  <url>
+    <loc>https://alizedanang.net/en/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://alizedanang.net/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://alizedanang.net/en/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alizedanang.net/contact" />
   </url>
-  <url>
-    <loc>https://alizedanang.net/en/floorplans.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alizedanang.net/en/gallery.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alizedanang.net/en/location.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alizedanang.net/en/services.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alizedanang.net/en/values.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
 </urlset>
