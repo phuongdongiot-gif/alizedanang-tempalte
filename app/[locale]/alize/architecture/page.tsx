@@ -32,7 +32,7 @@ export default async function ArchitecturePage({ params }: { params: Promise<{ l
       {/* ARCHITECTURE HERO */}
       <section className="relative h-[85vh] min-h-[700px] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0 bg-jet-black">
-          <img src="/images/du-an-alize-dan-nang-doc.webp" alt="Nghệ Thuật Kiến Trúc" className="w-full h-full object-cover filter brightness-[0.4] grayscale-[30%] opacity-80" />
+          <img loading="lazy" decoding="async" src="/images/du-an-alize-dan-nang-doc.webp" alt="Nghệ Thuật Kiến Trúc" className="w-full h-full object-cover filter brightness-[0.4] grayscale-[30%] opacity-80" />
           <div className="absolute inset-0 bg-gradient-to-t from-jet-black/100 via-jet-black/30 to-transparent"></div>
         </div>
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20">
@@ -58,10 +58,10 @@ export default async function ArchitecturePage({ params }: { params: Promise<{ l
             </div>
             <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col sm:flex-row gap-6 lg:gap-8 justify-center items-center h-auto sm:h-[500px]">
               <div className="rounded-t-[100px] sm:rounded-t-full w-full sm:w-1/2 aspect-[4/5] relative overflow-hidden bg-charcoal/20 border border-white/5 shadow-2xl">
-                <img src="/images/phoi-canh-can-ho-view-bien-du-an-alize.webp" alt="Góc Xoay" className="w-full h-full object-cover filter brightness-[0.7]" />
+                <img loading="lazy" decoding="async" src="/images/phoi-canh-can-ho-view-bien-du-an-alize.webp" alt="Góc Xoay" className="w-full h-full object-cover filter brightness-[0.7]" />
               </div>
               <div className="rounded-b-[100px] sm:rounded-b-full w-full sm:w-1/2 aspect-[4/5] relative overflow-hidden bg-charcoal/20 border border-white/5 sm:mt-16 shadow-2xl">
-                <img src="/images/sky-pool-alize-da-nang.webp" alt="Panorama" className="w-full h-full object-cover filter brightness-[0.7]" />
+                <img loading="lazy" decoding="async" src="/images/sky-pool-alize-da-nang.webp" alt="Panorama" className="w-full h-full object-cover filter brightness-[0.7]" />
               </div>
             </div>
           </div>
@@ -73,7 +73,7 @@ export default async function ArchitecturePage({ params }: { params: Promise<{ l
         <div className="w-full max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
           <div className="lg:col-span-7 relative">
             <div className="aspect-[4/3] lg:aspect-[16/9] relative overflow-hidden bg-charcoal/20 shadow-2xl rounded">
-              <img src="/images/du-an-alize-dan-nang-doc.webp" alt="Traditional" className="w-full h-full object-cover filter brightness-[0.8] sepia-[20%]" />
+              <img loading="lazy" decoding="async" src="/images/du-an-alize-dan-nang-doc.webp" alt="Traditional" className="w-full h-full object-cover filter brightness-[0.8] sepia-[20%]" />
             </div>
           </div>
           <div className="lg:col-span-5 mt-12 lg:mt-0">

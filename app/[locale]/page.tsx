@@ -39,7 +39,7 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
       {/* PORTAL HERO */}
       <section className="relative h-[90vh] min-h-[700px] w-full flex items-center justify-center">
         <div className="absolute inset-0 z-0 bg-jet-black">
-          <img src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=2070" className="w-full h-full object-cover filter brightness-[0.4] grayscale-[20%]" alt="G-Estate Hero" />
+          <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=2070" className="w-full h-full object-cover filter brightness-[0.4] grayscale-[20%]" alt="G-Estate Hero" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#070A10] via-black/30 to-transparent" />
         </div>
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto w-full pt-16">
@@ -82,7 +82,7 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
                   <div className="absolute top-4 left-4 z-10 bg-gold text-jet-black text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded">
                     {project.status}
                   </div>
-                  <img src={project.img} alt={project.name} className="w-full h-full object-cover filter brightness-[0.8] transition-transform duration-700 group-hover:scale-110" />
+                  <img loading="lazy" decoding="async" src={project.img} alt={project.name} className="w-full h-full object-cover filter brightness-[0.8] transition-transform duration-700 group-hover:scale-110" />
                 </div>
                 <div className="p-8 flex flex-col flex-1">
                    <div className="text-[10px] text-gold/80 tracking-widest uppercase mb-2 font-light">{project.type}</div>
@@ -116,7 +116,7 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
             {dict.blog.articles.slice(0, 2).map((article, idx) => (
               <Link href={`/${locale}/blog/${article.slug}`} key={idx} className="flex flex-col sm:flex-row gap-8 group cursor-pointer">
                 <div className="sm:w-1/2 aspect-[4/3] rounded overflow-hidden relative">
-                   <img src={article.img} className="w-full h-full object-cover filter brightness-[0.7] group-hover:scale-105 transition-transform duration-700" alt=""/>
+                   <img loading="lazy" decoding="async" src={article.img} className="w-full h-full object-cover filter brightness-[0.7] group-hover:scale-105 transition-transform duration-700" alt=""/>
                 </div>
                 <div className="sm:w-1/2 flex flex-col justify-center">
                   <span className="text-gold text-[10px] font-bold tracking-widest mb-4">{article.date}</span>

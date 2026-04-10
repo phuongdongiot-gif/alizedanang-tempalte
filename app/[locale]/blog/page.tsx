@@ -46,7 +46,7 @@ export default async function BlogIndexPage({ params }: { params: Promise<{ loca
           {data.articles.map((article, idx) => (
             <div key={idx} className="group border border-white/5 bg-charcoal/20 overflow-hidden rounded flex flex-col hover:border-gold/30 transition-colors">
                <Link href={`/${locale}/blog/${article.slug}`} className="block relative aspect-[4/3] overflow-hidden">
-                 <img src={article.img} className="w-full h-full object-cover filter brightness-[0.7] group-hover:scale-105 transition-transform duration-700" alt={article.title} />
+                 <img loading="lazy" decoding="async" src={article.img} className="w-full h-full object-cover filter brightness-[0.7] group-hover:scale-105 transition-transform duration-700" alt={article.title} />
                </Link>
                <div className="p-8 flex flex-col flex-1">
                  <span className="text-gold text-[10px] uppercase font-bold tracking-widest mb-4">{article.date}</span>

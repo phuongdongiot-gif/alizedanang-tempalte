@@ -48,7 +48,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ loc
         </h1>
         
         <div className="w-full aspect-[16/9] mb-16 overflow-hidden rounded border border-white/5 bg-charcoal/20">
-          <img src={article.img} className="w-full h-full object-cover filter brightness-[0.8]" alt={article.title} />
+          <img loading="lazy" decoding="async" src={article.img} className="w-full h-full object-cover filter brightness-[0.8]" alt={article.title} />
         </div>
 
         {/* CONTENT */}

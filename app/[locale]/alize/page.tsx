@@ -38,7 +38,7 @@ export default async function AlizeLandingPage({ params }: { params: Promise<{ l
       {/* HERO SECTION */}
       <section id="hero" className="relative h-screen min-h-[800px] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src="/images/sky-pool-alize-da-nang.webp" alt="Luxury Real Estate" className="w-full h-[120%] -top-[10%] object-cover absolute" />
+          <img loading="lazy" decoding="async" src="/images/sky-pool-alize-da-nang.webp" alt="Luxury Real Estate" className="w-full h-[120%] -top-[10%] object-cover absolute" />
           <div className="absolute inset-0 bg-gradient-to-t from-jet-black via-transparent to-transparent"></div>
         </div>
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto mt-20">
@@ -71,7 +71,7 @@ export default async function AlizeLandingPage({ params }: { params: Promise<{ l
             </div>
             <div className="lg:col-span-6 order-1 lg:order-2">
               <div className="aspect-[3/4] relative overflow-hidden bg-charcoal/20 rounded">
-                <img src="/images/du-an-alize-dan-nang-doc.webp" alt="ALize Overview" className="w-full h-full object-cover filter brightness-[0.85] contrast-[1.1]" />
+                <img loading="lazy" decoding="async" src="/images/du-an-alize-dan-nang-doc.webp" alt="ALize Overview" className="w-full h-full object-cover filter brightness-[0.85] contrast-[1.1]" />
               </div>
             </div>
           </div>
@@ -107,7 +107,7 @@ export default async function AlizeLandingPage({ params }: { params: Promise<{ l
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
             <div className="lg:col-span-7">
               <div className="aspect-square relative overflow-hidden rounded">
-                <img src="/images/vi-tri-du-an-alize-da-nang.webp" alt="Location Map" className="w-full h-full object-cover filter contrast-[1.2] brightness-75" />
+                <img loading="lazy" decoding="async" src="/images/vi-tri-du-an-alize-da-nang.webp" alt="Location Map" className="w-full h-full object-cover filter contrast-[1.2] brightness-75" />
               </div>
             </div>
             <div className="lg:col-span-5 space-y-16">
@@ -135,7 +135,7 @@ export default async function AlizeLandingPage({ params }: { params: Promise<{ l
             </div>
             <div className="lg:col-span-6">
               <div className="aspect-[4/5] md:aspect-square relative overflow-hidden bg-charcoal/20 rounded">
-                <img src="/images/phoi-canh-can-ho-view-bien-du-an-alize.webp" alt="Architecture" className="w-full h-full object-cover filter brightness-[0.85] contrast-[1.1] grayscale-[20%]" />
+                <img loading="lazy" decoding="async" src="/images/phoi-canh-can-ho-view-bien-du-an-alize.webp" alt="Architecture" className="w-full h-full object-cover filter brightness-[0.85] contrast-[1.1] grayscale-[20%]" />
               </div>
             </div>
         </div>
@@ -155,7 +155,7 @@ export default async function AlizeLandingPage({ params }: { params: Promise<{ l
             {dict.amenities.items.map((b, i) => (
               <div key={i} className="border border-white/5 bg-charcoal/20 p-6">
                 <div className="aspect-[4/3] overflow-hidden relative mb-8 rounded">
-                  <img src={b.img} className="w-full h-full object-cover filter brightness-75" alt={b.title} />
+                  <img loading="lazy" decoding="async" src={b.img} className="w-full h-full object-cover filter brightness-75" alt={b.title} />
                 </div>
                 <div>
                   <span className="text-gold/80 text-[10px] tracking-[0.3em] font-light uppercase mb-3 block">{b.tag}</span>

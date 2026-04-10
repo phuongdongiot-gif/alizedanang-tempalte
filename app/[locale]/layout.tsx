@@ -1,9 +1,14 @@
 import { Inter, Playfair_Display } from "next/font/google";
 import "../globals.css";
-import { Metadata } from "next";
+import { getDictionary } from '../../dictionaries';
+import { Metadata } from 'next';
 
 const inter = Inter({ subsets: ["latin", "vietnamese"], variable: '--font-sans' });
 const playfair = Playfair_Display({ subsets: ["latin", "vietnamese"], variable: '--font-serif', style: ['normal', 'italic'] });
+
+export function generateStaticParams() {
+  return [{ locale: 'vi' }, { locale: 'en' }];
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;

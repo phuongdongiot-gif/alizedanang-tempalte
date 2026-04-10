@@ -26,7 +26,7 @@ export default async function AmenitiesPage({ params }: { params: Promise<{ loca
       {/* AMENITIES HERO */}
       <section className="relative h-[85vh] min-h-[700px] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0 bg-jet-black">
-          <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2070" className="w-full h-full object-cover filter brightness-[0.5]" alt="Hero" />
+          <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2070" className="w-full h-full object-cover filter brightness-[0.5]" alt="Hero" />
         </div>
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20">
           <span className="block text-gold text-[10px] md:text-xs tracking-[0.5em] font-light uppercase mb-6">{data.hero.tag}</span>
@@ -48,7 +48,7 @@ export default async function AmenitiesPage({ params }: { params: Promise<{ loca
           </div>
           <div className="lg:col-span-7 order-1 lg:order-2">
              <div className="aspect-[16/9] lg:aspect-[4/3] rounded-tl-[100px] rounded-br-[100px] relative overflow-hidden bg-charcoal/20 border border-white/5">
-                <img src="/images/sky-pool-alize-da-nang.webp" alt="Sky Pool" className="w-full h-full object-cover filter brightness-[0.8]" />
+                <img loading="lazy" decoding="async" src="/images/sky-pool-alize-da-nang.webp" alt="Sky Pool" className="w-full h-full object-cover filter brightness-[0.8]" />
              </div>
           </div>
         </div>
@@ -59,7 +59,7 @@ export default async function AmenitiesPage({ params }: { params: Promise<{ loca
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
           <div className="lg:col-span-7 relative">
              <div className="aspect-square relative overflow-hidden bg-charcoal/20 rounded">
-                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2120" alt="Yoga Element" className="w-full h-full object-cover filter brightness-[0.7]" />
+                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2120" alt="Yoga Element" className="w-full h-full object-cover filter brightness-[0.7]" />
              </div>
           </div>
           <div className="lg:col-span-5">

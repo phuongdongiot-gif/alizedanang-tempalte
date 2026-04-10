@@ -31,7 +31,7 @@ export default async function LocationPage({ params }: { params: Promise<{ local
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
               <div className="lg:col-span-7">
                 <div className="aspect-square relative overflow-hidden rounded">
-                  <img src="/images/vi-tri-du-an-alize-da-nang.webp" alt="Location Map" className="w-full h-full object-cover filter contrast-[1.2] brightness-75" />
+                  <img loading="lazy" decoding="async" src="/images/vi-tri-du-an-alize-da-nang.webp" alt="Location Map" className="w-full h-full object-cover filter contrast-[1.2] brightness-75" />
                 </div>
               </div>
               <div className="lg:col-span-5 space-y-16">

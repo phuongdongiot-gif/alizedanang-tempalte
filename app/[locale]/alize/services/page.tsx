@@ -40,7 +40,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
               </div>
               <div className="lg:col-span-6">
                 <div className="aspect-[4/5] md:aspect-square relative overflow-hidden bg-charcoal/20 rounded">
-                  <img src="https://images.unsplash.com/photo-1551882547-ff40c0d13c11?q=80&w=1974&auto=format&fit=crop" alt="Dịch Vụ" className="w-full h-full object-cover filter brightness-[0.7]" />
+                  <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1551882547-ff40c0d13c11?q=80&w=1974&auto=format&fit=crop" alt="Dịch Vụ" className="w-full h-full object-cover filter brightness-[0.7]" />
                 </div>
               </div>
           </div>

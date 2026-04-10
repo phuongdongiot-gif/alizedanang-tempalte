@@ -34,7 +34,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
       {/* GALLERY HERO */}
       <section className="relative h-[85vh] min-h-[700px] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0 bg-jet-black">
-          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053" alt="Không Gian Nghệ Thuật" className="w-full h-full object-cover filter brightness-[0.5] contrast-[1.1] grayscale-[20%]" />
+          <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053" alt="Không Gian Nghệ Thuật" className="w-full h-full object-cover filter brightness-[0.5] contrast-[1.1] grayscale-[20%]" />
           <div className="absolute inset-0 bg-gradient-to-t from-jet-black/100 via-jet-black/40 to-transparent"></div>
         </div>
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20">
@@ -58,14 +58,14 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
           </div>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             <div className="md:col-span-8 overflow-hidden group relative aspect-[16/9] md:aspect-auto h-[400px] sm:h-[500px] lg:h-[700px] bg-charcoal/20">
-              <img src={data.cat1.images[0]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="Ngoại Thất" />
+              <img loading="lazy" decoding="async" src={data.cat1.images[0]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="Ngoại Thất" />
             </div>
             <div className="md:col-span-4 flex flex-col gap-6">
               <div className="overflow-hidden relative aspect-[4/3] h-1/2 bg-charcoal/20">
-                <img src={data.cat1.images[1]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
+                <img loading="lazy" decoding="async" src={data.cat1.images[1]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
               </div>
               <div className="overflow-hidden relative aspect-[4/3] h-1/2 bg-charcoal/20">
-                <img src={data.cat1.images[2]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
+                <img loading="lazy" decoding="async" src={data.cat1.images[2]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
               </div>
             </div>
           </div>
@@ -82,13 +82,13 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="overflow-hidden relative aspect-square sm:col-span-1 lg:col-span-1 border border-white/5 bg-charcoal/20">
-              <img src={data.cat2.images[0]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
+              <img loading="lazy" decoding="async" src={data.cat2.images[0]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
             </div>
             <div className="overflow-hidden relative aspect-[4/5] sm:col-span-1 lg:col-span-2 border border-white/5 bg-charcoal/20">
-              <img src={data.cat2.images[1]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
+              <img loading="lazy" decoding="async" src={data.cat2.images[1]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
             </div>
             <div className="overflow-hidden relative aspect-[16/9] sm:col-span-2 lg:col-span-3 border border-white/5 bg-charcoal/20">
-              <img src={data.cat2.images[2]} className="w-full h-[120%] -top-[10%] object-cover filter brightness-[0.6]" alt="" />
+              <img loading="lazy" decoding="async" src={data.cat2.images[2]} className="w-full h-[120%] -top-[10%] object-cover filter brightness-[0.6]" alt="" />
             </div>
           </div>
         </div>
@@ -107,14 +107,14 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="flex flex-col gap-6">
               <div className="overflow-hidden relative aspect-[4/3] bg-charcoal/20">
-                <img src={data.cat3.images[0]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
+                <img loading="lazy" decoding="async" src={data.cat3.images[0]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
               </div>
               <div className="overflow-hidden relative aspect-square bg-charcoal/20">
-                <img src={data.cat3.images[1]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
+                <img loading="lazy" decoding="async" src={data.cat3.images[1]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
               </div>
             </div>
             <div className="overflow-hidden relative h-full min-h-[500px] lg:min-h-full bg-charcoal/20">
-              <img src={data.cat3.images[2]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
+              <img loading="lazy" decoding="async" src={data.cat3.images[2]} className="w-full h-full object-cover filter brightness-[0.7] transition-transform duration-700 hover:scale-105" alt="" />
             </div>
           </div>
         </div>
