@@ -1,26 +1,26 @@
 import React from "react";
-import Header from "../../../../components/Header";
-import Footer from "../../../../components/Footer";
-import { getDictionary } from "../../../../dictionaries";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { getDictionary } from "@/dictionaries";
 import { Metadata } from "next";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string, projectSlug: string }> }): Promise<Metadata> {
+  const { locale, projectSlug } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alizedanang.net";
   return {
     title: "Giá Trị Đầu Tư - ALIZE",
     description: "Tìm hiểu giá trị đầu tư và di sản truyền đời tại dự án cao cấp ALIZE.",
-    alternates: { canonical: `${baseUrl}/${locale}/alize/values` }
+    alternates: { canonical: `${baseUrl}/\/projects/\/values` }
   };
 }
 
-export default async function ValuesPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+export default async function ValuesPage({ params }: { params: Promise<{ locale: string, projectSlug: string }> }) {
+  const { locale, projectSlug } = await params;
   const dict = getDictionary(locale);
 
   return (
     <div className="relative w-full overflow-hidden bg-jet-black text-pearl-white">
-      <Header nav={dict.nav} locale={locale} />
+      <Header nav={dict.nav} locale={locale} projectSlug={projectSlug} />
       <div className="pt-24 lg:pt-32">
         <section id="values" className="pt-40 pb-32 bg-jet-black text-pearl-white border-t border-white/5">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-12">

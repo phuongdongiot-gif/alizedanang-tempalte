@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "../../../../components/Header";
-import Footer from "../../../../components/Footer";
-import { getDictionary } from "../../../../dictionaries";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { getDictionary } from "@/dictionaries";
 import { Metadata } from "next";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string, projectSlug: string }> }): Promise<Metadata> {
+  const { locale, projectSlug } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alizedanang.net";
   return {
     title: "Tuyệt Tác Không Gian - ALIZE Luxury Real Estate",
@@ -14,22 +14,22 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       title: "Tuyệt Tác Không Gian - ALIZE Luxury Real Estate",
       description: "Thư viện hình ảnh thiết kế ấn tượng của dự án ALIZE Đà Nẵng.",
       images: [{ url: "/images/sky-pool-alize-da-nang.webp" }],
-      url: `${baseUrl}/${locale}/alize/gallery`,
+      url: `${baseUrl}/\/projects/\/gallery`,
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}/alize/gallery`,
+      canonical: `${baseUrl}/\/projects/\/gallery`,
     }
   };
 }
 
-export default async function GalleryPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+export default async function GalleryPage({ params }: { params: Promise<{ locale: string, projectSlug: string }> }) {
+  const { locale, projectSlug } = await params;
   const dict = getDictionary(locale);
   const data = dict.subpages.gallery;
 
   return (
     <div className="relative w-full overflow-hidden bg-jet-black text-pearl-white">
-      <Header nav={dict.nav} locale={locale} />
+      <Header nav={dict.nav} locale={locale} projectSlug={projectSlug} />
       
       {/* GALLERY HERO */}
       <section className="relative h-[85vh] min-h-[700px] w-full flex items-center justify-center overflow-hidden">

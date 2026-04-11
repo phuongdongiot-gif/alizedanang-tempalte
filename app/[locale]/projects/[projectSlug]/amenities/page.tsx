@@ -1,27 +1,27 @@
 import React from "react";
-import Header from "../../../../components/Header";
-import Footer from "../../../../components/Footer";
-import { getDictionary } from "../../../../dictionaries";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { getDictionary } from "@/dictionaries";
 import { Metadata } from "next";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string, projectSlug: string }> }): Promise<Metadata> {
+  const { locale, projectSlug } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alizedanang.net";
   return {
     title: "Tiện Ích Đặc Quyền - ALIZE",
     description: "Khám phá chuỗi tiện ích đỉnh cao chuẩn 5 sao.",
-    alternates: { canonical: `${baseUrl}/${locale}/alize/amenities` }
+    alternates: { canonical: `${baseUrl}/\/projects/\/amenities` }
   };
 }
 
-export default async function AmenitiesPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+export default async function AmenitiesPage({ params }: { params: Promise<{ locale: string, projectSlug: string }> }) {
+  const { locale, projectSlug } = await params;
   const dict = getDictionary(locale);
   const data = dict.subpages.amenities;
 
   return (
     <div className="relative w-full overflow-hidden bg-jet-black text-pearl-white">
-      <Header nav={dict.nav} locale={locale} />
+      <Header nav={dict.nav} locale={locale} projectSlug={projectSlug} />
       
       {/* AMENITIES HERO */}
       <section className="relative h-[85vh] min-h-[700px] w-full flex items-center justify-center overflow-hidden">

@@ -1,3 +1,5 @@
+import { redis } from './redis';
+
 export const GRAPHQL_API_URL = process.env.NEXT_PUBLIC_GRAPHQL_URL || 'https://api-estate.vercel.app/graphql';
 
 /**
@@ -7,8 +9,20 @@ export const GRAPHQL_API_URL = process.env.NEXT_PUBLIC_GRAPHQL_URL || 'https://a
 export async function fetchGraphQL<T>(
   query: string,
   variables: Record<string, any> = {},
-  options?: RequestInit
+  options: RequestInit = { next: { revalidate: 60 } }
 ): Promise<T> {
+  const cacheKey = `graphql_cache:${JSON.stringify({ query, variables })}`;
+
+  try {
+    const cachedData = await redis.get<T>(cacheKey);
+    if (cachedData) {
+      console.log(`[GraphQL Cache] ⚡ Trả về dữ liệu từ Upstash Redis cache`);
+      return cachedData;
+    }
+  } catch (err) {
+    console.warn('[GraphQL Cache] Cảnh báo khi đọc từ Redis:', err);
+  }
+
   console.log(`[GraphQL Fetch] Đang gửi yêu cầu tới: ${GRAPHQL_API_URL}`);
   try {
     const response = await fetch(GRAPHQL_API_URL, {
@@ -30,13 +44,21 @@ export async function fetchGraphQL<T>(
 
     const { data, errors } = await response.json();
     if (errors && errors.length > 0) {
-      console.error('GraphQL Errors:', errors);
+      console.warn('GraphQL Request Warnings:', JSON.stringify(errors));
       throw new Error(errors[0].message);
+    }
+
+    // Ghi dữ liệu vào cache Upstash Redis (thời gian sống là 1 phút: 60 giây)
+    try {
+      await redis.set(cacheKey, data, { ex: 60 });
+      console.log(`[GraphQL Cache] ✅ Đã lưu dữ liệu vào Redis`);
+    } catch (err) {
+      console.warn('[GraphQL Cache] Lỗi khi lưu vào Redis:', err);
     }
 
     return data as T;
   } catch (error) {
-    console.error('Lỗi khi call hệ thống GraphQL:', error);
+    console.warn('Lỗi khi call hệ thống GraphQL (Đang dùng Fallback):', error instanceof Error ? error.message : error);
     throw error;
   }
 }

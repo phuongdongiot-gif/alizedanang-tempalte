@@ -4,6 +4,7 @@ import PortalFooter from "../../components/PortalFooter";
 import { getDictionary } from "../../dictionaries";
 import { Metadata } from "next";
 import Link from "next/link";
+import { fetchGraphQL } from "../../lib/graphql";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -37,38 +38,30 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
   let wpPosts = [];
 
   try {
-    const res = await fetch(graphqlEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: `
-          query {
-            projects {
-              id
-              name
-              slug
-              hero_desc
-              hero_img
-              location {
-                name
-              }
-            }
+    const data: any = await fetchGraphQL(`
+      query {
+        projects {
+          id
+          name
+          slug
+          hero_desc
+          hero_img
+          location {
+            name
           }
-        `
-      }),
-      next: { revalidate: 3600 }
-    });
-    const body = await res.json();
-    if (body?.data?.projects) dynamicProjects = body.data.projects;
+        }
+      }
+    `);
+    if (data?.projects) dynamicProjects = data.projects;
   } catch (error) {
-    console.error("Lỗi kéo dữ liệu Project:", error);
+    console.warn("Lỗi kéo dữ liệu Project:", error);
   }
 
   try {
     const wpRes = await fetch("https://atservice.vn/wp-json/wp/v2/posts?per_page=2&_embed", { next: { revalidate: 3600 } });
     if (wpRes.ok) wpPosts = await wpRes.json();
   } catch (error) {
-    console.error("Lỗi kéo dữ liệu News:", error);
+    console.warn("Lỗi kéo dữ liệu News:", error);
   }
 
   return (
@@ -133,7 +126,7 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
                    </p>
                    <div className="mt-auto flex justify-between items-center border-t border-white/5 pt-6">
                      <span className="text-lg font-light text-white">Liên Hệ</span>
-                     <Link href={`/${locale}/alize`} className="text-gold text-xs tracking-widest uppercase font-light group-hover:underline">Chi Tiết</Link>
+                     <Link href={`/${locale}/projects/${project.slug || 'the-royal-hoi-an'}`} className="text-gold text-xs tracking-widest uppercase font-light group-hover:underline">Chi Tiết</Link>
                    </div>
                 </div>
               </div>

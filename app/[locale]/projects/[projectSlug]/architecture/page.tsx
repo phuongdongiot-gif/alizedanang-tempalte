@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "../../../../components/Header";
-import Footer from "../../../../components/Footer";
-import { getDictionary } from "../../../../dictionaries";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { getDictionary } from "@/dictionaries";
 import { Metadata } from "next";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string, projectSlug: string }> }): Promise<Metadata> {
+  const { locale, projectSlug } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alizedanang.net";
   return {
     title: "Kiến trúc Độc bản - ALIZE Luxury Real Estate",
@@ -14,20 +14,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       title: "Kiến trúc Độc bản - ALIZE",
       description: "Ngôn ngữ thiết kế tương lai.",
       images: [{ url: "/images/phoi-canh-can-ho-view-bien-du-an-alize.webp" }],
-      url: `${baseUrl}/${locale}/alize/architecture`,
+      url: `${baseUrl}/\/projects/\/architecture`,
     },
-    alternates: { canonical: `${baseUrl}/${locale}/alize/architecture` }
+    alternates: { canonical: `${baseUrl}/\/projects/\/architecture` }
   };
 }
 
-export default async function ArchitecturePage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+export default async function ArchitecturePage({ params }: { params: Promise<{ locale: string, projectSlug: string }> }) {
+  const { locale, projectSlug } = await params;
   const dict = getDictionary(locale);
   const data = dict.subpages.architecture;
 
   return (
     <div className="relative w-full overflow-hidden bg-jet-black text-pearl-white">
-      <Header nav={dict.nav} locale={locale} />
+      <Header nav={dict.nav} locale={locale} projectSlug={projectSlug} />
       
       {/* ARCHITECTURE HERO */}
       <section className="relative h-[85vh] min-h-[700px] w-full flex items-center justify-center overflow-hidden">

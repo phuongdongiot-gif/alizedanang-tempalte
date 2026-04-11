@@ -1,27 +1,27 @@
 import React from "react";
-import Header from "../../../../components/Header";
-import Footer from "../../../../components/Footer";
-import { getDictionary } from "../../../../dictionaries";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { getDictionary } from "@/dictionaries";
 import { Metadata } from "next";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string, projectSlug: string }> }): Promise<Metadata> {
+  const { locale, projectSlug } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alizedanang.net";
   return {
     title: "Liên Hệ Đặc Quyền - ALIZE",
     description: "Đăng ký nhận lịch tham quan không gian mô phỏng và trao đổi thông tin đầu tư dự án ALIZE.",
-    alternates: { canonical: `${baseUrl}/${locale}/alize/contact` }
+    alternates: { canonical: `${baseUrl}/\/projects/\/contact` }
   };
 }
 
-export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+export default async function ContactPage({ params }: { params: Promise<{ locale: string, projectSlug: string }> }) {
+  const { locale, projectSlug } = await params;
   const dict = getDictionary(locale);
   const data = dict.subpages.contact;
 
   return (
     <div className="relative w-full overflow-hidden bg-jet-black text-pearl-white">
-      <Header nav={dict.nav} locale={locale} />
+      <Header nav={dict.nav} locale={locale} projectSlug={projectSlug} />
       <div className="pt-24 lg:pt-32">
         <section className="pt-40 pb-32 text-pearl-white border-t border-white/5 bg-midnight-blue">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-12">

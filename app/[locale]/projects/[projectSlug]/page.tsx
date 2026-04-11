@@ -1,12 +1,14 @@
 import React from "react";
-import { getDictionary } from "../../../dictionaries";
-import Header from "../../../components/Header";
-import Footer from "../../../components/Footer";
-import FloorPlans from "../../../components/FloorPlans";
+import { getDictionary } from "@/dictionaries";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import FloorPlans from "@/components/FloorPlans";
 import { Metadata } from "next";
+import { fetchGraphQL } from "@/lib/graphql";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string, projectSlug: string }> }): Promise<Metadata> {
+  const { locale, projectSlug } = await params;
   const dict = getDictionary(locale);
   return {
     title: dict.seo.title,
@@ -27,15 +29,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default async function AlizeLandingPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+export default async function ProjectLandingPage({ params }: { params: Promise<{ locale: string, projectSlug: string }> }) {
+  const { locale, projectSlug } = await params;
   const dict = getDictionary(locale);
 
   // FETCH GRAPHQL DATA TỪ BACKEND
   const graphqlEndpoint = process.env.NEXT_PUBLIC_GRAPHQL_URL || 'http://localhost:3001/graphql';
   const query = `
     query {
-      project(slug: "the-royal-hoi-an") {
+      project(slug: "${projectSlug}") {
         id
         name
         hero_title
@@ -63,14 +65,8 @@ export default async function AlizeLandingPage({ params }: { params: Promise<{ l
 
   let apiData = null;
   try {
-    const res = await fetch(graphqlEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query }),
-      cache: 'no-store'
-    });
-    const parsed = await res.json();
-    apiData = parsed?.data?.project;
+    const data: any = await fetchGraphQL(query);
+    apiData = data?.project;
   } catch (error) {
     console.warn("Lỗi kết nối Backend, Dùng tạm dữ liệu tĩnh (Dict)");
   }
@@ -101,7 +97,7 @@ export default async function AlizeLandingPage({ params }: { params: Promise<{ l
 
   return (
     <div className="relative w-full overflow-hidden">
-      <Header nav={dict.nav} locale={locale} />
+      <Header nav={dict.nav} locale={locale} projectSlug={projectSlug} />
       
       {/* HERO SECTION */}
       <section id="hero" className="relative h-screen min-h-[800px] w-full flex items-center justify-center overflow-hidden">

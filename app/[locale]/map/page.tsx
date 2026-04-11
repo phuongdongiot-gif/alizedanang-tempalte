@@ -3,6 +3,7 @@ import PortalHeader from "../../../components/PortalHeader";
 import { getDictionary } from "../../../dictionaries";
 import { Metadata } from "next";
 import MasterMap from "../../../components/MasterMap";
+import { fetchGraphQL } from "../../../lib/graphql";
 
 export const metadata: Metadata = {
   title: "Bản Đồ Bất Động Sản - G-Estate",
@@ -20,42 +21,34 @@ export default async function EcosystemMapPage({ params }: { params: Promise<{ l
   const graphqlEndpoint = process.env.NEXT_PUBLIC_GRAPHQL_URL || 'http://localhost:3001/graphql';
 
   try {
-    const res = await fetch(graphqlEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: `
-          query {
-            projects {
-              id
-              name
-              hero_desc
-              lat
-              lng
-              location {
-                name
-              }
-            }
-            properties {
-              id
-              name
-              price
-              img_url
-              coordinates
-            }
+    const data: any = await fetchGraphQL(`
+      query {
+        projects {
+          id
+          name
+          hero_desc
+          lat
+          lng
+          location {
+            name
           }
-        `,
-      }),
-      next: { revalidate: 3600 }
-    });
+        }
+        properties {
+          id
+          name
+          price
+          img_url
+          coordinates
+        }
+      }
+    `);
 
-    const body = await res.json();
-    if (body.data) {
-      projects = body.data.projects || [];
-      properties = body.data.properties || [];
+    if (data) {
+      projects = data.projects || [];
+      properties = data.properties || [];
     }
   } catch (error) {
-    console.error("Lỗi kéo dữ liệu Ecosystem Map:", error);
+    console.warn("Lỗi kéo dữ liệu Ecosystem Map:", error);
   }
 
   return (
