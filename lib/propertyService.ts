@@ -13,7 +13,7 @@ export interface DBProperty {
   img: string;
   gallery: string[];
   coordinates: { lat: number; lng: number };
-  
+
   // Localized Fields
   name: { vi: string; en: string };
   type: { vi: string; en: string };
@@ -131,7 +131,48 @@ export const mockDatabase: DBProperty[] = [
   }
 ];
 
+import { fetchGraphQL, GET_PROPERTIES_QUERY } from "./graphql";
+
 export async function getProperties(locale: string): Promise<PortalProperty[]> {
+  console.log(`\n📡 [Frontend] Gọi Hàm getProperties(${locale}) - Chuẩn bị Fetch GraphQL...`);
+  try {
+    const res: any = await fetchGraphQL(GET_PROPERTIES_QUERY, {}, { cache: 'no-store' });
+    console.log(`✅ [Frontend] Nhận Data từ Backend:`, res ? `Có ${res.properties?.length || 0} bản ghi` : 'null');
+
+    if (res && res.properties && res.properties.length > 0) {
+      return res.properties.map((item: any) => ({
+        id: item.id,
+        transactionType: item.transaction_type || 'sale',
+        propertyCategory: item.property_category || 'apartments',
+        isNew: item.is_new || false,
+        name: item.name,
+        projectId: 'alize',
+        projectName: 'Được tải từ GraphQL API',
+        price: item.price || 'Liên hệ',
+        priceNum: item.price_num || 0,
+        location: item.location || 'Đang cập nhật',
+        type: item.property_category || 'Bất động sản',
+        specs: {
+          area: item.area || '... m²',
+          areaNum: item.area_num || 0,
+          beds: item.beds || 0,
+          baths: item.baths || 0
+        },
+        desc: item.description || 'Truy xuất trực tiếp từ cổng Backend GraphQL.',
+        img: item.img_url || '',
+        gallery: item.gallery || [],
+        coordinates: { lat: 16.0544, lng: 108.2022 } // Da Nang center
+      }));
+    } else {
+      console.log("GraphQL chạy thành công nhưng trả về null/empty:", res);
+    }
+  } catch (error) {
+    console.error("====== LOI KET NOI BACKEND NESTJS 3001 ======");
+    console.error(error);
+    console.error("=============================================");
+  }
+
+  // Cũ: Trả về nếu graphql sập
   return mockDatabase.map((item) => ({
     id: item.id,
     transactionType: item.transactionType,

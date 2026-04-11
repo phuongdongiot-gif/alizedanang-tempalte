@@ -52,6 +52,8 @@ export default async function PropertiesPage({
 }) {
   const { locale } = await params;
   const sp = await searchParams;
+
+  console.log(`\n🔍 [Frontend] --- BẮTẦU RENDER TRANG BẤT ĐỘNG SẢN ---`);
   
   const transaction = typeof sp?.transaction === 'string' ? sp.transaction : 'sale';
   const keyword = typeof sp?.q === 'string' ? sp.q.toLowerCase() : '';
@@ -75,8 +77,13 @@ export default async function PropertiesPage({
     // Category matching
     if (category && item.propertyCategory !== category) return false;
     // Keyword matching
-    if (keyword && !item.name.toLowerCase().includes(keyword) && !item.location.toLowerCase().includes(keyword) && !item.projectName.toLowerCase().includes(keyword)) {
-      return false;
+    if (keyword) {
+      const nameStr = (item.name || '').toLowerCase();
+      const locStr = (item.location || '').toLowerCase();
+      const projStr = (item.projectName || '').toLowerCase();
+      if (!nameStr.includes(keyword) && !locStr.includes(keyword) && !projStr.includes(keyword)) {
+        return false;
+      }
     }
     // Price matching
     if (!filterByRange(item.priceNum, priceRange)) return false;

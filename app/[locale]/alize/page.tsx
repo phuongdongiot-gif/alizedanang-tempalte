@@ -31,10 +31,78 @@ export default async function AlizeLandingPage({ params }: { params: Promise<{ l
   const { locale } = await params;
   const dict = getDictionary(locale);
 
+  // FETCH GRAPHQL DATA TỪ BACKEND
+  const graphqlEndpoint = process.env.NEXT_PUBLIC_GRAPHQL_URL || 'http://localhost:3001/graphql';
+  const query = `
+    query {
+      project(slug: "the-royal-hoi-an") {
+        id
+        name
+        hero_title
+        hero_desc
+        location {
+          name
+        }
+        amenities {
+          id
+          title
+          description
+          image_url
+        }
+        floorplans {
+          id
+          name
+          beds
+          baths
+          area
+          image_url
+        }
+      }
+    }
+  `;
+
+  let apiData = null;
+  try {
+    const res = await fetch(graphqlEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query }),
+      cache: 'no-store'
+    });
+    const parsed = await res.json();
+    apiData = parsed?.data?.project;
+  } catch (error) {
+    console.warn("Lỗi kết nối Backend, Dùng tạm dữ liệu tĩnh (Dict)");
+  }
+
+  // --- MERGE DYNAMIC DATA WITH STATIC FALLBACK ---
+  const dynamicHeroLine1 = apiData?.name || dict.hero.titleLine1;
+  const dynamicHeroLine2 = apiData?.hero_title || dict.hero.titleLine2;
+  const dynamicHeroDesc = apiData?.hero_desc || dict.hero.description;
+  const dynamicTagline = apiData?.location?.name ? `TẠI ${apiData.location.name.toUpperCase()}` : dict.hero.tagline;
+  const dynamicAmenities = apiData ? apiData.amenities : dict.amenities.items;
+
+  // Xử lý nạp Floorplans Động từ GraphQL
+  let dynamicFloorplansObj = dict.floorplans;
+  if (apiData) {
+    const freshPlans = (apiData.floorplans || []).map((p: any) => ({
+      id: p.id,
+      name: p.name,
+      spaceName: p.name,
+      img: p.image_url || null,
+      desc: `Diện tích: ${p.area || '?'} m2. Thiết kế sang trọng với không gian mở lấy ánh sáng tự nhiên.`,
+      specLeftLabel: 'PHÒNG NGỦ',
+      specLeftValue: p.beds ? p.beds.toString() : 'N/A',
+      specRightLabel: 'GIAN TẮM',
+      specRightValue: p.baths ? p.baths.toString() : 'N/A'
+    }));
+    dynamicFloorplansObj = { ...dict.floorplans, plans: freshPlans };
+  }
+
   return (
     <div className="relative w-full overflow-hidden">
       <Header nav={dict.nav} locale={locale} />
-
+      
       {/* HERO SECTION */}
       <section id="hero" className="relative h-screen min-h-[800px] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -42,11 +110,11 @@ export default async function AlizeLandingPage({ params }: { params: Promise<{ l
           <div className="absolute inset-0 bg-gradient-to-t from-jet-black via-transparent to-transparent"></div>
         </div>
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto mt-20">
-          <span className="block text-gold text-[10px] md:text-xs tracking-[0.5em] font-light uppercase mb-8">{dict.hero.tagline}</span>
+          <span className="block text-gold text-[10px] md:text-xs tracking-[0.5em] font-light uppercase mb-8">{dynamicTagline}</span>
           <h1 className="font-serif text-5xl md:text-7xl lg:text-[6.5rem] font-normal text-pearl-white mb-8 tracking-tighter leading-[1.05]">
-            {dict.hero.titleLine1} <br /><span className="font-serif italic font-light text-pearl-white/90">{dict.hero.titleLine2}</span>
+            {dynamicHeroLine1} <br /><span className="font-serif italic font-light text-pearl-white/90">{dynamicHeroLine2}</span>
           </h1>
-          <p className="text-champagne/80 mb-14 text-base md:text-lg font-light tracking-wide max-w-2xl mx-auto leading-relaxed">{dict.hero.description}</p>
+          <p className="text-champagne/80 mb-14 text-base md:text-lg font-light tracking-wide max-w-2xl mx-auto leading-relaxed">{dynamicHeroDesc}</p>
         </div>
       </section>
 
@@ -152,15 +220,16 @@ export default async function AlizeLandingPage({ params }: { params: Promise<{ l
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {dict.amenities.items.map((b, i) => (
+            {dynamicAmenities.map((b: any, i: number) => (
               <div key={i} className="border border-white/5 bg-charcoal/20 p-6">
                 <div className="aspect-[4/3] overflow-hidden relative mb-8 rounded">
-                  <img loading="lazy" decoding="async" src={b.img} className="w-full h-full object-cover filter brightness-75" alt={b.title} />
+                  {/* Dùng ảnh từ DB, nếu không có fallback về placeholder */}
+                  <img loading="lazy" decoding="async" src={b.image_url || b.img || '/images/can-ho-view-bien-my-khe-alize.webp'} className="w-full h-full object-cover filter brightness-75" alt={b.title} />
                 </div>
                 <div>
-                  <span className="text-gold/80 text-[10px] tracking-[0.3em] font-light uppercase mb-3 block">{b.tag}</span>
+                  <span className="text-gold/80 text-[10px] tracking-[0.3em] font-light uppercase mb-3 block">{b.tag || 'NEW AMENITY'}</span>
                   <h3 className="font-serif text-2xl font-light mb-4 text-pearl-white">{b.title}</h3>
-                  <p className="text-champagne/50 text-[13px] font-light leading-relaxed">{b.desc}</p>
+                  <p className="text-champagne/50 text-[13px] font-light leading-relaxed">{b.description || b.desc}</p>
                 </div>
               </div>
             ))}
@@ -169,7 +238,7 @@ export default async function AlizeLandingPage({ params }: { params: Promise<{ l
       </section>
 
       {/* FLOORPLANS */}
-      <FloorPlans data={dict.floorplans} />
+      <FloorPlans data={dynamicFloorplansObj} />
 
       <Footer data={dict.footer} />
     </div>

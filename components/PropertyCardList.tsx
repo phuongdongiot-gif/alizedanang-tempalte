@@ -4,7 +4,7 @@ import { PortalProperty } from '../types';
 
 export default function PropertyCardList({ property, locale }: { property: PortalProperty, locale: string }) {
   // Take up to 4 images (1 main, 3 side)
-  const images = property.gallery && property.gallery.length > 0 ? property.gallery : [property.img];
+  const images = property.gallery && property.gallery.length > 0 ? property.gallery : [property.img || '/images/can-ho-view-bien-my-khe-alize.webp'];
   const mainImage = images[0];
   const sideImages = images.slice(1, 4);
 

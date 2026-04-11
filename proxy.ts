@@ -17,6 +17,7 @@ export default function proxy(request: NextRequest) {
     pathname.startsWith('/_next') ||
     pathname.startsWith('/images') ||
     pathname.startsWith('/api') ||
+    pathname.startsWith('/studio') ||
     pathname.includes('.')
   ) {
     return NextResponse.next();
@@ -32,7 +33,7 @@ export default function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Bỏ qua toàn bộ thư mục internal Next.js và thư mục static
-    '/((?!api|_next/static|_next/image|images|favicon.ico).*)',
+    // Bỏ qua toàn bộ thư mục internal Next.js, thư mục static và studio CMS
+    '/((?!api|studio|_next/static|_next/image|images|favicon.ico).*)',
   ],
 };

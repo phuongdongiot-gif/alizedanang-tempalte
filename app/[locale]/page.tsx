@@ -32,6 +32,45 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
   const dict = getDictionary(locale);
   const data = dict.portal;
 
+  const graphqlEndpoint = process.env.NEXT_PUBLIC_GRAPHQL_URL || 'http://localhost:3001/graphql';
+  let dynamicProjects = [];
+  let wpPosts = [];
+
+  try {
+    const res = await fetch(graphqlEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `
+          query {
+            projects {
+              id
+              name
+              slug
+              hero_desc
+              hero_img
+              location {
+                name
+              }
+            }
+          }
+        `
+      }),
+      next: { revalidate: 3600 }
+    });
+    const body = await res.json();
+    if (body?.data?.projects) dynamicProjects = body.data.projects;
+  } catch (error) {
+    console.error("Lỗi kéo dữ liệu Project:", error);
+  }
+
+  try {
+    const wpRes = await fetch("https://atservice.vn/wp-json/wp/v2/posts?per_page=2&_embed", { next: { revalidate: 3600 } });
+    if (wpRes.ok) wpPosts = await wpRes.json();
+  } catch (error) {
+    console.error("Lỗi kéo dữ liệu News:", error);
+  }
+
   return (
     <div className="relative w-full min-h-screen overflow-hidden bg-[#070A10] text-pearl-white flex flex-col">
       <PortalHeader nav={data.nav} locale={locale} />
@@ -76,28 +115,32 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {data.featuredProjects.items.map((project, idx) => (
-              <div key={idx} className="group flex flex-col bg-charcoal/20 border border-white/5 overflow-hidden rounded transition-all hover:border-gold/30">
+            {dynamicProjects && dynamicProjects.length > 0 ? (
+              dynamicProjects.slice(0, 3).map((project: any, idx: number) => (
+               <div key={idx} className="group flex flex-col bg-charcoal/20 border border-white/5 overflow-hidden rounded transition-all hover:border-gold/30">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <div className="absolute top-4 left-4 z-10 bg-gold text-jet-black text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded">
-                    {project.status}
+                    SIÊU DỰ ÁN
                   </div>
-                  <img loading="lazy" decoding="async" src={project.img} alt={project.name} className="w-full h-full object-cover filter brightness-[0.8] transition-transform duration-700 group-hover:scale-110" />
+                  <img loading="lazy" decoding="async" src={project.hero_img || '/images/can-ho-view-bien-my-khe-alize.webp'} alt={project.name} className="w-full h-full object-cover filter brightness-[0.8] transition-transform duration-700 group-hover:scale-110" />
                 </div>
                 <div className="p-8 flex flex-col flex-1">
-                   <div className="text-[10px] text-gold/80 tracking-widest uppercase mb-2 font-light">{project.type}</div>
+                   <div className="text-[10px] text-gold/80 tracking-widest uppercase mb-2 font-light">RESIDENCE</div>
                    <h3 className="font-serif text-2xl font-light mb-2">{project.name}</h3>
                    <p className="text-xs text-champagne/50 mb-8 font-light flex items-center">
                      <svg className="w-3 h-3 mr-2 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                     {project.location}
+                     {project.location?.name || 'Đà Nẵng'}
                    </p>
                    <div className="mt-auto flex justify-between items-center border-t border-white/5 pt-6">
-                     <span className="text-lg font-light text-white">{project.price}</span>
-                     <Link href={`/${locale}/${project.href}`} className="text-gold text-xs tracking-widest uppercase font-light group-hover:underline">Chi Tiết</Link>
+                     <span className="text-lg font-light text-white">Liên Hệ</span>
+                     <Link href={`/${locale}/alize`} className="text-gold text-xs tracking-widest uppercase font-light group-hover:underline">Chi Tiết</Link>
                    </div>
                 </div>
               </div>
-            ))}
+            ))
+            ) : (
+                <div className="col-span-full py-10 text-center text-champagne/50 font-light">Đang đồng bộ Siêu Dự Án...</div>
+            )}
           </div>
         </div>
       </section>
@@ -152,18 +195,28 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
              <Link href={`/${locale}/blog`} className="hidden md:inline-block border-b border-gold/50 text-gold text-sm tracking-widest uppercase pb-1 hover:border-gold transition-colors font-light">Xem Tất Cả</Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {dict.blog.articles.slice(0, 2).map((article, idx) => (
-              <Link href={`/${locale}/blog/${article.slug}`} key={idx} className="flex flex-col sm:flex-row gap-8 group cursor-pointer">
-                <div className="sm:w-1/2 aspect-[4/3] rounded overflow-hidden relative">
-                   <img loading="lazy" decoding="async" src={article.img} className="w-full h-full object-cover filter brightness-[0.7] group-hover:scale-105 transition-transform duration-700" alt=""/>
-                </div>
-                <div className="sm:w-1/2 flex flex-col justify-center">
-                  <span className="text-gold text-[10px] font-bold tracking-widest mb-4">{article.date}</span>
-                  <h3 className="font-serif text-xl font-light mb-4 line-clamp-2 group-hover:text-gold transition-colors">{article.title}</h3>
-                  <p className="text-sm font-light text-champagne/60 line-clamp-3 leading-relaxed">{article.desc}</p>
-                </div>
-              </Link>
-            ))}
+            {wpPosts && wpPosts.length > 0 ? (
+              wpPosts.map((post: any, idx: number) => {
+                const img = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/can-ho-view-bien-my-khe-alize.webp';
+                const title = post.title.rendered.replace(/<[^>]+>/g, '');
+                const desc = post.excerpt.rendered.replace(/<[^>]+>/g, '');
+                const date = new Date(post.date).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US', { day: '2-digit', month: 'long', year: 'numeric' });
+                return (
+                  <Link href={`/${locale}/blog/${post.slug}`} key={idx} className="flex flex-col sm:flex-row gap-8 group cursor-pointer border border-transparent hover:bg-white/5 p-2 rounded transition-colors">
+                    <div className="sm:w-1/2 aspect-[4/3] rounded overflow-hidden relative">
+                       <img loading="lazy" decoding="async" src={img} className="w-full h-full object-cover filter brightness-[0.7] group-hover:scale-105 transition-transform duration-700" alt=""/>
+                    </div>
+                    <div className="sm:w-1/2 flex flex-col justify-center">
+                      <span className="text-gold text-[10px] font-bold tracking-widest mb-4">{date}</span>
+                      <h3 className="font-serif text-xl font-light mb-4 line-clamp-2 group-hover:text-gold transition-colors">{title}</h3>
+                      <p className="text-sm font-light text-champagne/60 line-clamp-3 leading-relaxed">{desc}</p>
+                    </div>
+                  </Link>
+                );
+              })
+            ) : (
+               <div className="col-span-full py-10 text-center text-champagne/50 font-light">Hệ thống đang tải bản tin mới nhất...</div>
+            )}
           </div>
           <div className="mt-12 text-center md:hidden">
             <Link href={`/${locale}/blog`} className="inline-block border border-gold/40 px-8 py-3 text-gold text-[10px] tracking-widest uppercase hover:bg-gold hover:text-jet-black transition-colors font-light">Xem Tất Cả</Link>

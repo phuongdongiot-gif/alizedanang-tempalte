@@ -67,6 +67,7 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
           <NavDropdown group={nav.sale} type="sale" />
           <NavDropdown group={nav.rent} type="rent" />
           <Link href={`/${locale}#projects`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{nav.projects}</Link>
+          <Link href={`/${locale}/map`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">BẢN ĐỒ</Link>
           <Link href={`/${locale}/blog`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{nav.news}</Link>
         </nav>
 
@@ -124,6 +125,7 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
           </div>
 
           <Link onClick={() => setMobileMenuOpen(false)} href={`/${locale}#projects`} className="text-xl uppercase tracking-[0.2em] font-light text-pearl-white border-b border-white/10 pb-4">{nav.projects}</Link>
+          <Link onClick={() => setMobileMenuOpen(false)} href={`/${locale}/map`} className="text-xl uppercase tracking-[0.2em] font-light text-pearl-white border-b border-white/10 pb-4">BẢN ĐỒ</Link>
           <Link onClick={() => setMobileMenuOpen(false)} href={`/${locale}/blog`} className="text-xl uppercase tracking-[0.2em] font-light text-pearl-white border-b border-white/10 pb-4">{nav.news}</Link>
           
           <button onClick={toggleLocale} className="text-xl text-left uppercase tracking-[0.2em] font-light text-champagne/70 pt-4">

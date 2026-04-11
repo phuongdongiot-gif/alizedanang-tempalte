@@ -24,13 +24,13 @@ export default function Header({ nav, locale }: { nav: NavigationData; locale: s
 
         <nav className="hidden 2xl:flex space-x-10">
           <Link href={`/${locale}/alize#overview`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.overview}</Link>
-          <Link href={`/${locale}/alize/values`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.values}</Link>
-          <Link href={`/${locale}/alize/location`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.location}</Link>
-          <Link href={`/${locale}/alize/architecture`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.architecture}</Link>
-          <Link href={`/${locale}/alize/amenities`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.amenities}</Link>
-          <Link href={`/${locale}/alize/services`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.services}</Link>
-          <Link href={`/${locale}/alize/floorplans`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.floorplans}</Link>
-          <Link href={`/${locale}/alize/gallery`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.gallery}</Link>
+          <Link href={`/${locale}/alize#values`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.values}</Link>
+          <Link href={`/${locale}/alize#location`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.location}</Link>
+          <Link href={`/${locale}/alize#architecture`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.architecture}</Link>
+          <Link href={`/${locale}/alize#amenities`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.amenities}</Link>
+          <Link href={`/${locale}/alize#services`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.services}</Link>
+          <Link href={`/${locale}/alize#floorplans`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.floorplans}</Link>
+          <Link href={`/${locale}/alize#gallery`} className="text-[10px] font-light tracking-[0.2em] hover:text-gold transition-colors duration-500 uppercase">{nav.gallery}</Link>
         </nav>
 
         <div className="hidden lg:flex items-center">
