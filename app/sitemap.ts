@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getProperties } from './lib/propertyService';
+import { getProperties } from '../lib/propertyService';
 
 export const revalidate = 86400; // Cache the sitemap for 24 hours (86400 seconds) to ensure high speed & save resources
 
