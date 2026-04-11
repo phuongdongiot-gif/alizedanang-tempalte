@@ -178,9 +178,7 @@ export const viDict: Dictionary = {
       title: "Bộ Sưu Tập Giới Hạn",
       desc: "Nơi tôn vinh những kiệt tác kiến trúc và không gian sống mang đậm dấu ấn thượng lưu.",
       items: [
-        { id: "alize-danang", name: "ALIZE Residence", location: "Biển Mỹ Khê, Đà Nẵng", type: "Căn Hộ Hạng Sang", status: "Đang Mở Bán", price: "Từ 5 Tỷ / Căn", img: "/images/sky-pool-alize-da-nang.webp", href: "alize" },
-        { id: "the-aston", name: "The Aston Villa", location: "Nha Trang, Khánh Hoà", type: "Biệt Thự Biển", status: "Sắp Ra Mắt", price: "Liên Hệ", img: "https://images.unsplash.com/photo-1613490908592-fd5e64efebcc?q=80&w=2000", href: "#" },
-        { id: "empire-city", name: "Empire City Thu Thiem", location: "Quận 2, TP.HCM", type: "Phức Hợp Thương Mại", status: "Đã Bàn Giao", price: "Từ 12 Tỷ / Căn", img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2000", href: "#" }
+        { id: "alize-danang", name: "ALIZE Residence", location: "Biển Mỹ Khê, Đà Nẵng", type: "Căn Hộ Hạng Sang", status: "Đang Mở Bán", price: "Từ 5 Tỷ / Căn", img: "/images/sky-pool-alize-da-nang.webp", href: "alize" }
       ]
     },
     properties: {
@@ -208,9 +206,9 @@ export const viDict: Dictionary = {
       title: "Bất động sản theo địa điểm",
       items: [
         { id: "hcm", city: "TP. Hồ Chí Minh", count: "87.232", img: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?q=80&w=2070", query: "Hồ Chí Minh" },
-        { id: "hn", city: "Hà Nội", count: "52.805", img: "https://images.unsplash.com/photo-1599553531637-674b9e38dcc9?q=80&w=2000", query: "Hà Nội" },
-        { id: "dn", city: "Đà Nẵng", count: "11.376", img: "https://images.unsplash.com/photo-1559592413-7ce4f0a205c8?q=80&w=2000", query: "Đà Nẵng" },
-        { id: "bd", city: "Bình Dương", count: "9.552", img: "https://plus.unsplash.com/premium_photo-1661879854497-dec9b6858e9d?q=80&w=2000", query: "Bình Dương" },
+        { id: "hn", city: "Hà Nội", count: "52.805", img: "https://images.unsplash.com/photo-1555899434-94d1368aa7af?q=80&w=2070", query: "Hà Nội" },
+        { id: "dn", city: "Đà Nẵng", count: "11.376", img: "/images/du-an-alize-da-nang-bien-my-khe.webp", query: "Đà Nẵng" },
+        { id: "bd", city: "Bình Dương", count: "9.552", img: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000", query: "Bình Dương" },
         { id: "dnai", city: "Đồng Nai", count: "4.900", img: "https://images.unsplash.com/photo-1523731407965-2430cd12f5e4?q=80&w=2000", query: "Đồng Nai" }
       ]
     },

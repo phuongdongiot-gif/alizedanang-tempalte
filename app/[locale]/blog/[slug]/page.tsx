@@ -63,12 +63,43 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ loc
         <h1 className="font-serif text-3xl md:text-5xl font-light mb-12 tracking-tight text-center leading-tight" dangerouslySetInnerHTML={{ __html: title }} />
         
         <div className="w-full aspect-[16/9] mb-16 overflow-hidden rounded border border-white/5 bg-charcoal/20">
-          <img loading="lazy" decoding="async" src={featuredMedia} className="w-full h-full object-cover filter brightness-[0.8]" alt="Thumbnail" />
+          {/* LCP Optimization with fetchPriority */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img fetchPriority="high" loading="eager" decoding="sync" src={featuredMedia} className="w-full h-full object-cover filter brightness-[0.8]" alt={title.replace(/<[^>]+>/g, '')} />
         </div>
 
         {/* CONTENT */}
         <div className="mt-12 text-champagne/80 font-light leading-loose text-lg flex flex-col gap-6 blog-content wp-content" dangerouslySetInnerHTML={{ __html: content }} />
       </div>
+
+      {/* JSON-LD FOR SEO AND AIO (Bing & Google) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": title.replace(/<[^>]+>/g, ''),
+            "image": [featuredMedia],
+            "datePublished": post.date,
+            "dateModified": post.modified || post.date,
+            "author": {
+              "@type": "Organization",
+              "name": "G-Estate",
+              "url": "https://alizedanang.net"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "G-Estate",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://alizedanang.net/images/sky-pool-alize-da-nang.webp"
+              }
+            },
+            "description": post.excerpt?.rendered?.replace(/<[^>]+>/g, '').substring(0, 150)
+          })
+        }}
+      />
 
       <PortalFooter footer={dict.portal.footer} locale={locale} />
     </div>

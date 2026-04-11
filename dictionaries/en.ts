@@ -179,9 +179,7 @@ export const enDict: Dictionary = {
       title: "Limited Collection",
       desc: "Honoring architectural masterpieces and living spaces imbued with the elite's signature.",
       items: [
-        { id: "alize-danang", name: "ALIZE Residence", location: "My Khe Beach, Da Nang", type: "Luxury Apartment", status: "On Sale", price: "From $200K / Unit", img: "/images/sky-pool-alize-da-nang.webp", href: "alize" },
-        { id: "the-aston", name: "The Aston Villa", location: "Nha Trang, Khanh Hoa", type: "Beach Villa", status: "Coming Soon", price: "Contact us", img: "https://images.unsplash.com/photo-1613490908592-fd5e64efebcc?q=80&w=2000", href: "#" },
-        { id: "empire-city", name: "Empire City Thu Thiem", location: "District 2, HCMC", type: "Commercial Complex", status: "Handed Over", price: "From $500K / Unit", img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2000", href: "#" }
+        { id: "alize-danang", name: "ALIZE Residence", location: "My Khe Beach, Da Nang", type: "Luxury Apartment", status: "On Sale", price: "From $200K / Unit", img: "/images/sky-pool-alize-da-nang.webp", href: "alize" }
       ]
     },
     properties: {
@@ -209,9 +207,9 @@ export const enDict: Dictionary = {
       title: "Properties by Location",
       items: [
         { id: "hcm", city: "Ho Chi Minh City", count: "87,232", img: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?q=80&w=2070", query: "Ho Chi Minh" },
-        { id: "hn", city: "Hanoi", count: "52,805", img: "https://images.unsplash.com/photo-1599553531637-674b9e38dcc9?q=80&w=2000", query: "Hanoi" },
-        { id: "dn", city: "Da Nang", count: "11,376", img: "https://images.unsplash.com/photo-1559592413-7ce4f0a205c8?q=80&w=2000", query: "Da Nang" },
-        { id: "bd", city: "Binh Duong", count: "9,552", img: "https://plus.unsplash.com/premium_photo-1661879854497-dec9b6858e9d?q=80&w=2000", query: "Binh Duong" },
+        { id: "hn", city: "Hanoi", count: "52,805", img: "https://images.unsplash.com/photo-1555899434-94d1368aa7af?q=80&w=2070", query: "Hanoi" },
+        { id: "dn", city: "Da Nang", count: "11,376", img: "/images/du-an-alize-da-nang-bien-my-khe.webp", query: "Da Nang" },
+        { id: "bd", city: "Binh Duong", count: "9,552", img: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000", query: "Binh Duong" },
         { id: "dnai", city: "Dong Nai", count: "4,900", img: "https://images.unsplash.com/photo-1523731407965-2430cd12f5e4?q=80&w=2000", query: "Dong Nai" }
       ]
     },
