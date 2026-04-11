@@ -111,11 +111,48 @@ export interface FooterData {
   terms: string;
 }
 
+export interface NavItem {
+  id: string;
+  label: string;
+  isNew?: boolean;
+}
+
+export interface NavGroup {
+  label: string;
+  items: NavItem[];
+}
+
+export interface PortalProperty {
+  id: string;
+  transactionType: "sale" | "rent";
+  propertyCategory: string;
+  isNew: boolean;
+  name: string;
+  projectId: string;
+  projectName: string;
+  price: string;
+  priceNum: number; // For filtering
+  location: string;
+  type: string;
+  specs: {
+    area: string;
+    areaNum: number; // For filtering
+    beds: number;
+    baths: number;
+  };
+  desc: string;
+  img: string;
+  gallery: string[];
+  coordinates: { lat: number; lng: number };
+}
+
 export interface PortalData {
   seo: SEOData;
   nav: {
     home: string;
     projects: string;
+    sale: NavGroup;
+    rent: NavGroup;
     news: string;
     about: string;
     contact: string;
@@ -142,6 +179,14 @@ export interface PortalData {
       href: string;
     }[];
   };
+  properties: {
+    seo: SEOData;
+    hero: {
+      title: string;
+      subtitle: string;
+    };
+    items: PortalProperty[];
+  };
   news: {
     sectionTag: string;
     title: string;
@@ -150,6 +195,16 @@ export interface PortalData {
       title: string;
       desc: string;
       img: string;
+    }[];
+  };
+  locationsByCity: {
+    title: string;
+    items: {
+      id: string;
+      city: string;
+      count: string;
+      img: string;
+      query: string;
     }[];
   };
   footer: {

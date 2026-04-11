@@ -135,6 +135,34 @@ export const enDict: Dictionary = {
     nav: {
       home: "Home",
       projects: "Projects",
+      sale: {
+        label: "Properties for Sale",
+        items: [
+          { id: "apartments", label: "Apartments for sale" },
+          { id: "serviced-apartments", label: "Mini apartments, serviced apartments for sale", isNew: true },
+          { id: "private-houses", label: "Private houses for sale" },
+          { id: "villas", label: "Villas, townhouses for sale" },
+          { id: "street-houses", label: "Street houses for sale" },
+          { id: "shophouses", label: "Shophouses, commercial townhouses for sale" },
+          { id: "project-land", label: "Project land plots for sale" },
+          { id: "land", label: "Land for sale" },
+          { id: "resort-farms", label: "Farms, resorts for sale" },
+          { id: "condotels", label: "Condotels for sale" },
+          { id: "warehouses", label: "Warehouses, factories for sale" },
+          { id: "others", label: "Other types of real estate for sale" }
+        ]
+      },
+      rent: {
+        label: "Properties for Rent",
+        items: [
+          { id: "apartments", label: "Apartments for rent" },
+          { id: "rooms", label: "Rooms for rent" },
+          { id: "private-houses", label: "Private houses for rent" },
+          { id: "offices", label: "Offices for rent" },
+          { id: "retail-space", label: "Retail space for rent" },
+          { id: "warehouses", label: "Warehouses, factories, land for rent" }
+        ]
+      },
       news: "News",
       about: "About Us",
       contact: "Contact",
@@ -156,12 +184,35 @@ export const enDict: Dictionary = {
         { id: "empire-city", name: "Empire City Thu Thiem", location: "District 2, HCMC", type: "Commercial Complex", status: "Handed Over", price: "From $500K / Unit", img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2000", href: "#" }
       ]
     },
+    properties: {
+      seo: {
+        title: "Real Estate for Sale & Rent - G-Estate",
+        description: "Explore a diverse real estate portfolio from apartments, villas to shophouses.",
+        keywords: "house for sale, buy apartment, g-estate, properties for sale, properties for rent",
+        ogImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053"
+      },
+      hero: {
+        title: "Property Catalog",
+        subtitle: "A diverse ecosystem from mega-projects to personal lodging products."
+      },
+      items: []
+    },
     news: {
       sectionTag: "MARKET INSIGHTS",
       title: "News & Events",
       items: [
         { date: "10-04-2026", title: "Da Nang Real Estate Market Welcomes New Investment Wave", desc: "The appearance of ultra-luxury coastal projects is strongly attracting capital... ", img: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2000" },
         { date: "05-04-2026", title: "ALIZE Residence Grand Launching Event", desc: "This morning in Da Nang, the kickoff ceremony introduced the masterpiece ALIZE...", img: "https://images.unsplash.com/photo-1551882547-ff40c0d13c11?q=80&w=2000" }
+      ]
+    },
+    locationsByCity: {
+      title: "Properties by Location",
+      items: [
+        { id: "hcm", city: "Ho Chi Minh City", count: "87,232", img: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?q=80&w=2070", query: "Ho Chi Minh" },
+        { id: "hn", city: "Hanoi", count: "52,805", img: "https://images.unsplash.com/photo-1599553531637-674b9e38dcc9?q=80&w=2000", query: "Hanoi" },
+        { id: "dn", city: "Da Nang", count: "11,376", img: "https://images.unsplash.com/photo-1559592413-7ce4f0a205c8?q=80&w=2000", query: "Da Nang" },
+        { id: "bd", city: "Binh Duong", count: "9,552", img: "https://plus.unsplash.com/premium_photo-1661879854497-dec9b6858e9d?q=80&w=2000", query: "Binh Duong" },
+        { id: "dnai", city: "Dong Nai", count: "4,900", img: "https://images.unsplash.com/photo-1523731407965-2430cd12f5e4?q=80&w=2000", query: "Dong Nai" }
       ]
     },
     footer: {

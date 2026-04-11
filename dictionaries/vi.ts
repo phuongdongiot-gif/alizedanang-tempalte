@@ -134,6 +134,34 @@ export const viDict: Dictionary = {
     nav: {
       home: "Trang Chủ",
       projects: "Dự Án",
+      sale: {
+        label: "Nhà đất bán",
+        items: [
+          { id: "apartments", label: "Bán căn hộ chung cư" },
+          { id: "serviced-apartments", label: "Bán chung cư mini, căn hộ dịch vụ", isNew: true },
+          { id: "private-houses", label: "Bán nhà riêng" },
+          { id: "villas", label: "Bán nhà biệt thự, liền kề" },
+          { id: "street-houses", label: "Bán nhà mặt phố" },
+          { id: "shophouses", label: "Bán shophouse, nhà phố thương mại" },
+          { id: "project-land", label: "Bán đất nền dự án" },
+          { id: "land", label: "Bán đất" },
+          { id: "resort-farms", label: "Bán trang trại, khu nghỉ dưỡng" },
+          { id: "condotels", label: "Bán condotel" },
+          { id: "warehouses", label: "Bán kho, nhà xưởng" },
+          { id: "others", label: "Bán loại bất động sản khác" }
+        ]
+      },
+      rent: {
+        label: "Nhà đất cho thuê",
+        items: [
+          { id: "apartments", label: "Cho thuê căn hộ chung cư" },
+          { id: "rooms", label: "Cho thuê phòng trọ" },
+          { id: "private-houses", label: "Cho thuê nhà riêng" },
+          { id: "offices", label: "Cho thuê văn phòng" },
+          { id: "retail-space", label: "Cho thuê mặt bằng, nptm" },
+          { id: "warehouses", label: "Cho thuê kho, nhà xưởng, đất" }
+        ]
+      },
       news: "Tin Tức",
       about: "Về Chúng Tôi",
       contact: "Liên Hệ",
@@ -155,12 +183,35 @@ export const viDict: Dictionary = {
         { id: "empire-city", name: "Empire City Thu Thiem", location: "Quận 2, TP.HCM", type: "Phức Hợp Thương Mại", status: "Đã Bàn Giao", price: "Từ 12 Tỷ / Căn", img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2000", href: "#" }
       ]
     },
+    properties: {
+      seo: {
+        title: "Bất Động Sản Bán & Cho Thuê - G-Estate",
+        description: "Khám phá danh mục bất động sản đa dạng từ căn hộ, biệt thự đến shophouse.",
+        keywords: "bán nhà, mua căn hộ, g-estate, nhà đất bán, nhà đất cho thuê",
+        ogImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053"
+      },
+      hero: {
+        title: "Danh Mục Bất Động Sản",
+        subtitle: "Hệ sinh thái đa dạng từ những siêu dự án đến các sản phẩm lưu trú cá nhân."
+      },
+      items: []
+    },
     news: {
       sectionTag: "THÔNG TIN THỊ TRƯỜNG",
       title: "Tin Tức & Sự Kiện",
       items: [
         { date: "10-04-2026", title: "Thị trường BĐS Đà Nẵng đón sóng đầu tư mới", desc: "Sự xuất hiện của các dự án ven biển siêu sang đang thu hút mạnh dòng vốn từ giới tinh hoa...", img: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2000" },
         { date: "05-04-2026", title: "Lễ ra mắt dự án ALIZE Residence", desc: "Sáng nay tại Đà Nẵng đã diễn ra buổi lễ kickoff giới thiệu kiệt tác không gian sống ALIZE...", img: "https://images.unsplash.com/photo-1551882547-ff40c0d13c11?q=80&w=2000" }
+      ]
+    },
+    locationsByCity: {
+      title: "Bất động sản theo địa điểm",
+      items: [
+        { id: "hcm", city: "TP. Hồ Chí Minh", count: "87.232", img: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?q=80&w=2070", query: "Hồ Chí Minh" },
+        { id: "hn", city: "Hà Nội", count: "52.805", img: "https://images.unsplash.com/photo-1599553531637-674b9e38dcc9?q=80&w=2000", query: "Hà Nội" },
+        { id: "dn", city: "Đà Nẵng", count: "11.376", img: "https://images.unsplash.com/photo-1559592413-7ce4f0a205c8?q=80&w=2000", query: "Đà Nẵng" },
+        { id: "bd", city: "Bình Dương", count: "9.552", img: "https://plus.unsplash.com/premium_photo-1661879854497-dec9b6858e9d?q=80&w=2000", query: "Bình Dương" },
+        { id: "dnai", city: "Đồng Nai", count: "4.900", img: "https://images.unsplash.com/photo-1523731407965-2430cd12f5e4?q=80&w=2000", query: "Đồng Nai" }
       ]
     },
     footer: {
