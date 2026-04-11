@@ -57,8 +57,9 @@ export async function fetchGraphQL<T>(
     }
 
     return data as T;
-  } catch (error) {
-    console.warn('Lỗi khi call hệ thống GraphQL (Đang dùng Fallback):', error instanceof Error ? error.message : error);
+  } catch (error: any) {
+    // Chỉ báo log nhỏ gọn, tránh hiển thị error stack dài làm rác build console
+    console.warn(`⚠️ [GraphQL] Mạng chưa sẵn sàng (${error?.message || 'Failed'}), chuyển sang chế độ Offline Fallback cho: ${GRAPHQL_API_URL}`);
     throw error;
   }
 }

@@ -167,9 +167,8 @@ export async function getProperties(locale: string): Promise<PortalProperty[]> {
       console.log("GraphQL chạy thành công nhưng trả về null/empty:", res);
     }
   } catch (error) {
-    console.error("====== LOI KET NOI BACKEND NESTJS 3001 ======");
-    console.error(error);
-    console.error("=============================================");
+    // Nếu API sập hoặc Build time không gọi được, im lặng fallback sang mock database
+    console.log("ℹ️ [Frontend] Hệ thống GraphQL chưa online. Kích hoạt Mock Data...");
   }
 
   // Cũ: Trả về nếu graphql sập
