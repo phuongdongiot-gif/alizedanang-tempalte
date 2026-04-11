@@ -164,6 +164,7 @@ export const enDict: Dictionary = {
         ]
       },
       news: "News",
+      tools: "Tools",
       about: "About Us",
       contact: "Contact",
       postPropertyBtn: "Post Property"
@@ -191,7 +192,7 @@ export const enDict: Dictionary = {
       },
       hero: {
         title: "Property Catalog",
-        subtitle: "A diverse ecosystem from mega-projects to personal lodging products."
+        subtitle: "A diverse ecosystem from projects to personal lodging products."
       },
       items: []
     },
@@ -218,6 +219,67 @@ export const enDict: Dictionary = {
       addressLabel: "Headquarters:",
       addressText: "Level 20, A&T Twin Tower, My Khe, Da Nang",
       emailLabel: "Support Email:"
+    },
+    tools: {
+      title: "Real Estate Tools",
+      subtitle: "Financial analysis and investment decision support.",
+      tabs: {
+        mortgage: "Mortgage",
+        yield: "Rental Yield",
+        tax: "Fees & Taxes"
+      },
+      mortgage: {
+        propertyValue: "Property Value (VND)",
+        loanPercent: "Loan Ratio (%)",
+        interestRate: "Interest Rate (%/year)",
+        loanTerm: "Loan Term (Years)",
+        resultsTitle: "Estimated Results",
+        monthlyPayment: "Monthly Payment",
+        totalPrincipal: "Total Principal",
+        totalInterest: "Total Interest",
+        chartPrincipal: "Principal",
+        chartInterest: "Interest"
+      },
+      yield: {
+        propertyValue: "Property Value (VND)",
+        monthlyRent: "Monthly Rent (VND)",
+        operatingCost: "Operating Cost (%/year)",
+        resultsTitle: "Yield Rate",
+        grossYield: "Gross Yield",
+        netYield: "Net Yield",
+        annualIncome: "Annual Income (VND)",
+        annualExpenses: "Annual Expenses (VND)"
+      },
+      tax: {
+        propertyValue: "Transaction Value (VND)",
+        resultsTitle: "Estimated Taxes & Fees",
+        personalIncomeTax: "Personal Income Tax (2%)",
+        registrationFee: "Registration Fee (0.5%)",
+        appraisalFee: "Appraisal Fee (0.15%)",
+        notaryFee: "Notary Fee (Estim.)",
+        totalEstimated: "Total Estimated Costs",
+        note: "* Figures are for reference only based on current regulations."
+      }
+    },
+    projects: {
+      seo: {
+        title: "All Projects - G-Estate",
+        description: "Explore our portfolio of luxury projects and high-yield real estate developments.",
+        keywords: "real estate projects, projects, luxury real estate",
+        ogImage: "/images/sky-pool-alize-da-nang.webp"
+      },
+      hero: {
+        titleLine1: "G-ESTATE",
+        titleLine2: "Projects",
+        description: "A breathtaking collection of architectural masterpieces and luxury living spaces beyond standards."
+      },
+      card: {
+        location: "Location",
+        contactBtn: "Contact",
+        detailBtn: "Details",
+        badge: "PROJECT"
+      },
+      emptyState: "No projects announced yet."
     }
   },
   blog: {

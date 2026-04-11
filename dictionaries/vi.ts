@@ -163,6 +163,7 @@ export const viDict: Dictionary = {
         ]
       },
       news: "Tin Tức",
+      tools: "Công Cụ",
       about: "Về Chúng Tôi",
       contact: "Liên Hệ",
       postPropertyBtn: "Ký Gửi BĐS"
@@ -190,7 +191,7 @@ export const viDict: Dictionary = {
       },
       hero: {
         title: "Danh Mục Bất Động Sản",
-        subtitle: "Hệ sinh thái đa dạng từ những siêu dự án đến các sản phẩm lưu trú cá nhân."
+        subtitle: "Hệ sinh thái đa dạng từ những dự án quy mô đến các sản phẩm lưu trú cá nhân."
       },
       items: []
     },
@@ -217,6 +218,67 @@ export const viDict: Dictionary = {
       addressLabel: "Trụ Sở:",
       addressText: "Tầng 20, Tháp Đôi A&T, Mỹ Khê, Đà Nẵng",
       emailLabel: "Email hỗ trợ:"
+    },
+    tools: {
+      title: "Công Cụ Tài Chính",
+      subtitle: "Hỗ trợ phân tích dòng tiền và tối ưu hóa quyết định đầu tư bất động sản của bạn.",
+      tabs: {
+        mortgage: "Vay Mua Nhà",
+        yield: "Lợi Nhuận Cho Thuê",
+        tax: "Phí & Thuế"
+      },
+      mortgage: {
+        propertyValue: "Giá trị BĐS (VNĐ)",
+        loanPercent: "Tỷ lệ vay (%)",
+        interestRate: "Lãi suất (%/năm)",
+        loanTerm: "Thời gian vay (Năm)",
+        resultsTitle: "Kết quả dự kiến",
+        monthlyPayment: "Trả góp mỗi tháng",
+        totalPrincipal: "Tổng tiền gốc",
+        totalInterest: "Tổng tiền lãi",
+        chartPrincipal: "Gốc",
+        chartInterest: "Lãi"
+      },
+      yield: {
+        propertyValue: "Giá trị tài sản (VNĐ)",
+        monthlyRent: "Tiền thuê/tháng (VNĐ)",
+        operatingCost: "Chi phí vận hành (%/năm)",
+        resultsTitle: "Tỷ suất lợi nhuận",
+        grossYield: "Lợi Nhuận Gộp (Tăng trưởng gốc)",
+        netYield: "Lợi Nhuận Ròng (Thực nhận)",
+        annualIncome: "Thu nhập hàng năm (VNĐ)",
+        annualExpenses: "Chi phí hàng năm (VNĐ)"
+      },
+      tax: {
+        propertyValue: "Giá giao dịch (VNĐ)",
+        resultsTitle: "Ước tính Thuế & Phí",
+        personalIncomeTax: "Thuế Thu Nhập Cá Nhân (2%)",
+        registrationFee: "Lệ Phí Trước Bạ (0.5%)",
+        appraisalFee: "Phí Thẩm Định Hồ Sơ (0.15%)",
+        notaryFee: "Phí Công Chứng (Ước lượng)",
+        totalEstimated: "Tổng chi phí dự kiến",
+        note: "* Các con số mang tính chất tham khảo theo quy định hiện hành."
+      }
+    },
+    projects: {
+      seo: {
+        title: "Tất Cả Dự Án - G-Estate",
+        description: "Khám phá danh mục các dự án bất động sản hạng sang và dự án mang lại lợi nhuận cao từ G-Estate.",
+        keywords: "dự án bất động sản, dự án, bất động sản hạng sang",
+        ogImage: "/images/sky-pool-alize-da-nang.webp"
+      },
+      hero: {
+        titleLine1: "DANH MỤC",
+        titleLine2: "Dự Án",
+        description: "Bộ sưu tập những tuyệt tác kiến trúc và không gian sống thượng lưu vượt chuẩn."
+      },
+      card: {
+        location: "Vị Trí",
+        contactBtn: "Liên Hệ",
+        detailBtn: "Chi Tiết",
+        badge: "DỰ ÁN"
+      },
+      emptyState: "Hiện chưa có dự án nào được công bố."
     }
   },
   blog: {
@@ -224,7 +286,8 @@ export const viDict: Dictionary = {
       title: "Tin tức & Phân tích - G-Estate",
       description: "Cập nhật những thông tin và xu hướng mới nhất về thị trường bất động sản cao cấp.",
       keywords: "tin tức bất động sản, phân tích thị trường, blog bất động sản",
-      ogImage: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2000"
+      ogImage: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2000",
+      footerText: "Thiết kế và phát triển bởi G-Estate."
     },
     hero: {
       title: "Góc Nhìn Chuyên Gia",

@@ -51,7 +51,8 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
   };
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? "bg-jet-black/90 backdrop-blur-md border-b border-white/5 py-3" : "bg-transparent py-6"}`}>
+    <>
+      <header className={`fixed top-0 left-0 w-full z-[110] transition-all duration-300 ${scrolled || mobileMenuOpen ? "bg-jet-black/90 backdrop-blur-md border-b border-white/5 py-3" : "bg-transparent py-6"}`}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex justify-between items-center">
         {/* LOGO */}
         <Link href={`/${locale}`} className="flex items-center gap-2 z-50">
@@ -66,9 +67,10 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
           <Link href={`/${locale}`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{nav.home}</Link>
           <NavDropdown group={nav.sale} type="sale" />
           <NavDropdown group={nav.rent} type="rent" />
-          <Link href={`/${locale}#projects`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{nav.projects}</Link>
-          <Link href={`/${locale}/map`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">BẢN ĐỒ</Link>
+          <Link href={`/${locale}/projects`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{nav.projects}</Link>
+          <Link href={`/${locale}/map`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{locale === 'vi' ? 'Bản Đồ' : 'Map'}</Link>
           <Link href={`/${locale}/blog`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{nav.news}</Link>
+          <Link href={`/${locale}/tools`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{nav.tools}</Link>
         </nav>
 
         {/* UTILITIES */}
@@ -88,8 +90,10 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
         </button>
       </div>
 
+      </header>
+
       {/* MOBILE POPUP */}
-      <div className={`fixed inset-0 bg-jet-black/98 backdrop-blur-xl z-40 flex flex-col pt-24 px-6 gap-6 transition-all duration-500 overflow-y-auto pb-10 ${mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+      <div className={`fixed inset-0 bg-jet-black/98 backdrop-blur-xl z-[100] flex flex-col pt-24 px-6 gap-6 transition-all duration-500 overflow-y-auto pb-10 ${mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
           <Link onClick={() => setMobileMenuOpen(false)} href={`/${locale}`} className="text-xl uppercase tracking-[0.2em] font-light text-pearl-white border-b border-white/10 pb-4">{nav.home}</Link>
           
           {/* Mobile Accordion Sale */}
@@ -124,14 +128,15 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
             </div>
           </div>
 
-          <Link onClick={() => setMobileMenuOpen(false)} href={`/${locale}#projects`} className="text-xl uppercase tracking-[0.2em] font-light text-pearl-white border-b border-white/10 pb-4">{nav.projects}</Link>
-          <Link onClick={() => setMobileMenuOpen(false)} href={`/${locale}/map`} className="text-xl uppercase tracking-[0.2em] font-light text-pearl-white border-b border-white/10 pb-4">BẢN ĐỒ</Link>
+          <Link onClick={() => setMobileMenuOpen(false)} href={`/${locale}/projects`} className="text-xl uppercase tracking-[0.2em] font-light text-pearl-white border-b border-white/10 pb-4">{nav.projects}</Link>
+          <Link onClick={() => setMobileMenuOpen(false)} href={`/${locale}/map`} className="text-xl uppercase tracking-[0.2em] font-light text-pearl-white border-b border-white/10 pb-4">{locale === 'vi' ? 'BẢN ĐỒ' : 'MAP'}</Link>
           <Link onClick={() => setMobileMenuOpen(false)} href={`/${locale}/blog`} className="text-xl uppercase tracking-[0.2em] font-light text-pearl-white border-b border-white/10 pb-4">{nav.news}</Link>
+          <Link onClick={() => setMobileMenuOpen(false)} href={`/${locale}/tools`} className="text-xl uppercase tracking-[0.2em] font-light text-pearl-white border-b border-white/10 pb-4">{nav.tools}</Link>
           
           <button onClick={toggleLocale} className="text-xl text-left uppercase tracking-[0.2em] font-light text-champagne/70 pt-4">
              {locale === 'vi' ? 'SWITCH TO ENGLISH (EN)' : 'CỔNG TIẾNG VIỆT (VI)'}
           </button>
       </div>
-    </header>
+    </>
   );
 }

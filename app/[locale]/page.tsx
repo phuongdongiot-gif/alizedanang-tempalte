@@ -122,7 +122,7 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
                <div key={idx} className="group flex flex-col bg-charcoal/20 border border-white/5 overflow-hidden rounded transition-all hover:border-gold/30">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <div className="absolute top-4 left-4 z-10 bg-gold text-jet-black text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded">
-                    SIÊU DỰ ÁN
+                    DỰ ÁN
                   </div>
                   <img loading="lazy" decoding="async" src={project.hero_img || '/images/can-ho-view-bien-my-khe-alize.webp'} alt={project.name} className="w-full h-full object-cover filter brightness-[0.8] transition-transform duration-700 group-hover:scale-110" />
                 </div>
@@ -145,7 +145,7 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
                   <div key={idx} className="group flex flex-col bg-charcoal/20 border border-white/5 overflow-hidden rounded transition-all hover:border-gold/30">
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <div className="absolute top-4 left-4 z-10 bg-gold text-jet-black text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded">
-                        {project.status || 'SIÊU DỰ ÁN'}
+                        {project.status || 'DỰ ÁN'}
                       </div>
                       <img loading="lazy" decoding="async" src={project.img || '/images/can-ho-view-bien-my-khe-alize.webp'} alt={project.name} className="w-full h-full object-cover filter brightness-[0.8] transition-transform duration-700 group-hover:scale-110" />
                     </div>

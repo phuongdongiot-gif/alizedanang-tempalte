@@ -212,6 +212,68 @@ export interface PortalData {
     addressLabel: string;
     addressText: string;
     emailLabel: string;
+    footerText?: string;
+  };
+  tools: {
+    title: string;
+    subtitle: string;
+    tabs: {
+      mortgage: string;
+      yield: string;
+      tax: string;
+    };
+    mortgage: {
+      propertyValue: string;
+      loanPercent: string;
+      interestRate: string;
+      loanTerm: string;
+      resultsTitle: string;
+      monthlyPayment: string;
+      totalPrincipal: string;
+      totalInterest: string;
+      chartPrincipal: string;
+      chartInterest: string;
+    };
+    yield: {
+      propertyValue: string;
+      monthlyRent: string;
+      operatingCost: string;
+      resultsTitle: string;
+      grossYield: string;
+      netYield: string;
+      annualIncome: string;
+      annualExpenses: string;
+    };
+    tax: {
+      propertyValue: string;
+      resultsTitle: string;
+      personalIncomeTax: string;
+      registrationFee: string;
+      appraisalFee: string;
+      notaryFee: string;
+      totalEstimated: string;
+      note: string;
+    };
+  };
+  projects: {
+    seo: {
+      title: string;
+      description: string;
+      keywords: string;
+      ogImage: string;
+    };
+    hero: {
+      titleLine1: string;
+      titleLine2: string;
+      description: string;
+    };
+    card: {
+      location: string;
+      contactBtn: string;
+      detailBtn: string;
+      badge: string;
+    };
+    emptyState: string;
   };
 }
 

@@ -7,7 +7,7 @@ import { fetchGraphQL } from "../../../lib/graphql";
 
 export const metadata: Metadata = {
   title: "Bản Đồ Bất Động Sản - G-Estate",
-  description: "Trải nghiệm khám phá các siêu dự án và căn hộ cao cấp qua Bản Đồ Tương Tác Ecosystem."
+  description: "Trải nghiệm khám phá các dự án và căn hộ cao cấp qua Bản Đồ Tương Tác Ecosystem."
 };
 
 export default async function EcosystemMapPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -66,7 +66,7 @@ export default async function EcosystemMapPage({ params }: { params: Promise<{ l
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 bg-jet-black/80 backdrop-blur-md border border-white/10 px-8 py-4 rounded-full flex gap-8 items-center shadow-2xl pointer-events-none">
         <div className="flex items-center gap-3">
           <span className="text-xl">⭐</span>
-          <span className="text-[10px] uppercase font-bold tracking-widest text-gold text-shadow">Siêu Dự Án</span>
+          <span className="text-[10px] uppercase font-bold tracking-widest text-gold text-shadow">Dự Án</span>
         </div>
         <div className="w-[1px] h-4 bg-white/20" />
         <div className="flex items-center gap-3">

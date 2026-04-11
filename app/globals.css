@@ -42,3 +42,44 @@ body {
 .luxury-gradient-overlay {
   background: linear-gradient(0deg, rgba(5,5,5,0.9) 0%, rgba(5,5,5,0.2) 50%, rgba(5,5,5,0.85) 100%);
 }
+
+/* Custom Premium Slider Styles for Tools */
+input[type="range"].g-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 8px;
+  border-radius: 9999px;
+  outline: none;
+}
+
+input[type="range"].g-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(191, 161, 95, 0.6);
+  transition: transform 0.15s ease;
+}
+
+input[type="range"].g-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(191, 161, 95, 0.6);
+  border: none;
+  transition: transform 0.15s ease;
+}
+
+input[type="range"].g-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+input[type="range"].g-slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+}

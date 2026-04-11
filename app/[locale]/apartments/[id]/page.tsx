@@ -95,7 +95,7 @@ export default async function ApartmentDetailPage({ params }: { params: Promise<
 
             <div className="bg-charcoal/30 p-8 rounded border border-gold/20 flex flex-col items-center text-center">
               <h3 className="font-serif text-2xl font-light mb-4">Thuộc Mảng Ghép Dự Án {apt.projectName}</h3>
-              <p className="text-sm font-light text-champagne/60 mb-6 max-w-lg">Căn hộ này được phát triển như một phần của siêu dự án {apt.projectName}, thừa hưởng toàn bộ chuỗi tiện ích đẳng cấp 5 sao và không gian sống thượng lưu.</p>
+              <p className="text-sm font-light text-champagne/60 mb-6 max-w-lg">Căn hộ này được phát triển như một phần của dự án {apt.projectName}, thừa hưởng toàn bộ chuỗi tiện ích đẳng cấp 5 sao và không gian sống thượng lưu.</p>
               <Link href={`/${locale}/projects/${apt.projectId}`} className="px-8 py-3 bg-gold text-jet-black text-[11px] uppercase tracking-widest font-semibold hover:bg-white transition-colors">
                 {projectLinkText}
               </Link>
