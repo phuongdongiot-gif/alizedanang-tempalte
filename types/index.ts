@@ -3,6 +3,7 @@ export interface SEOData {
   description: string;
   keywords: string;
   ogImage: string;
+  footerText: string;
 }
 
 export interface NavigationData {
