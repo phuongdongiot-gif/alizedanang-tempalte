@@ -258,12 +258,7 @@ export interface PortalData {
     };
   };
   projects: {
-    seo: {
-      title: string;
-      description: string;
-      keywords: string;
-      ogImage: string;
-    };
+    seo: SEOData;
     hero: {
       titleLine1: string;
       titleLine2: string;

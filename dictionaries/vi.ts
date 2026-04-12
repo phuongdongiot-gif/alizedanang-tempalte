@@ -5,7 +5,8 @@ export const viDict: Dictionary = {
     title: "ALIZE - Luxury Real Estate",
     description: "Biểu Tượng Sống Thượng Lưu - Trải nghiệm không gian sống vượt xa mọi chuẩn mực.",
     keywords: "alize, luxury real estate, căn hộ view biển, đà nẵng",
-    ogImage: "/images/sky-pool-alize-da-nang.webp"
+    ogImage: "/images/sky-pool-alize-da-nang.webp",
+    footerText: "Chạm vào không gian sống thượng lưu - ALIZE Residence."
   },
   nav: {
     overview: "Tổng Quan",
@@ -129,7 +130,8 @@ export const viDict: Dictionary = {
       title: "G-Estate | Nền tảng Bất Động Sản Hạng Sang",
       description: "Tìm kiếm không gian sống mơ ước của bạn tại hệ thống phân phối dự án độc bản.",
       keywords: "sàn bất động sản, căn hộ hạng sang, alize đà nẵng",
-      ogImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053"
+      ogImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053",
+      footerText: "Chạm vào đỉnh cao không gian sống."
     },
     nav: {
       home: "Trang Chủ",
@@ -187,7 +189,8 @@ export const viDict: Dictionary = {
         title: "Bất Động Sản Bán & Cho Thuê - G-Estate",
         description: "Khám phá danh mục bất động sản đa dạng từ căn hộ, biệt thự đến shophouse.",
         keywords: "bán nhà, mua căn hộ, g-estate, nhà đất bán, nhà đất cho thuê",
-        ogImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053"
+        ogImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053",
+        footerText: "Chạm vào đỉnh cao không gian sống."
       },
       hero: {
         title: "Danh Mục Bất Động Sản",
@@ -265,7 +268,8 @@ export const viDict: Dictionary = {
         title: "Tất Cả Dự Án - G-Estate",
         description: "Khám phá danh mục các dự án bất động sản hạng sang và dự án mang lại lợi nhuận cao từ G-Estate.",
         keywords: "dự án bất động sản, dự án, bất động sản hạng sang",
-        ogImage: "/images/sky-pool-alize-da-nang.webp"
+        ogImage: "/images/sky-pool-alize-da-nang.webp",
+        footerText: "Chạm vào đỉnh cao không gian sống."
       },
       hero: {
         titleLine1: "DANH MỤC",

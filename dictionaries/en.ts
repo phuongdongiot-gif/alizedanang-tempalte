@@ -6,7 +6,8 @@ export const enDict: Dictionary = {
     title: "ALIZE - Luxury Real Estate",
     description: "The Icon of Luxury Living - Experience living beyond all standards.",
     keywords: "alize, luxury real estate, ocean view apartment, da nang",
-    ogImage: "/images/sky-pool-alize-da-nang.webp"
+    ogImage: "/images/sky-pool-alize-da-nang.webp",
+    footerText: "Touch the pinnacle of living spaces - ALIZE Residence."
   },
   nav: {
     overview: "Overview",
@@ -130,7 +131,8 @@ export const enDict: Dictionary = {
       title: "G-Estate | Luxury Real Estate Portal",
       description: "Find your dream living space at the exclusive project distribution system.",
       keywords: "real estate portal, luxury apartment, alize da nang",
-      ogImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053"
+      ogImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053",
+      footerText: "Touch the pinnacle of living spaces."
     },
     nav: {
       home: "Home",
@@ -188,7 +190,8 @@ export const enDict: Dictionary = {
         title: "Real Estate for Sale & Rent - G-Estate",
         description: "Explore a diverse real estate portfolio from apartments, villas to shophouses.",
         keywords: "house for sale, buy apartment, g-estate, properties for sale, properties for rent",
-        ogImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053"
+        ogImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053",
+        footerText: "Touch the pinnacle of living spaces."
       },
       hero: {
         title: "Property Catalog",
@@ -266,7 +269,8 @@ export const enDict: Dictionary = {
         title: "All Projects - G-Estate",
         description: "Explore our portfolio of luxury projects and high-yield real estate developments.",
         keywords: "real estate projects, projects, luxury real estate",
-        ogImage: "/images/sky-pool-alize-da-nang.webp"
+        ogImage: "/images/sky-pool-alize-da-nang.webp",
+        footerText: "Touch the pinnacle of living spaces."
       },
       hero: {
         titleLine1: "G-ESTATE",
@@ -287,7 +291,8 @@ export const enDict: Dictionary = {
       title: "News & Insights - G-Estate",
       description: "Stay updated with the latest news and trends in the luxury real estate market.",
       keywords: "real estate news, market analysis, real estate blog",
-      ogImage: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2000"
+      ogImage: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2000",
+      footerText: "Touch the pinnacle of living spaces."
     },
     hero: {
       title: "Expert Perspectives",
