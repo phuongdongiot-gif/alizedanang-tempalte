@@ -154,6 +154,7 @@ export interface PortalData {
     sale: NavGroup;
     rent: NavGroup;
     news: string;
+    tools: string;
     about: string;
     contact: string;
     postPropertyBtn: string;
