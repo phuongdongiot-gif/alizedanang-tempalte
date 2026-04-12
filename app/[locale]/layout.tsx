@@ -2,6 +2,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "../globals.css";
 import { getDictionary } from '../../dictionaries';
 import { Metadata } from 'next';
+import LiveChatWidget from '../../components/LiveChatWidget';
 
 const inter = Inter({ subsets: ["latin", "vietnamese"], variable: '--font-sans' });
 const playfair = Playfair_Display({ subsets: ["latin", "vietnamese"], variable: '--font-serif', style: ['normal', 'italic'] });
@@ -40,6 +41,7 @@ export default async function RootLayout({
     <html lang={locale} className={`scroll-smooth ${inter.variable} ${playfair.variable}`}>
       <body className="bg-jet-black text-pearl-white font-sans antialiased selection:bg-gold selection:text-jet-black overflow-x-hidden min-h-screen">
         {children}
+        <LiveChatWidget />
       </body>
     </html>
   );
