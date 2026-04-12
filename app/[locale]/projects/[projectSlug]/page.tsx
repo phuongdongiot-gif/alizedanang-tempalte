@@ -40,8 +40,7 @@ export default async function ProjectLandingPage({ params }: { params: Promise<{
       project(slug: "${projectSlug}") {
         id
         name
-        hero_title
-        hero_desc
+        hero_data
         location {
           name
         }
@@ -73,8 +72,8 @@ export default async function ProjectLandingPage({ params }: { params: Promise<{
 
   // --- MERGE DYNAMIC DATA WITH STATIC FALLBACK ---
   const dynamicHeroLine1 = apiData?.name || dict.hero.titleLine1;
-  const dynamicHeroLine2 = apiData?.hero_title || dict.hero.titleLine2;
-  const dynamicHeroDesc = apiData?.hero_desc || dict.hero.description;
+  const dynamicHeroLine2 = apiData?.hero_data?.titleLine2 || dict.hero.titleLine2;
+  const dynamicHeroDesc = apiData?.hero_data?.description || dict.hero.description;
   const dynamicTagline = apiData?.location?.name ? `TẠI ${apiData.location.name.toUpperCase()}` : dict.hero.tagline;
   const dynamicAmenities = apiData ? apiData.amenities : dict.amenities.items;
 

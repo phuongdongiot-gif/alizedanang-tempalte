@@ -52,8 +52,7 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
           id
           name
           slug
-          hero_desc
-          hero_img
+          hero_data
           location {
             name
           }

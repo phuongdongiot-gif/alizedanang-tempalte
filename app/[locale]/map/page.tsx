@@ -26,7 +26,7 @@ export default async function EcosystemMapPage({ params }: { params: Promise<{ l
         projects {
           id
           name
-          hero_desc
+          hero_data
           lat
           lng
           location {

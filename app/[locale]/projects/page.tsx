@@ -45,8 +45,7 @@ export default async function ProjectsHubPage({ params }: { params: Promise<{ lo
           id
           name
           slug
-          hero_desc
-          hero_img
+          hero_data
           location {
             name
           }

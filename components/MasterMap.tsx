@@ -84,7 +84,7 @@ export default function MasterMap({ properties, projects, locale }: { properties
                 <>
                   <div className="font-bold text-sm leading-tight mb-2 text-gold tracking-widest uppercase text-center bg-jet-black py-1 rounded">SIÊU DỰ ÁN</div>
                   <h3 className="font-serif text-lg font-bold mb-1">{popupInfo.name}</h3>
-                  <p className="text-xs text-gray-700 line-clamp-3 mb-3">{popupInfo.hero_desc}</p>
+                  <p className="text-xs text-gray-700 line-clamp-3 mb-3">{popupInfo.hero_data?.description}</p>
                   <Link href={`/${locale}/alize`} className="block text-center mt-3 bg-jet-black text-gold py-1.5 rounded text-xs hover:bg-gold hover:text-jet-black transition-colors font-bold uppercase tracking-wider">
                     Khám Phá Dự Án
                   </Link>
