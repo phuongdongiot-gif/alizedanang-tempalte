@@ -26,9 +26,9 @@ export default function MasterMap({ properties, projects, locale }: { properties
     return (properties || [])
       .filter(p => p.coordinates)
       .map(p => ({
-        type: 'Feature',
+        type: 'Feature' as const,
         properties: { cluster: false, data: p, id: `prop-${p.id}`, itemType: 'property' },
-        geometry: { type: 'Point', coordinates: [p.coordinates.lng, p.coordinates.lat] }
+        geometry: { type: 'Point' as const, coordinates: [p.coordinates.lng, p.coordinates.lat] }
       }));
   }, [properties]);
 
@@ -92,7 +92,8 @@ export default function MasterMap({ properties, projects, locale }: { properties
         {/* 2. CLUSTERING INDIVIDUAL PROPERTIES */}
         {clusters.map((cluster) => {
           const [longitude, latitude] = cluster.geometry.coordinates;
-          const { cluster: isCluster, point_count: pointCount, data } = cluster.properties;
+          const props = cluster.properties as any;
+          const { cluster: isCluster, point_count: pointCount, data } = props;
 
           if (isCluster) {
             const size = Math.min(40 + (pointCount / points.length) * 30, 70);
@@ -102,8 +103,8 @@ export default function MasterMap({ properties, projects, locale }: { properties
                   className="bg-[#E53935] text-white rounded-full flex items-center justify-center font-bold cursor-pointer border-2 border-white/30 shadow-[0_0_20px_rgba(229,57,53,0.6)] transition-transform hover:scale-110"
                   style={{ width: `${size}px`, height: `${size}px` }}
                   onClick={(e) => {
-                    e.originalEvent.stopPropagation();
-                    const expansionZoom = Math.min(supercluster.getClusterExpansionZoom(cluster.id), 20);
+                    e.stopPropagation();
+                    const expansionZoom = Math.min(supercluster.getClusterExpansionZoom(cluster.id as number), 20);
                     mapRef.current?.flyTo({
                       center: [longitude, latitude],
                       zoom: expansionZoom,

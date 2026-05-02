@@ -27,9 +27,9 @@ export default function PropertyMap({ properties, locale }: { properties: Portal
     return properties
       .filter(p => p.coordinates)
       .map(p => ({
-        type: 'Feature',
+        type: 'Feature' as const,
         properties: { cluster: false, propertyData: p, id: p.id },
-        geometry: { type: 'Point', coordinates: [p.coordinates.lng, p.coordinates.lat] }
+        geometry: { type: 'Point' as const, coordinates: [p.coordinates.lng, p.coordinates.lat] }
       }));
   }, [properties]);
 
@@ -67,7 +67,8 @@ export default function PropertyMap({ properties, locale }: { properties: Portal
 
         {clusters.map((cluster) => {
           const [longitude, latitude] = cluster.geometry.coordinates;
-          const { cluster: isCluster, point_count: pointCount } = cluster.properties;
+          const props = cluster.properties as any;
+          const { cluster: isCluster, point_count: pointCount } = props;
 
           if (isCluster) {
             // Dynamic cluster size based on count
@@ -78,8 +79,8 @@ export default function PropertyMap({ properties, locale }: { properties: Portal
                   className="bg-gold text-jet-black rounded-full flex items-center justify-center font-bold cursor-pointer border-[3px] border-white/30 shadow-[0_0_20px_rgba(212,175,55,0.6)] transition-transform hover:scale-110"
                   style={{ width: `${size}px`, height: `${size}px` }}
                   onClick={(e) => {
-                    e.originalEvent.stopPropagation();
-                    const expansionZoom = Math.min(supercluster.getClusterExpansionZoom(cluster.id), 20);
+                    e.stopPropagation();
+                    const expansionZoom = Math.min(supercluster.getClusterExpansionZoom(cluster.id as number), 20);
                     mapRef.current?.flyTo({
                       center: [longitude, latitude],
                       zoom: expansionZoom,
@@ -93,7 +94,7 @@ export default function PropertyMap({ properties, locale }: { properties: Portal
             );
           }
 
-          const prop = cluster.properties.propertyData;
+          const prop = props.propertyData;
           // Dynamic scale based on zoom for individual markers
           const markerScale = Math.max(0.7, Math.min(1.2, viewState.zoom / 13));
           
