@@ -1,34 +1,73 @@
 "use client";
-import React, { useState } from 'react';
-import Map, { Marker, Popup, NavigationControl } from 'react-map-gl/mapbox';
+import React, { useState, useRef, useMemo } from 'react';
+import Map, { Marker, Popup, NavigationControl, MapRef } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Link from 'next/link';
+import useSupercluster from 'use-supercluster';
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
 
 export default function MasterMap({ properties, projects, locale }: { properties: any[], projects: any[], locale: string }) {
+  const mapRef = useRef<MapRef>(null);
   const [popupInfo, setPopupInfo] = useState<any>(null);
 
-  // Focus to Da Nang by default, or the first Mega Project
   const initialLong = projects.length > 0 && projects[0].lng ? projects[0].lng : 108.2022;
   const initialLat = projects.length > 0 && projects[0].lat ? projects[0].lat : 16.0544;
+
+  const [viewState, setViewState] = useState({
+    longitude: initialLong,
+    latitude: initialLat,
+    zoom: 5.5
+  });
+  const [bounds, setBounds] = useState<[number, number, number, number] | null>(null);
+
+  // Lọc và format dữ liệu cho properties (Chỉ cluster properties nhỏ, projects lớn giữ nguyên)
+  const points = useMemo(() => {
+    return (properties || [])
+      .filter(p => p.coordinates)
+      .map(p => ({
+        type: 'Feature',
+        properties: { cluster: false, data: p, id: `prop-${p.id}`, itemType: 'property' },
+        geometry: { type: 'Point', coordinates: [p.coordinates.lng, p.coordinates.lat] }
+      }));
+  }, [properties]);
+
+  const { clusters, supercluster } = useSupercluster({
+    points,
+    bounds,
+    zoom: viewState.zoom,
+    options: { radius: 75, maxZoom: 20 }
+  });
+
+  const updateBounds = () => {
+    if (mapRef.current) {
+      const mapBounds = mapRef.current.getMap().getBounds();
+      setBounds([
+        mapBounds.getWest(),
+        mapBounds.getSouth(),
+        mapBounds.getEast(),
+        mapBounds.getNorth()
+      ]);
+    }
+  };
 
   return (
     <div className="w-full h-screen relative">
       <Map
-        initialViewState={{
-          longitude: initialLong,
-          latitude: initialLat,
-          zoom: 12
-        }}
+        ref={mapRef}
+        {...viewState}
+        onMove={evt => setViewState(evt.viewState)}
+        onMoveEnd={updateBounds}
+        onLoad={updateBounds}
         mapStyle="mapbox://styles/mapbox/dark-v11"
         mapboxAccessToken={MAPBOX_TOKEN}
       >
         <NavigationControl position="top-right" />
 
-        {/* 1. MAPPING MEGA PROJECTS */}
+        {/* 1. MAPPING MEGA PROJECTS (Luôn hiển thị, điều chỉnh scale theo zoom) */}
         {projects.map((proj) => {
           if (!proj.lat || !proj.lng) return null;
+          const projectScale = Math.max(0.8, Math.min(1.5, viewState.zoom / 6));
           return (
             <Marker
               key={`proj-${proj.id}`}
@@ -40,19 +79,49 @@ export default function MasterMap({ properties, projects, locale }: { properties
                 setPopupInfo({ ...proj, type: 'project' });
               }}
             >
-              <div className="bg-gold text-jet-black px-3 py-1.5 rounded-full text-xs font-bold cursor-pointer hover:bg-white transition-colors shadow-lg shadow-gold/50 flex items-center gap-2 border-2 border-white/20 whitespace-nowrap">
+              <div 
+                className="bg-gold text-jet-black px-3 py-1.5 rounded-full text-xs font-bold cursor-pointer hover:bg-white transition-colors shadow-lg shadow-gold/50 flex items-center gap-2 border-2 border-white/20 whitespace-nowrap"
+                style={{ transform: `scale(${projectScale})`, transformOrigin: 'bottom center' }}
+              >
                 <span>⭐</span> {proj.name}
               </div>
             </Marker>
           );
         })}
 
-        {/* 2. MAPPING INDIVIDUAL PROPERTIES */}
-        {properties && properties.map((prop) => {
-          if (!prop.coordinates) return null;
+        {/* 2. CLUSTERING INDIVIDUAL PROPERTIES */}
+        {clusters.map((cluster) => {
+          const [longitude, latitude] = cluster.geometry.coordinates;
+          const { cluster: isCluster, point_count: pointCount, data } = cluster.properties;
+
+          if (isCluster) {
+            const size = Math.min(40 + (pointCount / points.length) * 30, 70);
+            return (
+              <Marker key={`cluster-${cluster.id}`} longitude={longitude} latitude={latitude} anchor="center">
+                <div
+                  className="bg-[#E53935] text-white rounded-full flex items-center justify-center font-bold cursor-pointer border-2 border-white/30 shadow-[0_0_20px_rgba(229,57,53,0.6)] transition-transform hover:scale-110"
+                  style={{ width: `${size}px`, height: `${size}px` }}
+                  onClick={(e) => {
+                    e.originalEvent.stopPropagation();
+                    const expansionZoom = Math.min(supercluster.getClusterExpansionZoom(cluster.id), 20);
+                    mapRef.current?.flyTo({
+                      center: [longitude, latitude],
+                      zoom: expansionZoom,
+                      duration: 500
+                    });
+                  }}
+                >
+                  {pointCount}
+                </div>
+              </Marker>
+            );
+          }
+
+          const prop = data;
+          const markerScale = Math.max(0.6, Math.min(1.2, viewState.zoom / 10));
           return (
             <Marker
-              key={`prop-${prop.id}`}
+              key={cluster.properties.id}
               longitude={prop.coordinates.lng}
               latitude={prop.coordinates.lat}
               anchor="bottom"
@@ -61,7 +130,10 @@ export default function MasterMap({ properties, projects, locale }: { properties
                 setPopupInfo({ ...prop, type: 'property' });
               }}
             >
-              <div className="bg-[#E53935] text-white px-2 py-1 rounded text-[10px] font-bold cursor-pointer hover:bg-white hover:text-[#E53935] transition-colors shadow-lg">
+              <div 
+                className="bg-[#E53935] text-white px-2 py-1 rounded text-[10px] font-bold cursor-pointer hover:bg-white hover:text-[#E53935] transition-colors shadow-lg"
+                style={{ transform: `scale(${markerScale})`, transformOrigin: 'bottom center' }}
+              >
                 {prop.price}
               </div>
             </Marker>

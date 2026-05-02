@@ -1,36 +1,102 @@
 "use client";
-import React, { useState } from 'react';
-import Map, { Marker, Popup, NavigationControl } from 'react-map-gl/mapbox';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
+import Map, { Marker, Popup, NavigationControl, MapRef } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { PortalProperty } from '../types';
 import Link from 'next/link';
+import useSupercluster from 'use-supercluster';
 
-// You must create an account at mapbox.com and generate a free API key.
-// We use a fallback key to ensure it runs out of the box.
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
 
 export default function PropertyMap({ properties, locale }: { properties: PortalProperty[], locale: string }) {
+  const mapRef = useRef<MapRef>(null);
   const [popupInfo, setPopupInfo] = useState<PortalProperty | null>(null);
 
-  // Calculate generic center based on first property or default to Da Nang
   const initialLongitude = properties.length > 0 && properties[0].coordinates ? properties[0].coordinates.lng : 108.2022;
   const initialLatitude = properties.length > 0 && properties[0].coordinates ? properties[0].coordinates.lat : 16.0544;
+
+  const [viewState, setViewState] = useState({
+    longitude: initialLongitude,
+    latitude: initialLatitude,
+    zoom: 13
+  });
+  const [bounds, setBounds] = useState<[number, number, number, number] | null>(null);
+
+  // Convert properties to GeoJSON for supercluster
+  const points = useMemo(() => {
+    return properties
+      .filter(p => p.coordinates)
+      .map(p => ({
+        type: 'Feature',
+        properties: { cluster: false, propertyData: p, id: p.id },
+        geometry: { type: 'Point', coordinates: [p.coordinates.lng, p.coordinates.lat] }
+      }));
+  }, [properties]);
+
+  const { clusters, supercluster } = useSupercluster({
+    points,
+    bounds,
+    zoom: viewState.zoom,
+    options: { radius: 75, maxZoom: 20 }
+  });
+
+  const updateBounds = () => {
+    if (mapRef.current) {
+      const mapBounds = mapRef.current.getMap().getBounds();
+      setBounds([
+        mapBounds.getWest(),
+        mapBounds.getSouth(),
+        mapBounds.getEast(),
+        mapBounds.getNorth()
+      ]);
+    }
+  };
 
   return (
     <div className="w-full h-full min-h-[600px] rounded-lg overflow-hidden border border-white/10 shadow-2xl relative">
       <Map
-        initialViewState={{
-          longitude: initialLongitude,
-          latitude: initialLatitude,
-          zoom: 11
-        }}
+        ref={mapRef}
+        {...viewState}
+        onMove={evt => setViewState(evt.viewState)}
+        onMoveEnd={updateBounds}
+        onLoad={updateBounds}
         mapStyle="mapbox://styles/mapbox/dark-v11"
         mapboxAccessToken={MAPBOX_TOKEN}
       >
         <NavigationControl position="top-right" />
 
-        {properties.map((prop) => {
-          if (!prop.coordinates) return null;
+        {clusters.map((cluster) => {
+          const [longitude, latitude] = cluster.geometry.coordinates;
+          const { cluster: isCluster, point_count: pointCount } = cluster.properties;
+
+          if (isCluster) {
+            // Dynamic cluster size based on count
+            const size = Math.min(40 + (pointCount / points.length) * 30, 70);
+            return (
+              <Marker key={`cluster-${cluster.id}`} longitude={longitude} latitude={latitude} anchor="center">
+                <div
+                  className="bg-gold text-jet-black rounded-full flex items-center justify-center font-bold cursor-pointer border-[3px] border-white/30 shadow-[0_0_20px_rgba(212,175,55,0.6)] transition-transform hover:scale-110"
+                  style={{ width: `${size}px`, height: `${size}px` }}
+                  onClick={(e) => {
+                    e.originalEvent.stopPropagation();
+                    const expansionZoom = Math.min(supercluster.getClusterExpansionZoom(cluster.id), 20);
+                    mapRef.current?.flyTo({
+                      center: [longitude, latitude],
+                      zoom: expansionZoom,
+                      duration: 500
+                    });
+                  }}
+                >
+                  {pointCount}
+                </div>
+              </Marker>
+            );
+          }
+
+          const prop = cluster.properties.propertyData;
+          // Dynamic scale based on zoom for individual markers
+          const markerScale = Math.max(0.7, Math.min(1.2, viewState.zoom / 13));
+          
           return (
             <Marker
               key={`marker-${prop.id}`}
@@ -42,7 +108,10 @@ export default function PropertyMap({ properties, locale }: { properties: Portal
                 setPopupInfo(prop);
               }}
             >
-              <div className="bg-[#E53935] text-white px-2 py-1 rounded text-xs font-bold cursor-pointer hover:bg-white hover:text-[#E53935] transition-colors shadow-lg group relative">
+              <div 
+                className="bg-[#E53935] text-white px-2 py-1 rounded text-xs font-bold cursor-pointer hover:bg-white hover:text-[#E53935] transition-colors shadow-lg group relative"
+                style={{ transform: `scale(${markerScale})`, transformOrigin: 'bottom center' }}
+              >
                 {prop.price}
                 <div className="absolute bottom-[-6px] left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-t-[6px] border-t-[#E53935] border-r-[6px] border-r-transparent group-hover:border-t-white transition-colors" />
               </div>

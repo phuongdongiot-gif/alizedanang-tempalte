@@ -99,7 +99,7 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
               placeholder={data.hero.searchPlaceholder}
               className="flex-1 bg-transparent border-none text-white px-6 py-4 outline-none placeholder:text-white/50 text-sm font-light"
             />
-            <button type="submit" className="bg-gold text-jet-black px-10 py-4 font-semibold uppercase tracking-widest text-[11px] rounded transition-transform hover:scale-105">
+            <button type="submit" className="text-gold border-b-[3px] border-double border-gold pb-1 font-semibold uppercase tracking-widest text-[11px] hover:text-white hover:border-white transition-colors">
               {data.hero.searchBtn}
             </button>
           </form>
@@ -302,7 +302,7 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
             )}
           </div>
           <div className="mt-12 text-center md:hidden">
-            <Link href={`/${locale}/blog`} className="inline-block border border-gold/40 px-8 py-3 text-gold text-[10px] tracking-widest uppercase hover:bg-gold hover:text-jet-black transition-colors font-light">Xem Tất Cả</Link>
+            <Link href={`/${locale}/blog`} className="inline-block border-b-[3px] border-double border-gold/50 text-gold text-[11px] tracking-widest uppercase hover:border-gold hover:text-white transition-colors font-semibold pb-1">Xem Tất Cả</Link>
           </div>
         </div>
       </section>

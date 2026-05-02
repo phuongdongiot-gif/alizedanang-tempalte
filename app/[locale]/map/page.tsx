@@ -38,14 +38,21 @@ export default async function EcosystemMapPage({ params }: { params: Promise<{ l
           name
           price
           img_url
-          coordinates
+          lat
+          lng
         }
       }
     `);
 
     if (data) {
       projects = data.projects || [];
-      properties = data.properties || [];
+      properties = (data.properties || []).map((p: any) => ({
+        ...p,
+        coordinates: {
+          lat: p.lat || 16.0544,
+          lng: p.lng || 108.2022
+        }
+      }));
     }
   } catch (error) {
     console.warn("Lỗi kéo dữ liệu Ecosystem Map:", error);

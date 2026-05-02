@@ -145,6 +145,27 @@ export interface PortalProperty {
   img: string;
   gallery: string[];
   coordinates: { lat: number; lng: number };
+  
+  // Extended Batdongsan features
+  features?: {
+    legal_status?: string;
+    furniture?: string;
+    house_direction?: string;
+    balcony_direction?: string;
+    floors?: number;
+    frontage?: number;
+    entrance_width?: number;
+  };
+  agent?: {
+    name?: string;
+    phone?: string;
+    zalo?: string;
+    avatar?: string;
+  };
+  media?: {
+    video_url?: string;
+    tour_3d_url?: string;
+  };
 }
 
 export interface PortalData {

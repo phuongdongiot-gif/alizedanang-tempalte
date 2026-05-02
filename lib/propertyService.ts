@@ -146,8 +146,8 @@ export async function getProperties(locale: string): Promise<PortalProperty[]> {
         propertyCategory: item.property_category || 'apartments',
         isNew: item.is_new || false,
         name: item.name,
-        projectId: 'alize',
-        projectName: 'Được tải từ GraphQL API',
+        projectId: item.project_id || 'alize',
+        projectName: item.project_name || 'Được tải từ GraphQL API',
         price: item.price || 'Liên hệ',
         priceNum: item.price_num || 0,
         location: item.location || 'Đang cập nhật',
@@ -161,7 +161,26 @@ export async function getProperties(locale: string): Promise<PortalProperty[]> {
         desc: item.description || 'Truy xuất trực tiếp từ cổng Backend GraphQL.',
         img: item.img_url || '',
         gallery: item.gallery || [],
-        coordinates: { lat: 16.0544, lng: 108.2022 } // Da Nang center
+        coordinates: { lat: item.lat || 16.0544, lng: item.lng || 108.2022 }, // Fallback to Da Nang center
+        features: {
+          legal_status: item.legal_status,
+          furniture: item.furniture,
+          house_direction: item.house_direction,
+          balcony_direction: item.balcony_direction,
+          floors: item.floors,
+          frontage: item.frontage,
+          entrance_width: item.entrance_width,
+        },
+        agent: {
+          name: item.agent_name,
+          phone: item.agent_phone,
+          zalo: item.agent_zalo,
+          avatar: item.agent_avatar,
+        },
+        media: {
+          video_url: item.video_url,
+          tour_3d_url: item.tour_3d_url,
+        }
       }));
     } else {
       console.log("GraphQL chạy thành công nhưng trả về null/empty:", res);

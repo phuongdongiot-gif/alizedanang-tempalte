@@ -34,30 +34,30 @@ export default function ToolsPage({ params }: { params: Promise<{ locale: string
         <div className="flex flex-wrap justify-center gap-2 mb-12 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
           <button
             onClick={() => setActiveTab("mortgage")}
-            className={`px-6 py-3 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300 ${
+            className={`px-6 pb-2 border-b-[3px] border-double text-sm uppercase tracking-wider font-medium transition-all duration-300 ${
               activeTab === "mortgage" 
-                ? "bg-gold text-black shadow-[0_0_20px_rgba(212,175,55,0.4)]" 
-                : "bg-white/5 text-gray-400 hover:text-white hover:bg-white/10"
+                ? "border-gold text-gold" 
+                : "border-transparent text-gray-400 hover:text-white hover:border-white/30"
             }`}
           >
             {t.tabs.mortgage}
           </button>
           <button
             onClick={() => setActiveTab("yield")}
-            className={`px-6 py-3 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300 ${
+            className={`px-6 pb-2 border-b-[3px] border-double text-sm uppercase tracking-wider font-medium transition-all duration-300 ${
               activeTab === "yield" 
-                ? "bg-gold text-black shadow-[0_0_20px_rgba(212,175,55,0.4)]" 
-                : "bg-white/5 text-gray-400 hover:text-white hover:bg-white/10"
+                ? "border-gold text-gold" 
+                : "border-transparent text-gray-400 hover:text-white hover:border-white/30"
             }`}
           >
             {t.tabs.yield}
           </button>
           <button
             onClick={() => setActiveTab("tax")}
-            className={`px-6 py-3 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300 ${
+            className={`px-6 pb-2 border-b-[3px] border-double text-sm uppercase tracking-wider font-medium transition-all duration-300 ${
               activeTab === "tax" 
-                ? "bg-gold text-black shadow-[0_0_20px_rgba(212,175,55,0.4)]" 
-                : "bg-white/5 text-gray-400 hover:text-white hover:bg-white/10"
+                ? "border-gold text-gold" 
+                : "border-transparent text-gray-400 hover:text-white hover:border-white/30"
             }`}
           >
             {t.tabs.tax}

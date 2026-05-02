@@ -22,7 +22,7 @@ export default function BlogCard({ id, slug, title, excerpt, date, imageUrl, loc
         <span className="text-gold text-[10px] uppercase font-bold tracking-widest mb-4">{date}</span>
         <Link href={`/${locale}/blog/${slug}`} dangerouslySetInnerHTML={{ __html: title }} className="font-serif text-2xl font-light mb-4 line-clamp-2 hover:text-gold transition-colors" />
         <p className="text-sm font-light text-champagne/60 line-clamp-3 mb-8" dangerouslySetInnerHTML={{ __html: excerpt }}></p>
-        <Link href={`/${locale}/blog/${slug}`} className="mt-auto border border-gold/40 text-center py-4 text-gold text-[10px] uppercase tracking-widest hover:bg-gold hover:text-jet-black transition-colors">
+        <Link href={`/${locale}/blog/${slug}`} className="mt-auto border-b-[3px] border-double border-gold/40 text-center pb-2 pt-4 text-gold text-[10px] uppercase tracking-widest hover:border-gold hover:text-white transition-colors">
           {readMoreBtnText}
         </Link>
       </div>

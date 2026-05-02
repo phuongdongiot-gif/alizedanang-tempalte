@@ -74,6 +74,8 @@ export const GET_PROPERTIES_QUERY = `
       property_category
       is_new
       name
+      project_id
+      project_name
       price
       price_num
       location
@@ -81,7 +83,24 @@ export const GET_PROPERTIES_QUERY = `
       baths
       area
       area_num
+      description
       img_url
+      gallery
+      legal_status
+      furniture
+      house_direction
+      balcony_direction
+      floors
+      frontage
+      entrance_width
+      agent_name
+      agent_phone
+      agent_zalo
+      agent_avatar
+      video_url
+      tour_3d_url
+      lat
+      lng
     }
   }
 `;

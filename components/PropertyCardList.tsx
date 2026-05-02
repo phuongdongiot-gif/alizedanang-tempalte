@@ -85,10 +85,10 @@ export default function PropertyCardList({ property, locale }: { property: Porta
                  </div>
               </div>
               <div className="flex gap-2">
-                 <button className="px-4 py-2 border border-gold border-opacity-50 text-gold text-xs rounded hover:bg-gold hover:text-jet-black transition-colors">
+                 <button className="border-b-[3px] border-double border-gold/50 text-gold text-xs uppercase tracking-widest pb-1 hover:border-gold hover:text-white transition-all">
                     Zalo
                  </button>
-                 <button className="px-4 py-2 bg-white/10 text-white text-xs rounded hover:bg-white/20 transition-colors">
+                 <button className="border-b-[3px] border-double border-white/30 text-white text-xs uppercase tracking-widest pb-1 hover:border-white transition-all">
                     Gọi: 090 123 4567
                  </button>
               </div>
