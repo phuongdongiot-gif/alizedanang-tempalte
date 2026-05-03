@@ -87,7 +87,7 @@ export default async function ProjectsHubPage({ params }: { params: Promise<{ lo
         {/* PROJECTS GRID */}
         <section className="py-24 max-w-[1400px] mx-auto px-6 lg:px-12">
           {dynamicProjects.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-12">
               {dynamicProjects.map((project: any, idx: number) => (
                 <div key={idx} className="animate-fade-in-up" style={{ animationDelay: `${(idx + 1) * 150}ms` }}>
                   <HoverVideoCard project={project} dict={data.card} locale={locale} />
