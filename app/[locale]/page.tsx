@@ -44,6 +44,7 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
   // Fetch recent properties for the new section
   const recentProperties = await getProperties(locale);
   const featuredProperties = recentProperties.slice(0, 12); // Fetch up to 12 to enable carousel
+  const featuredApartments = recentProperties.filter(p => p.propertyCategory === 'apartments').slice(0, 12);
 
   try {
     const data: any = await fetchGraphQL(`
@@ -103,6 +104,67 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
               {data.hero.searchBtn}
             </button>
           </form>
+        </div>
+      </section>
+
+      {/* FEATURED APARTMENTS */}
+      <section className="py-24 bg-[#05070A]">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+          <div className="mb-12 flex justify-between items-end">
+            <div>
+              <span className="block text-gold text-[10px] tracking-[0.4em] uppercase font-light mb-4">
+                {locale === 'vi' ? 'Căn hộ cao cấp' : 'Luxury Apartments'}
+              </span>
+              <h2 className="font-serif text-3xl md:text-4xl text-white font-light tracking-tight">
+                {locale === 'vi' ? 'Căn Hộ Nổi Bật' : 'Featured Apartments'}
+              </h2>
+            </div>
+            <Link href={`/${locale}/apartments`} className="hidden md:inline-block border-b border-gold/50 text-gold text-sm tracking-widest uppercase pb-1 hover:border-gold transition-colors font-light">
+              {locale === 'vi' ? 'Xem Tất Cả' : 'View All'}
+            </Link>
+          </div>
+
+          <style>{`
+            .hide-scrollbar::-webkit-scrollbar { display: none; }
+            .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+          `}</style>
+          
+          <div className="grid grid-rows-1 md:grid-rows-2 grid-flow-col gap-6 overflow-x-auto pb-6 snap-x snap-mandatory hide-scrollbar auto-cols-[85vw] sm:auto-cols-[300px] lg:auto-cols-[calc(25%-1.125rem)]">
+            {featuredApartments && featuredApartments.length > 0 ? (
+              featuredApartments.map((prop, idx) => {
+                const imgUrl = prop.img || (prop.gallery && prop.gallery.length > 0 ? prop.gallery[0] : '/images/can-ho-view-bien-my-khe-alize.webp');
+                return (
+                  <Link href={`/${locale}/apartments/${prop.id}`} key={idx} className="group snap-start flex flex-col bg-charcoal/20 border border-white/5 rounded-md overflow-hidden hover:border-gold/30 transition-all h-full shadow-lg">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden">
+                       <div className="absolute top-3 left-3 z-10 flex flex-col gap-2">
+                          <div className="bg-[#4CAF50] text-white text-[9px] uppercase tracking-widest font-bold px-2 py-1 rounded shadow-lg w-fit">XÁC THỰC</div>
+                          {prop.isNew && <div className="bg-[#E53935] text-white text-[9px] uppercase tracking-widest font-bold px-2 py-1 rounded shadow-lg w-fit">MỚI</div>}
+                       </div>
+                       <img loading="lazy" src={imgUrl} className="w-full h-full object-cover filter brightness-90 group-hover:scale-105 transition-transform duration-700" alt={prop.name} />
+                    </div>
+                    <div className="p-5 flex flex-col flex-1 justify-between">
+                      <div>
+                        <h3 className="font-serif text-lg text-white group-hover:text-gold transition-colors font-light line-clamp-2 leading-snug">{prop.name}</h3>
+                        <p className="text-[11px] text-champagne/60 mt-2 truncate">{prop.location}</p>
+                      </div>
+                      <div className="flex flex-col gap-3 mt-4 border-t border-white/5 pt-4">
+                        <div className="text-[#E53935] font-bold text-base line-clamp-1">{prop.price}</div>
+                        <div className="flex items-center gap-4 text-xs text-white/80">
+                          <span>{prop.specs?.area}</span>
+                          <span className="flex items-center"><span className="text-champagne/50 mr-1 text-[9px]">PN</span> {prop.specs?.beds}</span>
+                          <span className="flex items-center"><span className="text-champagne/50 mr-1 text-[9px]">WC</span> {prop.specs?.baths}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })
+            ) : (
+              <div className="col-span-full py-10 text-center text-champagne/50 font-light">
+                {locale === 'vi' ? 'Chưa có căn hộ nào.' : 'No apartments found.'}
+              </div>
+            )}
+          </div>
         </div>
       </section>
 

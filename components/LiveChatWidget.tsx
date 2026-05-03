@@ -222,18 +222,28 @@ export default function LiveChatWidget() {
       {/* Nút Bong bóng Chat */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-gold rounded-full flex items-center justify-center shadow-2xl hover:scale-105 transition-transform"
+        className="w-12 h-12 bg-gradient-to-tr from-gold to-[#F5D061] rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(212,175,55,0.4)] hover:scale-105 hover:shadow-[0_6px_25px_rgba(212,175,55,0.6)] transition-all duration-300 relative group z-50"
       >
-        {isOpen ? <X className="text-jet-black" size={24} /> : <MessageCircle className="text-jet-black" size={28} />}
+        {isOpen ? (
+          <X className="text-jet-black group-hover:rotate-90 transition-transform duration-300" size={22} />
+        ) : (
+          <>
+            <MessageCircle className="text-jet-black group-hover:scale-110 transition-transform duration-300" size={24} />
+            <span className="absolute top-0 right-0 flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500 border-2 border-gold rounded-full"></span>
+            </span>
+          </>
+        )}
       </button>
 
       {/* Cửa sổ Chat */}
       <div 
-        className={`absolute bottom-20 right-0 w-[350px] bg-jet-black border border-white/10 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 transform origin-bottom-right ${
-          isOpen ? "scale-100 opacity-100 visible" : "scale-90 opacity-0 invisible"
+        className={`absolute bottom-16 right-0 w-[320px] bg-jet-black/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-300 transform origin-bottom-right ${
+          isOpen ? "scale-100 opacity-100 visible translate-y-0" : "scale-95 opacity-0 invisible translate-y-2 pointer-events-none"
         }`}
       >
-        <div className="bg-[#1A1A1A] p-4 flex items-center gap-3 border-b border-white/5">
+        <div className="bg-[#1A1A1A]/90 backdrop-blur-sm p-4 flex items-center gap-3 border-b border-white/5">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
           <div>
             <h3 className="text-white font-semibold text-sm">Chuyên viên Tư Vấn</h3>

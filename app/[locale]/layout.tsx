@@ -3,6 +3,9 @@ import "../globals.css";
 import { getDictionary } from '../../dictionaries';
 import { Metadata } from 'next';
 import LiveChatWidget from '../../components/LiveChatWidget';
+import StoreShell from '../../components/StoreShell';
+
+export const dynamic = 'force-dynamic';
 
 const inter = Inter({ subsets: ["latin", "vietnamese"], variable: '--font-sans' });
 const playfair = Playfair_Display({ subsets: ["latin", "vietnamese"], variable: '--font-serif', style: ['normal', 'italic'] });
@@ -13,7 +16,6 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  // Lấy ra URL base
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alizedanang.net';
   
   return {
@@ -40,9 +42,12 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`scroll-smooth ${inter.variable} ${playfair.variable}`}>
       <body className="bg-jet-black text-pearl-white font-sans antialiased selection:bg-gold selection:text-jet-black overflow-x-hidden min-h-screen">
-        {children}
+        <StoreShell locale={locale}>
+          {children}
+        </StoreShell>
         <LiveChatWidget />
       </body>
     </html>
   );
 }
+

@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getProperties } from '../lib/propertyService';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 86400; // Cache the sitemap for 24 hours (86400 seconds) to ensure high speed & save resources
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
