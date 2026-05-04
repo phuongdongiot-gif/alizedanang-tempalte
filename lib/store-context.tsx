@@ -87,7 +87,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
   const fetchCustomer = async (t: string) => {
     try {
-      const res = await fetch(`${MEDUSA_URL}/store/customers/me`, {
+      const res = await fetch(`/api/medusa/store/customers/me`, {
         headers: { Authorization: `Bearer ${t}` },
       });
       if (res.ok) {
@@ -103,7 +103,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const login = async (email: string, password: string) => {
     setAuthLoading(true);
     try {
-      const res = await fetch(`${MEDUSA_URL}/auth/customer/emailpass`, {
+      const res = await fetch(`/api/medusa/auth/customer/emailpass`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -126,7 +126,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     setAuthLoading(true);
     try {
       // Bước 1: Tạo auth credentials
-      const authRes = await fetch(`${MEDUSA_URL}/auth/customer/emailpass/register`, {
+      const authRes = await fetch(`/api/medusa/auth/customer/emailpass/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: data.email, password: data.password }),
@@ -138,7 +138,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       const { token: t } = await authRes.json();
 
       // Bước 2: Tạo profile khách hàng
-      const profileRes = await fetch(`${MEDUSA_URL}/store/customers`, {
+      const profileRes = await fetch(`/api/medusa/store/customers`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${t}` },
         body: JSON.stringify({ email: data.email, first_name: data.first_name, last_name: data.last_name, phone: data.phone }),
