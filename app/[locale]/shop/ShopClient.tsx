@@ -10,19 +10,20 @@ function formatPrice(amount: number) {
 interface Product {
   id: string;
   title: string;
+  handle?: string;
   description: string;
   thumbnail: string | null;
   variants: { id: string; title: string; prices: { amount: number; currency_code: string }[] }[];
   categories: { id: string; name: string }[];
 }
 
-function ProductCard({ product, onAdd }: { product: Product; onAdd: (product: Product, variant: any) => void }) {
+function ProductCard({ product, onAdd, locale }: { product: Product; onAdd: (product: Product, variant: any) => void; locale: string }) {
   const [selectedVariant, setSelectedVariant] = useState(product.variants?.[0]);
   const price = selectedVariant?.prices?.find((p: any) => p.currency_code === "vnd");
 
   return (
     <div className="group bg-[#0A0C10] border border-white/5 hover:border-gold/30 rounded-2xl overflow-hidden transition-all flex flex-col">
-      <div className="relative aspect-[4/3] bg-white/5">
+      <a href={`/${locale}/shop/${product.handle || product.id}`} className="relative aspect-[4/3] bg-white/5 block">
         {product.thumbnail ? (
           <img src={product.thumbnail} alt={product.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-90" />
         ) : (
@@ -33,9 +34,11 @@ function ProductCard({ product, onAdd }: { product: Product; onAdd: (product: Pr
             {product.categories[0].name}
           </span>
         )}
-      </div>
+      </a>
       <div className="p-5 flex flex-col flex-1">
-        <h3 className="text-white font-medium text-sm line-clamp-2 mb-2 group-hover:text-gold transition-colors">{product.title}</h3>
+        <a href={`/${locale}/shop/${product.handle || product.id}`}>
+          <h3 className="text-white font-medium text-sm line-clamp-2 mb-2 group-hover:text-gold transition-colors">{product.title}</h3>
+        </a>
         {product.description && <p className="text-white/40 text-xs line-clamp-2 mb-3">{product.description}</p>}
         {product.variants?.length > 1 && (
           <div className="flex flex-wrap gap-1.5 mb-3">
@@ -94,7 +97,7 @@ export default function ShopClient({ initialProducts, isOffline, locale }: { ini
           <>
             <p className="text-white/40 text-sm mb-6">{filtered.length} sản phẩm</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filtered.map(p => <ProductCard key={p.id} product={p} onAdd={handleAdd} />)}
+              {filtered.map(p => <ProductCard key={p.id} product={p} onAdd={handleAdd} locale={locale} />)}
             </div>
           </>
         )}
