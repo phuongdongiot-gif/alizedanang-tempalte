@@ -13,6 +13,7 @@ export default function PostListingPage({ params }: { params: Promise<{ locale: 
   const [locale, setLocale] = React.useState("vi");
   const { customer, setAuthModalOpen, setAuthMode } = useStore();
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [images, setImages] = useState<File[]>([]);
   const [form, setForm] = useState({
     title: "", description: "", price: "", area: "", beds: "", baths: "",
     address: "", district: "", city: "Đà Nẵng",
@@ -29,11 +30,59 @@ export default function PostListingPage({ params }: { params: Promise<{ locale: 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    // Gửi tin đăng lên NestJS backend
+    
     try {
-      await new Promise(r => setTimeout(r, 1500)); // Simulate API call
+      const baseUrl = process.env.NEXT_PUBLIC_GRAPHQL_URL?.replace('/graphql', '') || "http://localhost:3001";
+      
+      // 1. Upload images
+      const galleryUrls: string[] = [];
+      for (const file of images) {
+        const formData = new FormData();
+        formData.append("file", file);
+        
+        const uploadRes = await fetch(`${baseUrl}/upload/image`, {
+          method: "POST",
+          body: formData,
+        });
+        const uploadData = await uploadRes.json();
+        if (uploadData.success && uploadData.url) {
+          galleryUrls.push(uploadData.url);
+        }
+      }
+
+      // 2. Submit post
+      const submitData = {
+        name: form.title,
+        description: form.description,
+        price: form.price,
+        price_num: parseInt(form.price.replace(/\D/g, "")) || 0,
+        area: form.area,
+        area_num: parseFloat(form.area) || 0,
+        beds: parseInt(form.beds) || 0,
+        baths: parseInt(form.baths) || 0,
+        location: `${form.address ? form.address + ", " : ""}${form.district}, ${form.city}`,
+        property_category: form.property_type,
+        transaction_type: form.transaction_type,
+        agent_name: form.contact_name,
+        agent_phone: form.contact_phone,
+        gallery: galleryUrls,
+        img_url: galleryUrls[0] || null, // First image as thumbnail
+      };
+
+      const res = await fetch(`${baseUrl}/api/properties`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(submitData),
+      });
+
+      if (!res.ok) throw new Error("Failed to post listing");
+      
       setStatus("success");
-    } catch {
+      setImages([]); // Reset images
+    } catch (err) {
+      console.error(err);
       setStatus("idle");
     }
   };
@@ -176,7 +225,47 @@ export default function PostListingPage({ params }: { params: Promise<{ locale: 
             </div>
           </div>
 
-          {/* Section 4: Contact */}
+          {/* Section 4: Images */}
+          <div className="bg-[#0A0C10] border border-white/5 rounded-2xl p-6 space-y-4">
+            <h2 className="text-white font-medium flex items-center gap-2 mb-4"><Image size={16} className="text-gold" /> Hình Ảnh Bất Động Sản</h2>
+            <div>
+              <label className="text-white/40 text-xs block mb-1.5">Tải lên hình ảnh (Tối đa 10 ảnh)</label>
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center justify-center w-full">
+                  <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-32 border-2 border-white/10 border-dashed rounded-lg cursor-pointer bg-white/5 hover:bg-white/10 hover:border-gold/50 transition-all">
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                      <Image className="w-8 h-8 mb-3 text-gold" />
+                      <p className="mb-2 text-sm text-white/60"><span className="font-semibold text-gold">Nhấn để tải lên</span> hoặc kéo thả</p>
+                      <p className="text-xs text-white/40">PNG, JPG, JPEG (Tối đa 5MB/ảnh)</p>
+                    </div>
+                    <input id="dropzone-file" type="file" className="hidden" multiple accept="image/png, image/jpeg, image/jpg" onChange={(e) => {
+                      if (e.target.files) {
+                        const filesArray = Array.from(e.target.files);
+                        setImages(prev => [...prev, ...filesArray]);
+                      }
+                    }} />
+                  </label>
+                </div>
+                
+                {/* Image Previews */}
+                {images.length > 0 && (
+                  <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3 mt-2">
+                    {images.map((img, idx) => (
+                      <div key={idx} className="relative aspect-square rounded-lg overflow-hidden border border-white/10 group">
+                        <img src={URL.createObjectURL(img)} alt={`preview-${idx}`} className="w-full h-full object-cover" />
+                        <button type="button" onClick={() => setImages(images.filter((_, i) => i !== idx))}
+                          className="absolute top-1 right-1 w-6 h-6 bg-red-500/80 text-white rounded-full flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                          X
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Section 5: Contact */}
           <div className="bg-[#0A0C10] border border-white/5 rounded-2xl p-6 space-y-4">
             <h2 className="text-white font-medium flex items-center gap-2 mb-4"><Phone size={16} className="text-gold" /> Thông Tin Liên Hệ</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
