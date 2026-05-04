@@ -88,7 +88,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const fetchCustomer = async (t: string) => {
     try {
       const res = await fetch(`/api/medusa/store/customers/me`, {
-        headers: { Authorization: `Bearer ${t}` },
+        headers: { 
+          Authorization: `Bearer ${t}`,
+          "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
+        },
       });
       if (res.ok) {
         const { customer } = await res.json();
@@ -105,7 +108,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     try {
       const res = await fetch(`/api/medusa/auth/customer/emailpass`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
+        },
         body: JSON.stringify({ email, password }),
       });
       if (!res.ok) {
@@ -128,7 +134,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       // Bước 1: Tạo auth credentials
       const authRes = await fetch(`/api/medusa/auth/customer/emailpass/register`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
+        },
         body: JSON.stringify({ email: data.email, password: data.password }),
       });
       if (!authRes.ok) {
@@ -140,7 +149,11 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       // Bước 2: Tạo profile khách hàng
       const profileRes = await fetch(`/api/medusa/store/customers`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${t}` },
+        headers: { 
+          "Content-Type": "application/json", 
+          Authorization: `Bearer ${t}`,
+          "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
+        },
         body: JSON.stringify({ email: data.email, first_name: data.first_name, last_name: data.last_name, phone: data.phone }),
       });
       if (!profileRes.ok) {
