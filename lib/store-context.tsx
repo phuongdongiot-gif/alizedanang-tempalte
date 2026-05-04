@@ -17,6 +17,7 @@ interface Customer {
   first_name: string;
   last_name: string;
   phone?: string;
+  metadata?: Record<string, any>;
 }
 
 interface StoreContextType {

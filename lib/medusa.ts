@@ -45,18 +45,31 @@ export async function getCurrentCustomer(token: string) {
 
 /** Helper: Lấy danh sách sản phẩm */
 export async function getProducts(params?: { limit?: number; offset?: number; category_id?: string[] }) {
-  const { products, count } = await medusa.store.product.list({
-    limit: params?.limit || 12,
-    offset: params?.offset || 0,
-    ...(params?.category_id ? { category_id: params.category_id } : {}),
+  const url = new URL(`${MEDUSA_URL}/store/products`);
+  url.searchParams.append("limit", (params?.limit || 12).toString());
+  url.searchParams.append("offset", (params?.offset || 0).toString());
+  if (params?.category_id) {
+    params.category_id.forEach(id => url.searchParams.append("category_id[]", id));
+  }
+  
+  const res = await fetch(url.toString(), {
+    headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" }
   });
-  return { products, count };
+  
+  if (!res.ok) {
+    return { products: [], count: 0 };
+  }
+  return res.json();
 }
 
 /** Helper: Lấy chi tiết 1 sản phẩm */
 export async function getProduct(id: string) {
-  const { product } = await medusa.store.product.retrieve(id);
-  return product;
+  const res = await fetch(`${MEDUSA_URL}/store/products/${id}`, {
+    headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" }
+  });
+  if (!res.ok) return null;
+  const data = await res.json();
+  return data.product;
 }
 
 /** Helper: Tạo đặt lịch dịch vụ */
@@ -85,5 +98,37 @@ export async function createBooking(data: {
     const err = await res.json();
     throw new Error(err.error || "Lỗi đặt lịch");
   }
+  return res.json();
+}
+
+/** Helper: Lấy danh sách đơn hàng của khách hàng (Cần Token) */
+export async function getCustomerOrders(token: string) {
+  const res = await fetch(`${MEDUSA_URL}/store/customers/me/orders`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) return { orders: [] };
+  return res.json();
+}
+
+/** Helper: Lấy danh sách lịch hẹn của khách hàng (Cần Token) */
+export async function getCustomerBookings(token: string) {
+  const res = await fetch(`${MEDUSA_URL}/store/bookings`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) return { bookings: [] };
+  return res.json();
+}
+
+/** Helper: Cập nhật metadata khách hàng (ví dụ: lưu Wishlist) */
+export async function updateCustomerMetadata(token: string, metadata: any) {
+  const res = await fetch(`${MEDUSA_URL}/store/customers/me`, {
+    method: "POST",
+    headers: { 
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}` 
+    },
+    body: JSON.stringify({ metadata })
+  });
+  if (!res.ok) throw new Error("Cập nhật thông tin thất bại");
   return res.json();
 }

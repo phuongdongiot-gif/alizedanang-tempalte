@@ -4,14 +4,39 @@ import { useStore } from "../../../lib/store-context";
 import PortalHeader from "../../../components/PortalHeader";
 import PortalFooter from "../../../components/PortalFooter";
 import { getDictionary } from "../../../dictionaries";
-import { User, Mail, Phone, LogOut, ShoppingBag, CalendarCheck, Lock, Loader2, CheckCircle2 } from "lucide-react";
+import { User, Mail, Phone, LogOut, ShoppingBag, CalendarCheck, Lock, Loader2, CheckCircle2, Heart } from "lucide-react";
+import { getCustomerOrders, getCustomerBookings } from "../../../lib/medusa";
 
 export default function AccountPage({ params }: { params: Promise<{ locale: string }> }) {
   const [locale, setLocale] = React.useState("vi");
   const { customer, logout, token, setAuthModalOpen, setAuthMode } = useStore();
-  const [tab, setTab] = useState<"profile" | "orders" | "bookings">("profile");
+  const [tab, setTab] = useState<"profile" | "orders" | "bookings" | "wishlist">("profile");
+
+  const [orders, setOrders] = useState<any[]>([]);
+  const [bookings, setBookings] = useState<any[]>([]);
+  const [loadingData, setLoadingData] = useState(false);
 
   React.useEffect(() => { params.then(({ locale: l }) => setLocale(l)); }, [params]);
+
+  React.useEffect(() => {
+    if (!token) return;
+    const loadData = async () => {
+      setLoadingData(true);
+      try {
+        if (tab === "orders" && orders.length === 0) {
+          const res = await getCustomerOrders(token);
+          if (res.orders) setOrders(res.orders);
+        } else if (tab === "bookings" && bookings.length === 0) {
+          const res = await getCustomerBookings(token);
+          if (res.bookings) setBookings(res.bookings);
+        }
+      } catch (e) {
+        console.error("Error loading tab data", e);
+      }
+      setLoadingData(false);
+    };
+    loadData();
+  }, [tab, token]);
   const dict = getDictionary(locale);
 
   if (!customer) {
@@ -59,14 +84,15 @@ export default function AccountPage({ params }: { params: Promise<{ locale: stri
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-white/10 mb-8">
+        <div className="flex border-b border-white/10 mb-8 overflow-x-auto hide-scrollbar">
           {[
             { key: "profile", label: "Thông Tin", icon: User },
             { key: "orders", label: "Đơn Hàng", icon: ShoppingBag },
             { key: "bookings", label: "Đặt Lịch", icon: CalendarCheck },
+            { key: "wishlist", label: "Yêu Thích", icon: Heart },
           ].map(t => (
             <button key={t.key} onClick={() => setTab(t.key as any)}
-              className={`flex items-center gap-2 px-6 py-3 text-sm transition-colors border-b-2 -mb-px ${tab === t.key ? "border-gold text-gold" : "border-transparent text-white/40 hover:text-white"}`}>
+              className={`flex items-center gap-2 px-6 py-3 text-sm transition-colors border-b-2 whitespace-nowrap -mb-px ${tab === t.key ? "border-gold text-gold" : "border-transparent text-white/40 hover:text-white"}`}>
               <t.icon size={15} /> {t.label}
             </button>
           ))}
@@ -97,18 +123,98 @@ export default function AccountPage({ params }: { params: Promise<{ locale: stri
         )}
 
         {tab === "orders" && (
-          <div className="text-center py-20 bg-[#0A0C10] border border-white/5 rounded-2xl">
-            <ShoppingBag size={48} className="text-white/10 mx-auto mb-3" />
-            <p className="text-white/40 text-sm">Chưa có đơn hàng nào</p>
-            <a href={`/${locale}/shop`} className="inline-block mt-4 text-gold text-sm border-b border-gold/40 hover:border-gold">Khám phá cửa hàng</a>
+          <div className="bg-[#0A0C10] border border-white/5 rounded-2xl p-6 min-h-[300px]">
+            <h2 className="text-white font-serif text-lg mb-6">Lịch Sử Đơn Hàng</h2>
+            {loadingData ? (
+              <div className="flex justify-center py-10"><Loader2 className="animate-spin text-gold" /></div>
+            ) : orders.length > 0 ? (
+              <div className="space-y-4">
+                {orders.map((order: any) => (
+                  <div key={order.id} className="border border-white/10 rounded-xl p-5 hover:border-white/20 transition-colors">
+                    <div className="flex justify-between items-center mb-3 border-b border-white/5 pb-3">
+                      <div>
+                        <p className="text-white text-sm font-semibold">Đơn hàng #{order.display_id}</p>
+                        <p className="text-white/40 text-xs mt-1">{new Date(order.created_at).toLocaleDateString("vi-VN")}</p>
+                      </div>
+                      <div className="text-right">
+                        <span className={`text-[10px] uppercase tracking-widest px-2 py-1 rounded ${order.status === 'completed' ? 'bg-green-500/20 text-green-400' : 'bg-gold/20 text-gold'}`}>
+                          {order.status || 'Đang xử lý'}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-end">
+                      <div className="text-sm text-white/60">
+                        {order.items?.length || 0} sản phẩm
+                      </div>
+                      <div className="text-gold font-bold">
+                        {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(order.total || 0)}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <ShoppingBag size={48} className="text-white/10 mx-auto mb-3" />
+                <p className="text-white/40 text-sm">Chưa có đơn hàng nào</p>
+                <a href={`/${locale}/shop`} className="inline-block mt-4 text-gold text-sm border-b border-gold/40 hover:border-gold transition-colors">Khám phá cửa hàng</a>
+              </div>
+            )}
           </div>
         )}
 
         {tab === "bookings" && (
-          <div className="text-center py-20 bg-[#0A0C10] border border-white/5 rounded-2xl">
-            <CalendarCheck size={48} className="text-white/10 mx-auto mb-3" />
-            <p className="text-white/40 text-sm">Chưa có lịch hẹn nào</p>
-            <a href={`/${locale}/services`} className="inline-block mt-4 text-gold text-sm border-b border-gold/40 hover:border-gold">Đặt lịch dịch vụ</a>
+          <div className="bg-[#0A0C10] border border-white/5 rounded-2xl p-6 min-h-[300px]">
+            <h2 className="text-white font-serif text-lg mb-6">Lịch Hẹn Của Tôi</h2>
+            {loadingData ? (
+              <div className="flex justify-center py-10"><Loader2 className="animate-spin text-gold" /></div>
+            ) : bookings.length > 0 ? (
+              <div className="space-y-4">
+                {bookings.map((b: any) => (
+                  <div key={b.id} className="border border-white/10 rounded-xl p-5 hover:border-white/20 transition-colors">
+                    <div className="flex justify-between items-center mb-3">
+                      <div className="flex items-center gap-2">
+                        <CalendarCheck size={16} className="text-gold" />
+                        <span className="text-white font-semibold text-sm capitalize">{b.service_type || 'Dịch vụ'}</span>
+                      </div>
+                      <span className="text-[10px] uppercase tracking-widest px-2 py-1 rounded bg-blue-500/20 text-blue-400">
+                        {b.status || 'Chờ xác nhận'}
+                      </span>
+                    </div>
+                    <p className="text-white/60 text-xs mb-1">Ngày: {b.scheduled_date} {b.scheduled_time}</p>
+                    {b.property_name && <p className="text-white/60 text-xs">Dự án: {b.property_name}</p>}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <CalendarCheck size={48} className="text-white/10 mx-auto mb-3" />
+                <p className="text-white/40 text-sm">Chưa có lịch hẹn nào</p>
+                <a href={`/${locale}/services`} className="inline-block mt-4 text-gold text-sm border-b border-gold/40 hover:border-gold transition-colors">Đặt lịch dịch vụ</a>
+              </div>
+            )}
+          </div>
+        )}
+
+        {tab === "wishlist" && (
+          <div className="bg-[#0A0C10] border border-white/5 rounded-2xl p-6 min-h-[300px]">
+            <h2 className="text-white font-serif text-lg mb-6">Danh Sách Yêu Thích</h2>
+            {customer?.metadata?.wishlist && Array.isArray(customer.metadata.wishlist) && customer.metadata.wishlist.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {customer.metadata.wishlist.map((id: string, idx: number) => (
+                  <div key={idx} className="border border-white/10 rounded p-4 flex justify-between items-center">
+                    <span className="text-white text-sm">ID: {id}</span>
+                    <Heart size={16} className="text-gold fill-gold" />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <Heart size={48} className="text-white/10 mx-auto mb-3" />
+                <p className="text-white/40 text-sm">Chưa có mục nào được lưu</p>
+                <a href={`/${locale}/properties`} className="inline-block mt-4 text-gold text-sm border-b border-gold/40 hover:border-gold transition-colors">Tìm kiếm bất động sản</a>
+              </div>
+            )}
           </div>
         )}
       </div>
