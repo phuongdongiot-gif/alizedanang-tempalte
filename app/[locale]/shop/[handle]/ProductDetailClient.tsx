@@ -80,7 +80,12 @@ export default function ProductDetailClient({ product, locale }: ProductDetailCl
           <p className="text-gold text-2xl font-serif mb-6">{formattedPrice}</p>
           
           <div className="prose prose-invert prose-sm text-white/50 mb-8">
-            <p>{product.description}</p>
+            {product.description && (
+              <div 
+                className="prose prose-sm prose-invert max-w-none text-white/60"
+                dangerouslySetInnerHTML={{ __html: product.description }} 
+              />
+            )}
           </div>
 
           {/* Variants Selector */}

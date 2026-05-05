@@ -39,7 +39,12 @@ function ProductCard({ product, onAdd, locale }: { product: Product; onAdd: (pro
         <a href={`/${locale}/shop/${product.handle || product.id}`}>
           <h3 className="text-white font-medium text-sm line-clamp-2 mb-2 group-hover:text-gold transition-colors">{product.title}</h3>
         </a>
-        {product.description && <p className="text-white/40 text-xs line-clamp-2 mb-3">{product.description}</p>}
+        {product.description && (
+          <div 
+            className="text-white/40 text-xs line-clamp-2 mb-3"
+            dangerouslySetInnerHTML={{ __html: product.description }} 
+          />
+        )}
         {product.variants?.length > 1 && (
           <div className="flex flex-wrap gap-1.5 mb-3">
             {product.variants.map((v: any) => (
