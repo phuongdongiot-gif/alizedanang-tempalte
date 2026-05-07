@@ -12,6 +12,7 @@ import HomeFeaturedProjects from "../../components/home/HomeFeaturedProjects";
 import HomeLocations from "../../components/home/HomeLocations";
 import HomeLatestProperties from "../../components/home/HomeLatestProperties";
 import HomeProductsCarousel from "../../components/home/HomeProductsCarousel";
+import HomeCategoryProducts from "../../components/home/HomeCategoryProducts";
 import HomeNews from "../../components/home/HomeNews";
 
 export const revalidate = 60; // Refresh data every 60 seconds
@@ -52,10 +53,15 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
   const featuredApartments = recentProperties.filter(p => p.propertyCategory === 'apartments').slice(0, 12);
 
   let shopProducts: any[] = [];
+  let shopCategories: any[] = [];
   try {
-    const { getProducts } = await import('../../lib/medusa');
-    const res = await getProducts({ limit: 8 });
-    shopProducts = res.products || [];
+    const { getProducts, getProductCategories } = await import('../../lib/medusa');
+    const [prodRes, catRes] = await Promise.all([
+      getProducts({ limit: 20 }), // Tăng limit để có đủ cho filter
+      getProductCategories()
+    ]);
+    shopProducts = prodRes.products || [];
+    shopCategories = catRes.product_categories || [];
   } catch (error) {
     console.warn("Lỗi kéo dữ liệu Shop:", error);
   }
@@ -100,7 +106,9 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
       
       <HomeLatestProperties featuredProperties={featuredProperties} locale={locale} />
       
-      <HomeProductsCarousel shopProducts={shopProducts} locale={locale} />
+      <HomeProductsCarousel shopProducts={shopProducts.slice(0, 8)} locale={locale} />
+      
+      <HomeCategoryProducts categories={shopCategories} products={shopProducts} locale={locale} />
       
       <HomeNews wpPosts={wpPosts} data={data.news} locale={locale} />
 

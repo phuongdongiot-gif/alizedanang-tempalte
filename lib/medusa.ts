@@ -62,6 +62,16 @@ export async function getProducts(params?: { limit?: number; offset?: number; ca
   return res.json();
 }
 
+/** Helper: Lấy danh sách danh mục sản phẩm */
+export async function getProductCategories() {
+  const res = await fetch(`${MEDUSA_URL}/store/product-categories`, {
+    headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" },
+    cache: 'no-store'
+  });
+  if (!res.ok) return { product_categories: [] };
+  return res.json();
+}
+
 /** Helper: Lấy chi tiết 1 sản phẩm theo ID */
 export async function getProduct(id: string) {
   const res = await fetch(`${MEDUSA_URL}/store/products/${id}`, {
@@ -114,7 +124,10 @@ export async function createBooking(data: {
 /** Helper: Lấy danh sách đơn hàng của khách hàng (Cần Token) */
 export async function getCustomerOrders(token: string) {
   const res = await fetch(`${MEDUSA_URL}/store/customers/me/orders`, {
-    headers: { Authorization: `Bearer ${token}` }
+    headers: { 
+      Authorization: `Bearer ${token}`,
+      "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
+    }
   });
   if (!res.ok) return { orders: [] };
   return res.json();

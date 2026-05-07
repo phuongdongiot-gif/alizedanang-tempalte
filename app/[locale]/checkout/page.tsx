@@ -14,7 +14,7 @@ function formatPrice(amount: number) {
 
 export default function CheckoutPage({ params }: { params: Promise<{ locale: string }> }) {
   const [locale, setLocale] = React.useState("vi");
-  const { cart, cartTotal, customer, clearCart } = useStore();
+  const { cart, cartTotal, customer, clearCart, cartId } = useStore();
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [form, setForm] = useState({
@@ -36,10 +36,43 @@ export default function CheckoutPage({ params }: { params: Promise<{ locale: str
     setErrorMsg("");
 
     try {
-      // Vì đang dùng mock Medusa cart local trong context, chúng ta sẽ gọi một webhook hoặc backend route
-      // Hiện tại ta có thể tạo booking dạng "furniture" hoặc chờ Store Checkout API.
-      // Do Medusa store/orders requires cart id, ta sẽ mock thành công.
-      await new Promise(r => setTimeout(r, 1500));
+      if (cartId && !cartId.startsWith("local_")) {
+        // Step 1: Update cart with shipping address and email
+        const updateRes = await fetch(`/api/medusa/store/carts/${cartId}`, {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json",
+            "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
+          },
+          body: JSON.stringify({
+            email: form.email || "guest@alizedanang.com",
+            shipping_address: {
+              first_name: form.name,
+              last_name: "",
+              phone: form.phone,
+              address_1: form.address,
+              city: "Đà Nẵng",
+              country_code: "vn",
+            }
+          })
+        });
+
+        if (!updateRes.ok) throw new Error("Lỗi cập nhật địa chỉ giao hàng");
+
+        // Step 2: Complete the cart
+        const completeRes = await fetch(`/api/medusa/store/carts/${cartId}/complete`, {
+          method: "POST",
+          headers: { 
+            "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
+          }
+        });
+
+        if (!completeRes.ok) throw new Error("Lỗi xác nhận đơn hàng");
+      } else {
+        // Fallback for local cart mock
+        await new Promise(r => setTimeout(r, 1500));
+      }
+
       setStatus("success");
       clearCart();
     } catch (err: any) {

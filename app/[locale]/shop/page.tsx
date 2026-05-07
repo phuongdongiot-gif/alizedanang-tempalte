@@ -2,7 +2,7 @@ import React from "react";
 import PortalHeader from "../../../components/PortalHeader";
 import PortalFooter from "../../../components/PortalFooter";
 import { getDictionary } from "../../../dictionaries";
-import { getProducts } from "../../../lib/medusa";
+import { getProducts, getProductCategories } from "../../../lib/medusa";
 import ShopClient from "./ShopClient";
 
 export const revalidate = 60; // Refresh data every 60 seconds
@@ -12,11 +12,16 @@ export default async function ShopPage({ params }: { params: Promise<{ locale: s
   const dict = getDictionary(locale);
 
   let products: any[] = [];
+  let categories: any[] = [];
   let isOffline = false;
 
   try {
-    const res = await getProducts({ limit: 100 });
-    products = res.products || [];
+    const [prodRes, catRes] = await Promise.all([
+      getProducts({ limit: 100 }),
+      getProductCategories()
+    ]);
+    products = prodRes.products || [];
+    categories = catRes.product_categories || [];
   } catch (error) {
     console.warn("Lỗi kéo dữ liệu Shop:", error);
     isOffline = true;
@@ -34,7 +39,7 @@ export default async function ShopPage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
-      <ShopClient initialProducts={products} isOffline={isOffline} locale={locale} />
+      <ShopClient initialProducts={products} categories={categories} isOffline={isOffline} locale={locale} />
       
       <PortalFooter footer={dict.portal.footer} locale={locale} />
     </div>

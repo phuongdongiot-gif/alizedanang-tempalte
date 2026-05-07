@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "dev:all": "npx concurrently \"npm run dev\" \"npm run dev --prefix admin\" \"npm run start:dev --prefix backend\" \"npm run backend:dev --prefix medusa\"",
+    "dev:all": "npx concurrently \"npm run dev\" \"npm run dev --prefix admin\" \"npm run start:dev --prefix backend\" \"npm run start:dev --prefix crawler\" \"npm run backend:dev --prefix medusa\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

@@ -1,9 +1,9 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
-import { MEDUSA_URL } from "../lib/medusa";
 
 interface CartItem {
-  id: string;
+  id: string; // This is line_item id in Medusa
+  variant_id: string;
   title: string;
   thumbnail: string | null;
   quantity: number;
@@ -29,12 +29,13 @@ interface StoreContextType {
   register: (data: RegisterData) => Promise<void>;
   authLoading: boolean;
   // Cart
+  cartId: string | null;
   cart: CartItem[];
   cartCount: number;
   cartTotal: number;
-  addToCart: (item: Omit<CartItem, "id">) => void;
-  removeFromCart: (id: string) => void;
-  updateQuantity: (id: string, qty: number) => void;
+  addToCart: (variant_id: string, quantity: number, itemInfo: Omit<CartItem, "id" | "variant_id" | "quantity">) => Promise<void>;
+  removeFromCart: (line_id: string) => Promise<void>;
+  updateQuantity: (line_id: string, qty: number) => Promise<void>;
   clearCart: () => void;
   // UI
   cartOpen: boolean;
@@ -56,34 +57,34 @@ interface RegisterData {
 const StoreContext = createContext<StoreContextType | null>(null);
 
 const TOKEN_KEY = "alize_customer_token";
+const CART_KEY = "alize_cart_id";
 
 export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [authLoading, setAuthLoading] = useState(false);
+  
+  const [cartId, setCartId] = useState<string | null>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
+  
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
 
-  // Load token từ localStorage khi mount
+  // Load token & cart ID từ localStorage khi mount
   useEffect(() => {
-    const saved = localStorage.getItem(TOKEN_KEY);
-    if (saved) {
-      setToken(saved);
-      fetchCustomer(saved);
+    const savedToken = localStorage.getItem(TOKEN_KEY);
+    if (savedToken) {
+      setToken(savedToken);
+      fetchCustomer(savedToken);
     }
-    // Load cart từ localStorage
-    const savedCart = localStorage.getItem("alize_cart");
-    if (savedCart) {
-      try { setCart(JSON.parse(savedCart)); } catch {}
+    
+    const savedCartId = localStorage.getItem(CART_KEY);
+    if (savedCartId) {
+      setCartId(savedCartId);
+      fetchCart(savedCartId);
     }
   }, []);
-
-  // Sync cart to localStorage
-  useEffect(() => {
-    localStorage.setItem("alize_cart", JSON.stringify(cart));
-  }, [cart]);
 
   const fetchCustomer = async (t: string) => {
     try {
@@ -131,7 +132,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const register = async (data: RegisterData) => {
     setAuthLoading(true);
     try {
-      // Bước 1: Tạo auth credentials
       const authRes = await fetch(`/api/medusa/auth/customer/emailpass/register`, {
         method: "POST",
         headers: { 
@@ -146,7 +146,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       }
       const { token: t } = await authRes.json();
 
-      // Bước 2: Tạo profile khách hàng
       const profileRes = await fetch(`/api/medusa/store/customers`, {
         method: "POST",
         headers: { 
@@ -176,24 +175,135 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     setCustomer(null);
   };
 
-  const addToCart = (item: Omit<CartItem, "id">) => {
-    setCart(prev => {
-      const key = `${item.title}-${item.variant_title}`;
-      const existing = prev.find(i => `${i.title}-${i.variant_title}` === key);
-      if (existing) {
-        return prev.map(i => `${i.title}-${i.variant_title}` === key ? { ...i, quantity: i.quantity + item.quantity } : i);
+  // --- Cart Logic (Medusa) ---
+  const fetchCart = async (id: string) => {
+    try {
+      const res = await fetch(`/api/medusa/store/carts/${id}`, {
+        headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" }
+      });
+      if (res.ok) {
+        const { cart } = await res.json();
+        syncCartState(cart);
+      } else {
+        localStorage.removeItem(CART_KEY);
+        setCartId(null);
+        setCart([]);
       }
-      return [...prev, { ...item, id: key + Date.now() }];
+    } catch {}
+  };
+
+  const createCart = async () => {
+    const res = await fetch(`/api/medusa/store/carts`, {
+      method: "POST",
+      headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" }
     });
+    const { cart } = await res.json();
+    localStorage.setItem(CART_KEY, cart.id);
+    setCartId(cart.id);
+    return cart.id;
+  };
+
+  const syncCartState = (medusaCart: any) => {
+    if (!medusaCart || !medusaCart.items) return;
+    const mappedItems: CartItem[] = medusaCart.items.map((item: any) => ({
+      id: item.id,
+      variant_id: item.variant_id,
+      title: item.title,
+      thumbnail: item.thumbnail,
+      quantity: item.quantity,
+      unit_price: item.unit_price,
+      variant_title: item.variant?.title || ""
+    }));
+    setCart(mappedItems);
+  };
+
+  const addToCart = async (variant_id: string, quantity: number, itemInfo: Omit<CartItem, "id" | "variant_id" | "quantity">) => {
+    let currentCartId = cartId;
+    
+    // Nếu Medusa không bật hoặc lỗi, fallback về Local State để UI vẫn mượt
+    try {
+      if (!currentCartId) {
+        currentCartId = await createCart();
+      }
+
+      const res = await fetch(`/api/medusa/store/carts/${currentCartId}/line-items`, {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
+        },
+        body: JSON.stringify({ variant_id, quantity }),
+      });
+      
+      if (res.ok) {
+        const { cart: updatedCart } = await res.json();
+        syncCartState(updatedCart);
+      } else {
+        throw new Error("Medusa API failed");
+      }
+    } catch (err) {
+      console.warn("Medusa Cart error, fallback to local state:", err);
+      // Fallback cho local state khi offline
+      setCart(prev => {
+        const existing = prev.find(i => i.variant_id === variant_id);
+        if (existing) {
+          return prev.map(i => i.variant_id === variant_id ? { ...i, quantity: i.quantity + quantity } : i);
+        }
+        return [...prev, { ...itemInfo, id: `local_${Date.now()}`, variant_id, quantity }];
+      });
+    }
     setCartOpen(true);
   };
 
-  const removeFromCart = (id: string) => setCart(prev => prev.filter(i => i.id !== id));
-  const updateQuantity = (id: string, qty: number) => {
-    if (qty <= 0) { removeFromCart(id); return; }
-    setCart(prev => prev.map(i => i.id === id ? { ...i, quantity: qty } : i));
+  const removeFromCart = async (line_id: string) => {
+    if (line_id.startsWith("local_")) {
+      setCart(prev => prev.filter(i => i.id !== line_id));
+      return;
+    }
+    if (!cartId) return;
+    try {
+      const res = await fetch(`/api/medusa/store/carts/${cartId}/line-items/${line_id}`, {
+        method: "DELETE",
+        headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" }
+      });
+      if (res.ok) {
+        const { cart: updatedCart } = await res.json();
+        syncCartState(updatedCart);
+      }
+    } catch {}
   };
-  const clearCart = () => setCart([]);
+
+  const updateQuantity = async (line_id: string, qty: number) => {
+    if (qty <= 0) {
+      await removeFromCart(line_id);
+      return;
+    }
+    if (line_id.startsWith("local_")) {
+      setCart(prev => prev.map(i => i.id === line_id ? { ...i, quantity: qty } : i));
+      return;
+    }
+    if (!cartId) return;
+    try {
+      const res = await fetch(`/api/medusa/store/carts/${cartId}/line-items/${line_id}`, {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
+        },
+        body: JSON.stringify({ quantity: qty }),
+      });
+      if (res.ok) {
+        const { cart: updatedCart } = await res.json();
+        syncCartState(updatedCart);
+      }
+    } catch {}
+  };
+
+  const clearCart = () => {
+    setCart([]);
+    localStorage.removeItem(CART_KEY);
+    setCartId(null);
+  };
 
   const cartCount = cart.reduce((s, i) => s + i.quantity, 0);
   const cartTotal = cart.reduce((s, i) => s + i.unit_price * i.quantity, 0);
@@ -201,7 +311,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   return (
     <StoreContext.Provider value={{
       customer, token, login, logout, register, authLoading,
-      cart, cartCount, cartTotal, addToCart, removeFromCart, updateQuantity, clearCart,
+      cartId, cart, cartCount, cartTotal, addToCart, removeFromCart, updateQuantity, clearCart,
       cartOpen, setCartOpen,
       authModalOpen, setAuthModalOpen, authMode, setAuthMode,
     }}>

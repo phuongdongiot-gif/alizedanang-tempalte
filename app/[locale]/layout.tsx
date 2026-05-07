@@ -3,6 +3,7 @@ import "../globals.css";
 import { getDictionary } from '../../dictionaries';
 import { Metadata } from 'next';
 import LiveChatWidget from '../../components/LiveChatWidget';
+import FloatingContact from '../../components/FloatingContact';
 import StoreShell from '../../components/StoreShell';
 
 export const dynamic = 'force-dynamic';
@@ -46,6 +47,7 @@ export default async function RootLayout({
           {children}
         </StoreShell>
         <LiveChatWidget />
+        <FloatingContact />
       </body>
     </html>
   );

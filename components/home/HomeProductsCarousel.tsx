@@ -27,7 +27,7 @@ export default function HomeProductsCarousel({ shopProducts, locale }: { shopPro
               const formattedPrice = price ? new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price) : "Liên hệ";
               
               return (
-                <div key={idx} className="group flex flex-col bg-charcoal/20 border border-white/5 rounded-2xl overflow-hidden hover:border-gold/30 transition-all h-full shadow-lg w-[75vw] sm:w-[45vw] md:w-[30vw] lg:w-[22vw] shrink-0 snap-start">
+                <div key={idx} className="group flex flex-col bg-charcoal/20 border border-white/5 rounded-2xl overflow-hidden hover:border-gold/30 transition-all h-full shadow-lg w-[65vw] sm:w-[40vw] md:w-[30vw] lg:w-[22vw] shrink-0 snap-start">
                   <Link href={`/${locale}/shop/${prop.handle || prop.id}`} className="relative aspect-[4/3] w-full overflow-hidden bg-white/5 block">
                     {prop.categories?.[0] && (
                       <div className="absolute top-2 left-2 z-10 bg-gold text-jet-black text-[8px] md:text-[9px] uppercase tracking-widest font-bold px-2 py-1 rounded shadow-lg w-fit">
