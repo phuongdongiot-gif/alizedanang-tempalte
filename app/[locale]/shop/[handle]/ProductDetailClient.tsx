@@ -77,8 +77,16 @@ export default function ProductDetailClient({ product, locale }: ProductDetailCl
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left Column: Image Gallery */}
-          <div className="flex flex-col gap-4">
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white/5 border border-white/5 flex items-center justify-center relative">
+          <div className="flex gap-4">
+            {product.subtitle && (
+              <div className="hidden lg:flex items-center">
+                <span className="text-white/30 text-[10px] font-bold tracking-[0.4em] uppercase rotate-180 whitespace-nowrap" style={{ writingMode: 'vertical-rl' }}>
+                  {product.subtitle}
+                </span>
+              </div>
+            )}
+            <div className="flex flex-col gap-4 flex-1 min-w-0">
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white/5 border border-white/5 flex items-center justify-center relative">
               {selectedImage ? (
                 <img src={selectedImage} alt={product.title} className="w-full h-full object-cover" />
               ) : (
@@ -106,6 +114,7 @@ export default function ProductDetailClient({ product, locale }: ProductDetailCl
               </div>
             )}
           </div>
+          </div>
 
           {/* Right Column: Product Info */}
           <div className="flex flex-col">
@@ -114,15 +123,6 @@ export default function ProductDetailClient({ product, locale }: ProductDetailCl
             </h1>
             <p className="text-gold text-3xl font-serif mb-6">{formattedPrice}</p>
             
-            <div className="prose prose-invert prose-sm text-white/50 mb-8">
-              {product.description && (
-                <div 
-                  className="prose prose-sm prose-invert max-w-none text-white/60"
-                  dangerouslySetInnerHTML={{ __html: product.description }} 
-                />
-              )}
-            </div>
-
             {/* Variants Selector */}
             {product.variants && product.variants.length > 0 && (
               <div className="mb-8 border-t border-white/5 pt-6">
@@ -179,8 +179,20 @@ export default function ProductDetailClient({ product, locale }: ProductDetailCl
           </div>
         </div>
 
+        {/* Description Full Width */}
+        {product.description && (
+          <div className="mt-20 border-t border-white/5 pt-16">
+            <h2 className="font-serif text-2xl md:text-3xl text-white mb-8 text-center font-light">
+              {locale === 'vi' ? 'Thông Tin Sản Phẩm' : 'Product Information'}
+            </h2>
+            <div className="prose prose-invert max-w-4xl mx-auto text-white/60 font-light leading-relaxed prose-p:mb-4 prose-headings:text-white prose-headings:font-serif">
+              <div dangerouslySetInnerHTML={{ __html: product.description }} />
+            </div>
+          </div>
+        )}
+
         {/* Related Products Mock */}
-        <div className="mt-24 border-t border-white/5 pt-16">
+        <div className="mt-20 border-t border-white/5 pt-16">
           <h2 className="font-serif text-2xl text-white mb-8">Có Thể Bạn Cũng Thích</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {/* Mocks for visual */}

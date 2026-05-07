@@ -82,7 +82,14 @@ export default function ShopClient({ initialProducts, categories, isOffline, loc
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<string>("newest");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
   const { addToCart } = useStore();
+
+  // Reset page when filters change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [search, selectedCategory, sortOrder]);
 
   const handleAdd = (product: Product, variant: any) => {
     if (!variant) variant = product.variants?.[0];
@@ -227,12 +234,40 @@ export default function ShopClient({ initialProducts, categories, isOffline, loc
                 <p className="text-white/40 text-sm">{filteredAndSorted.length} sản phẩm</p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredAndSorted.map(p => <ProductCard key={p.id} product={p} onAdd={handleAdd} locale={locale} />)}
+                {filteredAndSorted.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map(p => <ProductCard key={p.id} product={p} onAdd={handleAdd} locale={locale} />)}
               </div>
-              {filteredAndSorted.length >= 12 && (
-                <div className="mt-12 text-center">
-                  <button className="bg-white/5 border border-white/10 text-white px-8 py-3 rounded-full hover:bg-white/10 transition-colors text-sm uppercase tracking-widest">
-                    Tải thêm sản phẩm
+              
+              {/* Pagination */}
+              {Math.ceil(filteredAndSorted.length / itemsPerPage) > 1 && (
+                <div className="mt-12 flex justify-center items-center gap-2">
+                  <button 
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:bg-white/5 hover:text-white disabled:opacity-50 disabled:hover:bg-transparent transition-colors"
+                  >
+                    &lt;
+                  </button>
+                  
+                  {Array.from({ length: Math.ceil(filteredAndSorted.length / itemsPerPage) }).map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentPage(idx + 1)}
+                      className={`w-10 h-10 rounded-full text-sm transition-colors ${
+                        currentPage === idx + 1 
+                          ? "bg-gold text-jet-black font-bold" 
+                          : "border border-white/10 text-white/60 hover:bg-white/5 hover:text-white"
+                      }`}
+                    >
+                      {idx + 1}
+                    </button>
+                  ))}
+                  
+                  <button 
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, Math.ceil(filteredAndSorted.length / itemsPerPage)))}
+                    disabled={currentPage === Math.ceil(filteredAndSorted.length / itemsPerPage)}
+                    className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:bg-white/5 hover:text-white disabled:opacity-50 disabled:hover:bg-transparent transition-colors"
+                  >
+                    &gt;
                   </button>
                 </div>
               )}

@@ -23,11 +23,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title,
     description,
+    keywords: `${product.title}, nội thất, Alize Đà Nẵng, furniture, mua sắm`,
     openGraph: {
       title,
       description,
-      images: product.thumbnail ? [{ url: product.thumbnail }] : [],
+      type: "website",
+      siteName: "Alize Đà Nẵng",
+      images: product.thumbnail ? [{ url: product.thumbnail, alt: product.title }] : [],
       url: `${baseUrl}/${locale}/shop/${handle}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: product.thumbnail ? [product.thumbnail] : [],
     },
     alternates: {
       canonical: `${baseUrl}/${locale}/shop/${handle}`,
@@ -63,8 +72,29 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     );
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alizedanang.net";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.title,
+    "image": product.thumbnail || "",
+    "description": product.description ? product.description.replace(/<[^>]+>/g, '') : "",
+    "brand": {
+      "@type": "Brand",
+      "name": "Alize Đà Nẵng"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `${baseUrl}/${locale}/shop/${handle}`,
+      "priceCurrency": "VND",
+      "price": product.variants?.[0]?.prices?.find((p: any) => p.currency_code === "vnd")?.amount || 0,
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
   return (
     <div className="relative w-full min-h-screen overflow-hidden bg-[#070A10] text-pearl-white flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <PortalHeader nav={data.nav} locale={locale} />
       
       <ProductDetailClient product={product} locale={locale} />

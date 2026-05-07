@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 
 export default function HomeCategoryProducts({ categories, products, locale }: { categories: any[], products: any[], locale: string }) {
-  const [activeCategory, setActiveCategory] = useState<string | null>(categories?.[0]?.id || null);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   // Filter products by active category
   const filteredProducts = activeCategory 
@@ -21,6 +21,16 @@ export default function HomeCategoryProducts({ categories, products, locale }: {
           
           {/* Category Tabs Carousel */}
           <div className="flex overflow-x-auto gap-3 snap-x snap-mandatory hide-scrollbar justify-start md:justify-center pb-2">
+            <button 
+              onClick={() => setActiveCategory(null)}
+              className={`snap-center flex-shrink-0 px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border ${
+                activeCategory === null 
+                  ? "bg-gold border-gold text-jet-black shadow-[0_0_15px_rgba(212,175,55,0.3)]" 
+                  : "bg-white/5 border-white/10 text-white/60 hover:text-white hover:border-white/30"
+              }`}
+            >
+              {locale === 'vi' ? 'Tất cả' : 'All'}
+            </button>
             {categories.map((cat, idx) => (
               <button 
                 key={idx}
@@ -46,7 +56,7 @@ export default function HomeCategoryProducts({ categories, products, locale }: {
               const formattedPrice = price ? new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price) : "Liên hệ";
               
               return (
-                <div key={idx} className="group flex flex-col bg-[#070A10] border border-white/5 rounded-2xl overflow-hidden hover:border-gold/30 transition-all h-full shadow-lg w-[65vw] sm:w-[40vw] md:w-[28vw] lg:w-[22vw] shrink-0 snap-start">
+                <div key={idx} className="group flex flex-col bg-[#070A10] border border-white/5 rounded-2xl overflow-hidden hover:border-gold/30 transition-all h-full shadow-lg w-[42vw] sm:w-[40vw] md:w-[28vw] lg:w-[22vw] shrink-0 snap-start">
                   <Link href={`/${locale}/shop/${prop.handle || prop.id}`} className="relative aspect-[4/3] w-full overflow-hidden bg-white/5 block">
                     <img loading="lazy" src={imgUrl} className="w-full h-full object-cover filter brightness-90 group-hover:scale-105 transition-transform duration-700" alt={prop.title} />
                   </Link>

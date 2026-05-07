@@ -48,6 +48,7 @@ export async function getProducts(params?: { limit?: number; offset?: number; ca
   const url = new URL(`${MEDUSA_URL}/store/products`);
   url.searchParams.append("limit", (params?.limit || 12).toString());
   url.searchParams.append("offset", (params?.offset || 0).toString());
+  url.searchParams.append("expand", "categories,variants");
   if (params?.category_id) {
     params.category_id.forEach(id => url.searchParams.append("category_id[]", id));
   }
