@@ -38,37 +38,37 @@ function ProductCard({ product, onAdd, locale }: { product: Product; onAdd: (pro
           <div className="w-full h-full flex items-center justify-center"><ShoppingBag size={48} className="text-white/10" /></div>
         )}
       </a>
-      <div className="p-5 flex flex-col flex-1">
+      <div className="p-3 sm:p-5 flex flex-col flex-1">
         {/* Rating Mock */}
         <div className="flex items-center gap-1 mb-2">
-          {[1,2,3,4,5].map(i => <Star key={i} size={12} className={i <= 4 ? "text-gold fill-gold" : "text-white/20"} />)}
-          <span className="text-[10px] text-white/40 ml-1">(12)</span>
+          {[1,2,3,4,5].map(i => <Star key={i} size={10} className={`sm:w-3 sm:h-3 ${i <= 4 ? "text-gold fill-gold" : "text-white/20"}`} />)}
+          <span className="text-[9px] sm:text-[10px] text-white/40 ml-1">(12)</span>
         </div>
 
         <a href={`/${locale}/shop/${product.handle || product.id}`}>
-          <h3 className="text-white font-medium text-sm line-clamp-2 mb-2 group-hover:text-gold transition-colors">{product.title}</h3>
+          <h3 className="text-white font-medium text-xs sm:text-sm line-clamp-2 mb-2 group-hover:text-gold transition-colors">{product.title}</h3>
         </a>
         
         {product.categories?.[0] && (
-          <p className="text-[10px] text-champagne/60 uppercase tracking-widest mb-3">
+          <p className="text-[9px] sm:text-[10px] text-champagne/60 uppercase tracking-widest mb-2 sm:mb-3">
             {product.categories[0].name}
           </p>
         )}
 
         {product.variants?.length > 1 && (
-          <div className="flex flex-wrap gap-1.5 mb-3">
+          <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-2 sm:mb-3">
             {product.variants.map((v: any) => (
               <button key={v.id} onClick={() => setSelectedVariant(v)}
-                className={`text-[10px] px-2.5 py-1 rounded border transition-colors ${selectedVariant?.id === v.id ? "border-gold/50 bg-gold/10 text-gold" : "border-white/10 text-white/40 hover:border-white/30"}`}>
+                className={`text-[9px] sm:text-[10px] px-2 py-1 sm:px-2.5 rounded border transition-colors ${selectedVariant?.id === v.id ? "border-gold/50 bg-gold/10 text-gold" : "border-white/10 text-white/40 hover:border-white/30"}`}>
                 {v.title}
               </button>
             ))}
           </div>
         )}
-        <div className="mt-auto flex items-center justify-between pt-4 border-t border-white/5">
-          <span className="text-gold font-semibold">{price ? formatPrice(price.amount) : "Liên hệ"}</span>
+        <div className="mt-auto flex items-center justify-between pt-3 sm:pt-4 border-t border-white/5">
+          <span className="text-gold font-semibold text-xs sm:text-base">{price ? formatPrice(price.amount) : "Liên hệ"}</span>
           <button onClick={() => onAdd(product, selectedVariant)}
-            className="w-8 h-8 rounded-lg bg-gold/10 border border-gold/30 text-gold hover:bg-gold hover:text-jet-black transition-all flex items-center justify-center">
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gold/10 border border-gold/30 text-gold hover:bg-gold hover:text-jet-black transition-all flex items-center justify-center">
             <Plus size={14} />
           </button>
         </div>
@@ -233,7 +233,7 @@ export default function ShopClient({ initialProducts, categories, isOffline, loc
               <div className="flex items-center justify-between mb-6">
                 <p className="text-white/40 text-sm">{filteredAndSorted.length} sản phẩm</p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                 {filteredAndSorted.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map(p => <ProductCard key={p.id} product={p} onAdd={handleAdd} locale={locale} />)}
               </div>
               

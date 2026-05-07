@@ -77,16 +77,8 @@ export default function ProductDetailClient({ product, locale }: ProductDetailCl
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left Column: Image Gallery */}
-          <div className="flex gap-4">
-            {product.subtitle && (
-              <div className="hidden lg:flex items-center">
-                <span className="text-white/30 text-[10px] font-bold tracking-[0.4em] uppercase rotate-180 whitespace-nowrap" style={{ writingMode: 'vertical-rl' }}>
-                  {product.subtitle}
-                </span>
-              </div>
-            )}
-            <div className="flex flex-col gap-4 flex-1 min-w-0">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white/5 border border-white/5 flex items-center justify-center relative">
+          <div className="flex flex-col gap-4">
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white/5 border border-white/5 flex items-center justify-center relative">
               {selectedImage ? (
                 <img src={selectedImage} alt={product.title} className="w-full h-full object-cover" />
               ) : (
@@ -113,7 +105,6 @@ export default function ProductDetailClient({ product, locale }: ProductDetailCl
                 ))}
               </div>
             )}
-          </div>
           </div>
 
           {/* Right Column: Product Info */}
@@ -166,6 +157,16 @@ export default function ProductDetailClient({ product, locale }: ProductDetailCl
             <button onClick={() => setIsConsultOpen(true)} className="hidden sm:flex items-center justify-center gap-2 w-full py-4 border border-gold/40 text-gold hover:bg-gold/10 transition-colors rounded-lg text-sm uppercase tracking-widest font-semibold mb-10">
               <Phone size={16} /> Cần Tư Vấn Thêm Về Sản Phẩm Này?
             </button>
+
+            {/* Subtitle / Specifications */}
+            {product.subtitle && (
+              <div className="mb-10 p-6 bg-white/5 border border-white/10 rounded-xl">
+                <h3 className="text-white font-serif text-lg mb-4">Thông số kỹ thuật / Đặc điểm</h3>
+                <div className="text-sm text-white/60 whitespace-pre-line leading-relaxed">
+                  {product.subtitle}
+                </div>
+              </div>
+            )}
 
             {/* Highlights */}
             <div className="space-y-4 border-t border-white/5 pt-8">

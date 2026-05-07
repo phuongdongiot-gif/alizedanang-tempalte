@@ -4,6 +4,8 @@ import PortalFooter from "../../../../components/PortalFooter";
 import { getDictionary } from "../../../../dictionaries";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
+import BlogCard from "../../../../components/BlogCard";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string, slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
@@ -49,6 +51,17 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ loc
     notFound();
   }
 
+  // Lấy thêm danh sách bài viết liên quan (loại trừ bài hiện tại)
+  let relatedPosts: any[] = [];
+  try {
+    const relRes = await fetch(`https://atservice.vn/wp-json/wp/v2/posts?_embed=1&per_page=7&exclude=${post.id}`, {
+      next: { revalidate: 3600 }
+    });
+    relatedPosts = await relRes.json();
+  } catch (error) {
+    console.error("Lỗi kéo tin tức liên quan WP:", error);
+  }
+
   const title = post.title.rendered;
   const content = post.content.rendered;
   const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/can-ho-view-bien-my-khe-alize.webp';
@@ -58,19 +71,76 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ loc
     <div className="relative w-full min-h-screen bg-[#070A10] text-pearl-white flex flex-col pt-32">
       <PortalHeader nav={dict.portal.nav} locale={locale} />
       
-      <div className="max-w-[800px] mx-auto px-6 py-16 w-full flex-1">
-        <span className="text-gold text-[10px] uppercase font-bold tracking-widest mb-6 block text-center">{date}</span>
-        <h1 className="font-serif text-3xl md:text-5xl font-light mb-12 tracking-tight text-center leading-tight" dangerouslySetInnerHTML={{ __html: title }} />
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-16 w-full flex-1 flex flex-col lg:flex-row gap-12 lg:gap-20">
         
-        <div className="w-full aspect-[16/9] mb-16 overflow-hidden rounded border border-white/5 bg-charcoal/20">
-          {/* LCP Optimization with fetchPriority */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img fetchPriority="high" loading="eager" decoding="sync" src={featuredMedia} className="w-full h-full object-cover filter brightness-[0.8]" alt={title.replace(/<[^>]+>/g, '')} />
+        {/* CỘT TRÁI: NỘI DUNG BÀI VIẾT */}
+        <div className="lg:w-2/3 w-full">
+          <span className="text-gold text-[10px] uppercase font-bold tracking-widest mb-6 block text-center lg:text-left">{date}</span>
+          <h1 className="font-serif text-3xl md:text-5xl font-light mb-12 tracking-tight leading-tight text-center lg:text-left" dangerouslySetInnerHTML={{ __html: title }} />
+          
+          <div className="w-full aspect-[16/9] mb-12 overflow-hidden rounded border border-white/5 bg-charcoal/20">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img fetchPriority="high" loading="eager" decoding="sync" src={featuredMedia} className="w-full h-full object-cover filter brightness-[0.8]" alt={title.replace(/<[^>]+>/g, '')} />
+          </div>
+
+          <div className="text-champagne/80 font-light leading-loose text-base md:text-lg flex flex-col gap-6 blog-content wp-content" dangerouslySetInnerHTML={{ __html: content }} />
         </div>
 
-        {/* CONTENT */}
-        <div className="mt-12 text-champagne/80 font-light leading-loose text-lg flex flex-col gap-6 blog-content wp-content" dangerouslySetInnerHTML={{ __html: content }} />
+        {/* CỘT PHẢI: TIN TỨC LIÊN QUAN */}
+        <div className="lg:w-1/3 w-full flex flex-col gap-8">
+          <div className="sticky top-32">
+            <h3 className="font-serif text-2xl text-white mb-6 border-b border-white/10 pb-4">Tin tức liên quan</h3>
+            <div className="flex flex-col gap-6">
+              {Array.isArray(relatedPosts) && relatedPosts.slice(0, 4).map(rp => {
+                const rpTitle = rp.title.rendered;
+                const rpImg = rp._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/can-ho-view-bien-my-khe-alize.webp';
+                const rpDate = new Date(rp.date).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US', { day: '2-digit', month: 'long', year: 'numeric' });
+                return (
+                  <Link href={`/${locale}/blog/${rp.slug}`} key={rp.id} className="group flex gap-4 items-center">
+                    <div className="w-24 h-24 rounded overflow-hidden flex-shrink-0 relative bg-white/5">
+                      <img loading="lazy" src={rpImg} alt={rpTitle.replace(/<[^>]+>/g, '')} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-gold text-[9px] uppercase font-bold tracking-widest mb-1">{rpDate}</span>
+                      <h4 className="text-white text-sm font-medium line-clamp-2 group-hover:text-gold transition-colors leading-relaxed" dangerouslySetInnerHTML={{ __html: rpTitle }} />
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* DƯỚI BÀI VIẾT: TIN TỨC MỚI NHẤT */}
+      {Array.isArray(relatedPosts) && relatedPosts.length > 4 && (
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 pb-24 w-full">
+          <div className="border-t border-white/10 pt-16">
+            <h3 className="font-serif text-3xl md:text-4xl text-white mb-10 text-center font-light">Tin Tức Mới Nhất</h3>
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
+              {relatedPosts.slice(4, 7).map(rp => {
+                const rpTitle = rp.title.rendered;
+                const rpImg = rp._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/can-ho-view-bien-my-khe-alize.webp';
+                const rpExcerpt = rp.excerpt.rendered.replace(/<[^>]+>/g, '').substring(0, 150) + '...';
+                const rpDate = new Date(rp.date).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US', { day: '2-digit', month: 'long', year: 'numeric' });
+                return (
+                  <BlogCard 
+                    key={rp.id.toString()}
+                    id={rp.id}
+                    slug={rp.slug}
+                    title={rpTitle}
+                    excerpt={rpExcerpt}
+                    date={rpDate}
+                    imageUrl={rpImg}
+                    locale={locale}
+                    readMoreBtnText={dict.blog.readMoreBtn}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* JSON-LD FOR SEO AND AIO (Bing & Google) */}
       <script
