@@ -62,6 +62,26 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
     ]);
     shopProducts = prodRes.products || [];
     shopCategories = catRes.product_categories || [];
+
+    if (shopCategories.length > 0) {
+      await Promise.all(shopCategories.map(async (cat) => {
+        try {
+          const cpRes = await getProducts({ category_id: [cat.id], limit: 20 });
+          if (cpRes.products) {
+            cpRes.products.forEach((cp: any) => {
+              const p = shopProducts.find(prod => prod.id === cp.id);
+              if (p) {
+                if (!p.categories) p.categories = [];
+                if (!p.categories.some((existing: any) => existing.id === cat.id)) {
+                  p.categories.push({ id: cat.id, name: cat.name });
+                }
+              }
+            });
+          }
+        } catch (e) {}
+      }));
+    }
+
   } catch (error) {
     console.warn("Lỗi kéo dữ liệu Shop:", error);
   }

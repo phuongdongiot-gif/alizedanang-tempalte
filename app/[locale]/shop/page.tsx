@@ -22,6 +22,28 @@ export default async function ShopPage({ params }: { params: Promise<{ locale: s
     ]);
     products = prodRes.products || [];
     categories = catRes.product_categories || [];
+
+    // Tự động map category vào product do Medusa API mặc định không trả về categories trong store/products
+    if (categories.length > 0) {
+      await Promise.all(categories.map(async (cat) => {
+        try {
+          const cpRes = await getProducts({ category_id: [cat.id], limit: 100 });
+          if (cpRes.products) {
+            cpRes.products.forEach((cp: any) => {
+              const p = products.find(prod => prod.id === cp.id);
+              if (p) {
+                if (!p.categories) p.categories = [];
+                // Tránh duplicate
+                if (!p.categories.some((existing: any) => existing.id === cat.id)) {
+                  p.categories.push({ id: cat.id, name: cat.name });
+                }
+              }
+            });
+          }
+        } catch (e) {}
+      }));
+    }
+
   } catch (error) {
     console.warn("Lỗi kéo dữ liệu Shop:", error);
     isOffline = true;
