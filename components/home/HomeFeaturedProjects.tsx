@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function HomeFeaturedProjects({ dynamicProjects, data, locale }: { dynamicProjects: any[], data: any, locale: string }) {
   return (
-    <section id="projects" className="py-20">
+    <section id="projects" className="py-12 md:py-10 md:py-12">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         <div className="text-center mb-24">
           <span className="block text-gold text-[10px] tracking-[0.4em] uppercase font-light mb-4">{data.sectionTag}</span>

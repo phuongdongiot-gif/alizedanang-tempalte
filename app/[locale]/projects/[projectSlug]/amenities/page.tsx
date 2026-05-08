@@ -28,7 +28,7 @@ export default async function AmenitiesPage({ params }: { params: Promise<{ loca
         <div className="absolute inset-0 z-0 bg-jet-black">
           <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2070" className="w-full h-full object-cover filter brightness-[0.5]" alt="Hero" />
         </div>
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20">
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mt-10 md:mt-14">
           <span className="block text-gold text-[10px] md:text-xs tracking-[0.5em] font-light uppercase mb-6">{data.hero.tag}</span>
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-normal text-pearl-white mb-8 tracking-tighter leading-[1.05]">
             {data.hero.title1} <br /><span className="font-serif italic font-light text-pearl-white/90">{data.hero.title2}</span>

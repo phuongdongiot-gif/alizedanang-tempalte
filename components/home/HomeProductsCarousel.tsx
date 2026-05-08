@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function HomeProductsCarousel({ shopProducts, locale }: { shopProducts: any[], locale: string }) {
   return (
-    <section id="shop" className="py-20 border-t border-white/5 bg-[#070A10]">
+    <section id="shop" className="py-12 md:py-10 md:py-12 border-t border-white/5 bg-[#070A10]">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         <div className="mb-12 flex justify-between items-end">
           <div>
@@ -19,7 +19,7 @@ export default function HomeProductsCarousel({ shopProducts, locale }: { shopPro
           </Link>
         </div>
 
-        <div className="flex overflow-x-auto gap-4 snap-x snap-mandatory hide-scrollbar pb-6">
+        <div className="grid grid-rows-2 grid-flow-col auto-cols-[38vw] sm:auto-cols-[35vw] md:auto-cols-[30vw] lg:auto-cols-[22vw] gap-3 md:gap-4 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6">
           {shopProducts && shopProducts.length > 0 ? (
             shopProducts.map((prop, idx) => {
               const imgUrl = prop.thumbnail || '/images/can-ho-view-bien-my-khe-alize.webp';
@@ -27,16 +27,16 @@ export default function HomeProductsCarousel({ shopProducts, locale }: { shopPro
               const formattedPrice = price ? new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price) : "Liên hệ";
               
               return (
-                <div key={idx} className="group flex flex-col bg-charcoal/20 border border-white/5 rounded-2xl overflow-hidden hover:border-gold/30 transition-all h-full shadow-lg w-[42vw] sm:w-[40vw] md:w-[30vw] lg:w-[22vw] shrink-0 snap-start">
+                <div key={idx} className="group flex flex-col bg-charcoal/20 border border-white/5 rounded-2xl overflow-hidden hover:border-gold/30 transition-all h-full shadow-lg w-full snap-start">
                   <Link href={`/${locale}/shop/${prop.handle || prop.id}`} className="relative aspect-[4/3] w-full overflow-hidden bg-white/5 block">
                     {prop.categories?.[0] && (
-                      <div className="absolute top-2 left-2 z-10 bg-gold text-jet-black text-[8px] md:text-[9px] uppercase tracking-widest font-bold px-2 py-1 rounded shadow-lg w-fit">
+                      <div className="absolute top-2 left-2 z-10 bg-gold text-jet-black text-[8px] md:text-[9px] uppercase tracking-widest font-bold px-2 py-1 shadow-lg w-fit border-b-[3px] border-double border-jet-black/40">
                         {prop.categories[0].name}
                       </div>
                     )}
                     <img loading="lazy" src={imgUrl} className="w-full h-full object-cover filter brightness-90 group-hover:scale-105 transition-transform duration-700" alt={prop.title} />
                   </Link>
-                  <div className="p-4 md:p-5 flex flex-col flex-1 justify-between">
+                  <div className="p-3 md:p-5 flex flex-col flex-1 justify-between">
                     <div>
                       <Link href={`/${locale}/shop/${prop.handle || prop.id}`}>
                         <h3 className="font-serif text-sm md:text-base text-white group-hover:text-gold transition-colors font-light line-clamp-2 leading-snug">{prop.title}</h3>

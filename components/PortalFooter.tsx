@@ -25,7 +25,7 @@ export default function PortalFooter({ footer, locale }: { footer: any; locale: 
            <a href="tel:0799036842" className="text-sm text-pearl-white hover:text-gold transition-colors font-light block">Hotline: 0799.036.842</a>
         </div>
       </div>
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-xs text-champagne/40 font-light">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 mt-10 md:mt-14 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-xs text-champagne/40 font-light">
           <p>© 2026 G-Estate Premium Agency. All Rights Reserved.</p>
           <div className="flex gap-8 mt-4 md:mt-0">
              <a href="#" className="hover:text-pearl-white transition-colors">Privacy Policy</a>

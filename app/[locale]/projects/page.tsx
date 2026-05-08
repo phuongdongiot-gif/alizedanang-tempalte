@@ -65,7 +65,7 @@ export default async function ProjectsHubPage({ params }: { params: Promise<{ lo
 
       <main className="flex-1 w-full flex-grow pb-32">
         {/* HERO HEADER */}
-        <section className="relative pt-40 pb-20 w-full flex items-center justify-center overflow-hidden border-b border-white/5">
+        <section className="relative pt-40 pb-12 md:pb-16 w-full flex items-center justify-center overflow-hidden border-b border-white/5">
           <div className="absolute inset-0 z-0 opacity-40">
              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075')] bg-cover bg-center filter grayscale contrast-125 mix-blend-overlay"></div>
              <div className="absolute inset-0 bg-gradient-to-t from-[#070A10] via-[#070A10]/60 to-transparent"></div>

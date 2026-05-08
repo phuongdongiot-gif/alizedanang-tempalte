@@ -42,7 +42,7 @@ export default function CartDrawer({ locale }: { locale: string }) {
         {/* Items */}
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {cart.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-center py-20">
+            <div className="flex flex-col items-center justify-center h-full text-center py-12 md:py-10 md:py-12">
               <ShoppingBag size={56} className="text-white/10 mb-4" />
               <p className="text-white/40 font-light">Giỏ hàng đang trống</p>
               <p className="text-white/25 text-sm mt-1">Khám phá sản phẩm & dịch vụ của chúng tôi</p>

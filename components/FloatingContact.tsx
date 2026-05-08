@@ -29,10 +29,10 @@ export default function FloatingContact() {
           </a>
         </div>
       )}
-      
-      <button 
+
+      <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 ${isOpen ? 'bg-white/10 text-white' : 'bg-gold text-jet-black hover:scale-105 animate-bounce'}`}
+        className={`w-12 h-12 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 ${isOpen ? 'bg-white/10 text-white' : 'bg-gold text-jet-black hover:scale-105'}`}
       >
         {isOpen ? <X size={24} /> : <MessageCircle size={28} />}
       </button>

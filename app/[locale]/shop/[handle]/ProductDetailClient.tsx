@@ -182,7 +182,7 @@ export default function ProductDetailClient({ product, locale }: ProductDetailCl
 
         {/* Description Full Width */}
         {product.description && (
-          <div className="mt-20 border-t border-white/5 pt-16">
+          <div className="mt-10 md:mt-14 border-t border-white/5 pt-16">
             <h2 className="font-serif text-2xl md:text-3xl text-white mb-8 text-center font-light">
               {locale === 'vi' ? 'Thông Tin Sản Phẩm' : 'Product Information'}
             </h2>
@@ -193,7 +193,7 @@ export default function ProductDetailClient({ product, locale }: ProductDetailCl
         )}
 
         {/* Related Products Mock */}
-        <div className="mt-20 border-t border-white/5 pt-16">
+        <div className="mt-10 md:mt-14 border-t border-white/5 pt-16">
           <h2 className="font-serif text-2xl text-white mb-8">Có Thể Bạn Cũng Thích</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {/* Mocks for visual */}

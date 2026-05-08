@@ -104,7 +104,7 @@ export default async function ProjectLandingPage({ params }: { params: Promise<{
           <img loading="lazy" decoding="async" src="/images/sky-pool-alize-da-nang.webp" alt="Luxury Real Estate" className="w-full h-[120%] -top-[10%] object-cover absolute" />
           <div className="absolute inset-0 bg-gradient-to-t from-jet-black via-transparent to-transparent"></div>
         </div>
-        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto mt-20">
+        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto mt-10 md:mt-14">
           <span className="block text-gold text-[10px] md:text-xs tracking-[0.5em] font-light uppercase mb-8">{dynamicTagline}</span>
           <h1 className="font-serif text-5xl md:text-7xl lg:text-[6.5rem] font-normal text-pearl-white mb-8 tracking-tighter leading-[1.05]">
             {dynamicHeroLine1} <br /><span className="font-serif italic font-light text-pearl-white/90">{dynamicHeroLine2}</span>
@@ -123,7 +123,7 @@ export default async function ProjectLandingPage({ params }: { params: Promise<{
                 {dict.overview.titleLine1}<br /><span className="italic font-serif text-pearl-white/70">{dict.overview.titleLine2}</span>
               </h2>
               <p className="text-champagne/70 font-light leading-[2] mb-12 text-sm md:text-base pr-0 lg:pr-10">{dict.overview.description}</p>
-              <div className="space-y-4 mb-16 text-sm font-light text-champagne/80 pr-0 lg:pr-10">
+              <div className="space-y-4 mb-8 md:mb-12 text-sm font-light text-champagne/80 pr-0 lg:pr-10">
                 {dict.overview.details.map((item, idx) => (
                   <div key={idx} className="flex border-b border-white/10 pb-3">
                     <span className="w-[45%] text-gold uppercase tracking-widest text-[10px]">{item.label}</span>

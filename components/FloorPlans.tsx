@@ -16,7 +16,7 @@ export default function FloorPlans({ data }: { data: FloorPlansData }) {
           </div>
         </div>
 
-        <div className="flex space-x-8 md:space-x-16 mb-20 border-b border-white/10 w-full overflow-x-auto pb-6">
+        <div className="flex space-x-8 md:space-x-16 mb-10 md:mb-14 border-b border-white/10 w-full overflow-x-auto pb-6">
           {data.plans.map((p) => (
             <button key={p.id} onClick={() => setActiveTab(p.id)} className={`pb-2 whitespace-nowrap font-light text-[11px] uppercase tracking-[0.2em] transition-colors duration-500 border-b ${activeTab === p.id ? "text-gold border-gold" : "text-champagne/40 border-transparent hover:text-pearl-white"}`}>
               {p.name}

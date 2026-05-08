@@ -21,7 +21,7 @@ export default function ToolsPage({ params }: { params: Promise<{ locale: string
       <PortalHeader nav={dict.portal.nav} locale={locale} />
       
       <main className="flex-1pt-32 pb-24 pt-32 lg:pt-40 px-4 md:px-8 max-w-7xl mx-auto w-full flex-grow">
-        <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12 animate-fade-in-up">
           <h1 className="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">
             {t.title}
           </h1>

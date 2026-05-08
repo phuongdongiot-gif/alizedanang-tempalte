@@ -124,7 +124,7 @@ export default async function ApartmentDetailPage({ params }: { params: Promise<
             )}
 
             <h2 className="font-serif text-3xl font-light mb-8 pb-4 border-b border-white/10">Thư Viện Ảnh</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 md:mb-12">
               {apt.gallery.map((imgUrl, idx) => (
                 <div key={idx} className="aspect-[4/3] rounded overflow-hidden">
                   <img src={imgUrl} alt={`Gallery ${idx + 1}`} className="w-full h-full object-cover filter brightness-90 hover:brightness-110 transition-all duration-500 hover:scale-105" />
@@ -134,7 +134,7 @@ export default async function ApartmentDetailPage({ params }: { params: Promise<
 
             {/* VIDEO & 3D TOUR */}
             {apt.media && (apt.media.video_url || apt.media.tour_3d_url) && (
-              <div className="mb-16 flex flex-wrap gap-4">
+              <div className="mb-8 md:mb-12 flex flex-wrap gap-4">
                 {apt.media.video_url && (
                   <a href={apt.media.video_url} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-[#CC0000] border-b-[3px] border-double border-[#CC0000]/50 pb-1 text-sm font-semibold hover:border-[#CC0000] transition-colors">
                     <span>▶ Xem Video Giới Thiệu</span>
@@ -149,7 +149,7 @@ export default async function ApartmentDetailPage({ params }: { params: Promise<
             )}
 
             {/* PHÂN TÍCH ĐẦU TƯ */}
-            <div className="mb-16">
+            <div className="mb-8 md:mb-12">
               <h2 className="font-serif text-3xl font-light mb-8 pb-4 border-b border-white/10 flex items-center gap-3">
                 <TrendingUp className="text-gold" size={28} />
                 Phân Tích & Đầu Tư
@@ -188,7 +188,7 @@ export default async function ApartmentDetailPage({ params }: { params: Promise<
             </div>
 
             {/* BẢN ĐỒ VỊ TRÍ */}
-            <div className="mb-16">
+            <div className="mb-8 md:mb-12">
               <h2 className="font-serif text-3xl font-light mb-8 pb-4 border-b border-white/10 flex items-center gap-3">
                 <MapPin className="text-gold" size={28} />
                 Vị Trí & Bản Đồ

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function HomeLatestProperties({ featuredProperties, locale }: { featuredProperties: any[], locale: string }) {
   return (
-    <section className="py-20">
+    <section className="py-12 md:py-10 md:py-12">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         <div className="mb-12 flex justify-between items-end">
           <div>

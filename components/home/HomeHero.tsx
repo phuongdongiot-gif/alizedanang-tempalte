@@ -14,7 +14,7 @@ export default function HomeHero({ data, locale }: { data: any, locale: string }
         <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-light mb-8 tracking-tighter leading-[1.1] text-white">
           {data.title}
         </h1>
-        <p className="text-champagne/80 text-base md:text-lg font-light tracking-wide max-w-2xl mx-auto leading-relaxed mb-16">
+        <p className="text-champagne/80 text-base md:text-lg font-light tracking-wide max-w-2xl mx-auto leading-relaxed mb-8 md:mb-12">
           {data.subtitle}
         </p>
 

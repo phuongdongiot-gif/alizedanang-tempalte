@@ -37,7 +37,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
           <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053" alt="Không Gian Nghệ Thuật" className="w-full h-full object-cover filter brightness-[0.5] contrast-[1.1] grayscale-[20%]" />
           <div className="absolute inset-0 bg-gradient-to-t from-jet-black/100 via-jet-black/40 to-transparent"></div>
         </div>
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20">
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mt-10 md:mt-14">
           <span className="block text-gold text-[10px] md:text-xs tracking-[0.5em] font-light uppercase mb-6">{data.hero.tag}</span>
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-normal text-pearl-white mb-8 tracking-tighter leading-[1.05]">
             {data.hero.title1} <br /><span className="font-serif italic font-light text-pearl-white/90">{data.hero.title2}</span>
@@ -49,7 +49,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
       {/* CATEGORY 1 */}
       <section className="py-24 lg:py-32 border-t border-white/5">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-light-gray/10 pb-8">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-12 border-b border-light-gray/10 pb-8">
             <div>
               <span className="text-[10px] text-gold tracking-[0.4em] uppercase font-light mb-4 block opacity-80">{data.cat1.tag}</span>
               <h2 className="font-serif text-4xl lg:text-5xl font-light text-pearl-white tracking-tight">{data.cat1.title}</h2>
@@ -75,7 +75,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
       {/* CATEGORY 2 */}
       <section className="py-24 lg:py-32 bg-midnight-blue border-t border-white/5">
         <div className="w-full max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="mb-16 text-center">
+          <div className="mb-8 md:mb-12 text-center">
             <span className="text-[10px] text-gold tracking-[0.4em] uppercase font-light mb-4 block opacity-80">{data.cat2.tag}</span>
             <h2 className="font-serif text-4xl lg:text-5xl font-light text-pearl-white tracking-tight mb-6">{data.cat2.title}</h2>
             <p className="text-[13px] text-champagne/60 font-light max-w-xl mx-auto">{data.cat2.desc}</p>
@@ -97,7 +97,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
       {/* CATEGORY 3 */}
       <section className="py-24 lg:py-32 border-t border-white/5">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-light-gray/10 pb-8">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-12 border-b border-light-gray/10 pb-8">
             <div>
               <span className="text-[10px] text-gold tracking-[0.4em] uppercase font-light mb-4 block opacity-80">{data.cat3.tag}</span>
               <h2 className="font-serif text-4xl lg:text-5xl font-light text-pearl-white tracking-tight">{data.cat3.title}</h2>

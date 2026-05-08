@@ -225,7 +225,7 @@ export default function ShopClient({ initialProducts, categories, isOffline, loc
               <code className="bg-white/5 text-green-400 text-xs px-4 py-2 rounded block max-w-sm mx-auto">cd medusa\apps\backend && npx medusa develop</code>
             </div>
           ) : filteredAndSorted.length === 0 ? (
-            <div className="text-center py-20 text-white/30 w-full border border-dashed border-white/10 rounded-2xl">
+            <div className="text-center py-12 md:py-10 md:py-12 text-white/30 w-full border border-dashed border-white/10 rounded-2xl">
               Chưa tìm thấy sản phẩm nào phù hợp.
             </div>
           ) : (

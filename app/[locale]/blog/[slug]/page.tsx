@@ -71,7 +71,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ loc
     <div className="relative w-full min-h-screen bg-[#070A10] text-pearl-white flex flex-col pt-32">
       <PortalHeader nav={dict.portal.nav} locale={locale} />
       
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-16 w-full flex-1 flex flex-col lg:flex-row gap-12 lg:gap-20">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-10 md:py-12 w-full flex-1 flex flex-col lg:flex-row gap-12 lg:gap-20">
         
         {/* CỘT TRÁI: NỘI DUNG BÀI VIẾT */}
         <div className="lg:w-2/3 w-full">

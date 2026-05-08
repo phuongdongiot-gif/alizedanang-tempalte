@@ -84,7 +84,7 @@ export default function ServicesPage({ params }: { params: Promise<{ locale: str
             </div>
 
             {status === "success" ? (
-              <div className="text-center py-16">
+              <div className="text-center py-10 md:py-12">
                 <CheckCircle2 size={56} className="text-green-400 mx-auto mb-4" />
                 <h3 className="text-white text-xl font-serif mb-2">Đặt lịch thành công!</h3>
                 <p className="text-white/50 text-sm mb-6">Chúng tôi sẽ liên hệ trong 30 phút để xác nhận lịch hẹn</p>

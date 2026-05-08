@@ -35,7 +35,7 @@ export default async function ArchitecturePage({ params }: { params: Promise<{ l
           <img loading="lazy" decoding="async" src="/images/du-an-alize-dan-nang-doc.webp" alt="Nghệ Thuật Kiến Trúc" className="w-full h-full object-cover filter brightness-[0.4] grayscale-[30%] opacity-80" />
           <div className="absolute inset-0 bg-gradient-to-t from-jet-black/100 via-jet-black/30 to-transparent"></div>
         </div>
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20">
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto mt-10 md:mt-14">
           <span className="block text-gold text-[10px] md:text-xs tracking-[0.5em] font-light uppercase mb-6">{data.hero.tag}</span>
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-normal text-pearl-white mb-8 tracking-tighter leading-[1.05]">
             {data.hero.title1}<br /><span className="font-serif italic font-light text-pearl-white/90">{data.hero.title2}</span>
@@ -60,7 +60,7 @@ export default async function ArchitecturePage({ params }: { params: Promise<{ l
               <div className="rounded-t-[100px] sm:rounded-t-full w-full sm:w-1/2 aspect-[4/5] relative overflow-hidden bg-charcoal/20 border border-white/5 shadow-2xl">
                 <img loading="lazy" decoding="async" src="/images/phoi-canh-can-ho-view-bien-du-an-alize.webp" alt="Góc Xoay" className="w-full h-full object-cover filter brightness-[0.7]" />
               </div>
-              <div className="rounded-b-[100px] sm:rounded-b-full w-full sm:w-1/2 aspect-[4/5] relative overflow-hidden bg-charcoal/20 border border-white/5 sm:mt-16 shadow-2xl">
+              <div className="rounded-b-[100px] sm:rounded-b-full w-full sm:w-1/2 aspect-[4/5] relative overflow-hidden bg-charcoal/20 border border-white/5 sm:mt-8 md:mt-12 shadow-2xl">
                 <img loading="lazy" decoding="async" src="/images/sky-pool-alize-da-nang.webp" alt="Panorama" className="w-full h-full object-cover filter brightness-[0.7]" />
               </div>
             </div>
