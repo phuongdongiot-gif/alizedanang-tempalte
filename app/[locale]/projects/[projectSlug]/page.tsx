@@ -94,8 +94,22 @@ export default async function ProjectLandingPage({ params }: { params: Promise<{
     dynamicFloorplansObj = { ...dict.floorplans, plans: freshPlans };
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "RealEstateListing",
+    "name": dynamicHeroLine1,
+    "description": dynamicHeroDesc,
+    "image": apiData?.floorplans?.[0]?.image_url || "https://alizedanang.net/images/sky-pool-alize-da-nang.webp",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": apiData?.location?.name || "Đà Nẵng",
+      "addressCountry": "VN"
+    }
+  };
+
   return (
     <div className="relative w-full overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Header nav={dict.nav} locale={locale} projectSlug={projectSlug} />
       
       {/* HERO SECTION */}

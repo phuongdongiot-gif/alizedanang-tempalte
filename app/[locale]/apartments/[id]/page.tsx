@@ -54,8 +54,24 @@ export default async function ApartmentDetailPage({ params }: { params: Promise<
   const estRent = Math.round(priceNum * 0.005).toLocaleString('vi-VN');
   const estYield = "6.0";
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": apt.name,
+    "image": apt.img,
+    "description": apt.desc,
+    "offers": {
+      "@type": "Offer",
+      "url": `${process.env.NEXT_PUBLIC_BASE_URL || "https://alizedanang.net"}/${locale}/apartments/${id}`,
+      "priceCurrency": "VND",
+      "price": apt.priceNum || 0,
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
   return (
     <div className="relative w-full min-h-screen bg-[#070A10] text-pearl-white flex flex-col pt-24">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <PortalHeader nav={dict.portal.nav} locale={locale} />
 
       {/* HERO SECTION */}
