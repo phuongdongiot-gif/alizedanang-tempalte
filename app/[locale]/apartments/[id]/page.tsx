@@ -105,9 +105,10 @@ export default async function ApartmentDetailPage({ params }: { params: Promise<
           {/* MAIN COLUMN */}
           <div className="lg:col-span-2">
             <h2 className="font-serif text-3xl font-light mb-8 pb-4 border-b border-white/10">Tổng Quan</h2>
-            <p className="text-champagne/70 text-base md:text-lg font-light leading-relaxed mb-12">
-              {apt.desc}
-            </p>
+            <div 
+              className="text-champagne/70 text-base md:text-lg font-light leading-relaxed mb-12 prose prose-invert max-w-none"
+              dangerouslySetInnerHTML={{ __html: apt.desc }}
+            />
 
             {/* ĐẶC ĐIỂM BẤT ĐỘNG SẢN */}
             {apt.features && Object.values(apt.features).some(v => v !== null && v !== undefined && v !== '') && (

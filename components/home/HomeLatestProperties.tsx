@@ -41,6 +41,11 @@ export default function HomeLatestProperties({ featuredProperties, locale }: { f
                     <div>
                       <h3 className="font-serif text-sm md:text-lg text-white group-hover:text-gold transition-colors font-light line-clamp-2 leading-snug">{prop.name}</h3>
                       <p className="text-[10px] md:text-[11px] text-champagne/60 mt-1 md:mt-2 truncate">{prop.location}</p>
+                      {prop.desc && (
+                        <p className="text-[10px] md:text-[11px] text-white/50 font-light mt-2 line-clamp-2 leading-relaxed">
+                          {prop.desc.replace(/<[^>]*>?/gm, '')}
+                        </p>
+                      )}
                     </div>
                     <div className="flex flex-col gap-2 md:gap-3 mt-3 md:mt-4 border-t border-white/5 pt-3 md:pt-4">
                       <div className="text-[#E53935] font-bold text-sm md:text-base line-clamp-1">{prop.price}</div>
