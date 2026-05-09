@@ -6,6 +6,8 @@ import FloorPlans from "@/components/FloorPlans";
 import { Metadata } from "next";
 import { fetchGraphQL } from "@/lib/graphql";
 
+import ProjectHero from "@/components/projects/ProjectHero";
+import ProjectAmenities from "@/components/projects/ProjectAmenities";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string, projectSlug: string }> }): Promise<Metadata> {
   const { locale, projectSlug } = await params;
@@ -112,20 +114,12 @@ export default async function ProjectLandingPage({ params }: { params: Promise<{
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Header nav={dict.nav} locale={locale} projectSlug={projectSlug} />
       
-      {/* HERO SECTION */}
-      <section id="hero" className="relative h-screen min-h-[800px] w-full flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img loading="lazy" decoding="async" src="/images/sky-pool-alize-da-nang.webp" alt="Luxury Real Estate" className="w-full h-[120%] -top-[10%] object-cover absolute" />
-          <div className="absolute inset-0 bg-gradient-to-t from-jet-black via-transparent to-transparent"></div>
-        </div>
-        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto mt-10 md:mt-14">
-          <span className="block text-gold text-[10px] md:text-xs tracking-[0.5em] font-light uppercase mb-8">{dynamicTagline}</span>
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-[6.5rem] font-normal text-pearl-white mb-8 tracking-tighter leading-[1.05]">
-            {dynamicHeroLine1} <br /><span className="font-serif italic font-light text-pearl-white/90">{dynamicHeroLine2}</span>
-          </h1>
-          <p className="text-champagne/80 mb-14 text-base md:text-lg font-light tracking-wide max-w-2xl mx-auto leading-relaxed">{dynamicHeroDesc}</p>
-        </div>
-      </section>
+      <ProjectHero 
+        dynamicTagline={dynamicTagline} 
+        dynamicHeroLine1={dynamicHeroLine1} 
+        dynamicHeroLine2={dynamicHeroLine2} 
+        dynamicHeroDesc={dynamicHeroDesc} 
+      />
 
       {/* OVERVIEW SECTION */}
       <section id="overview" className="pt-40 pb-32 bg-jet-black text-pearl-white">
@@ -218,33 +212,7 @@ export default async function ProjectLandingPage({ params }: { params: Promise<{
         </div>
       </section>
 
-      {/* AMENITIES SECTION */}
-      <section id="amenities" className="pt-40 pb-32 text-pearl-white border-t border-white/5 bg-midnight-blue">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="flex flex-col lg:flex-row justify-between items-end mb-24">
-            <div className="max-w-3xl">
-              <span className="text-[10px] text-gold tracking-[0.4em] uppercase font-light mb-6 block opacity-80">{dict.amenities.sectionTag}</span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-[4rem] leading-[1.1] font-light tracking-tight">{dict.amenities.title}</h2>
-              <p className="mt-6 text-champagne/60 font-light text-sm max-w-2xl leading-[2]">{dict.amenities.description}</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {dynamicAmenities.map((b: any, i: number) => (
-              <div key={i} className="border border-white/5 bg-charcoal/20 p-6">
-                <div className="aspect-[4/3] overflow-hidden relative mb-8 rounded">
-                  {/* Dùng ảnh từ DB, nếu không có fallback về placeholder */}
-                  <img loading="lazy" decoding="async" src={b.image_url || b.img || '/images/can-ho-view-bien-my-khe-alize.webp'} className="w-full h-full object-cover filter brightness-75" alt={b.title} />
-                </div>
-                <div>
-                  <span className="text-gold/80 text-[10px] tracking-[0.3em] font-light uppercase mb-3 block">{b.tag || 'NEW AMENITY'}</span>
-                  <h3 className="font-serif text-2xl font-light mb-4 text-pearl-white">{b.title}</h3>
-                  <p className="text-champagne/50 text-[13px] font-light leading-relaxed">{b.description || b.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProjectAmenities dict={dict} dynamicAmenities={dynamicAmenities} />
 
       {/* FLOORPLANS */}
       <FloorPlans data={dynamicFloorplansObj} />

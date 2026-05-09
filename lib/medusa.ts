@@ -53,7 +53,8 @@ export async function getProducts(params?: { limit?: number; offset?: number; ca
   }
   
   const res = await fetch(url.toString(), {
-    headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" }
+    headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" },
+    next: { revalidate: 10 }
   });
   
   if (!res.ok) {
@@ -66,7 +67,7 @@ export async function getProducts(params?: { limit?: number; offset?: number; ca
 export async function getProductCategories() {
   const res = await fetch(`${MEDUSA_URL}/store/product-categories`, {
     headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" },
-    cache: 'no-store'
+    next: { revalidate: 10 }
   });
   if (!res.ok) return { product_categories: [] };
   return res.json();
@@ -75,7 +76,8 @@ export async function getProductCategories() {
 /** Helper: Lấy chi tiết 1 sản phẩm theo ID */
 export async function getProduct(id: string) {
   const res = await fetch(`${MEDUSA_URL}/store/products/${id}`, {
-    headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" }
+    headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" },
+    next: { revalidate: 10 }
   });
   if (!res.ok) return null;
   const data = await res.json();
@@ -85,7 +87,8 @@ export async function getProduct(id: string) {
 /** Helper: Lấy chi tiết 1 sản phẩm theo Handle */
 export async function getProductByHandle(handle: string) {
   const res = await fetch(`${MEDUSA_URL}/store/products?handle=${handle}`, {
-    headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" }
+    headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" },
+    next: { revalidate: 10 }
   });
   if (!res.ok) return null;
   const data = await res.json();

@@ -13,9 +13,10 @@ import HomeLocations from "../../components/home/HomeLocations";
 import HomeLatestProperties from "../../components/home/HomeLatestProperties";
 import HomeProductsCarousel from "../../components/home/HomeProductsCarousel";
 import HomeCategoryProducts from "../../components/home/HomeCategoryProducts";
+import HomeTools from "../../components/home/HomeTools";
 import HomeNews from "../../components/home/HomeNews";
 
-export const revalidate = 60; // Refresh data every 60 seconds
+export const revalidate = 10; // Refresh data every 10 seconds
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -129,6 +130,8 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
       <HomeProductsCarousel shopProducts={shopProducts.slice(0, 8)} locale={locale} />
       
       <HomeCategoryProducts categories={shopCategories} products={shopProducts} locale={locale} />
+
+      <HomeTools data={data.tools} locale={locale} />
       
       <HomeNews wpPosts={wpPosts} data={data.news} locale={locale} />
 

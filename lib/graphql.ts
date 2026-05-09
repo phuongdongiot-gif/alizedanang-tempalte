@@ -9,7 +9,7 @@ export const GRAPHQL_API_URL = process.env.NEXT_PUBLIC_GRAPHQL_URL || 'https://a
 export async function fetchGraphQL<T>(
   query: string,
   variables: Record<string, any> = {},
-  options: RequestInit = { next: { revalidate: 60 } }
+  options: RequestInit = { next: { revalidate: 10 } }
 ): Promise<T> {
   const cacheKey = `graphql_cache:${JSON.stringify({ query, variables })}`;
 
@@ -48,9 +48,9 @@ export async function fetchGraphQL<T>(
       throw new Error(errors[0].message);
     }
 
-    // Ghi dữ liệu vào cache Upstash Redis (thời gian sống là 1 phút: 60 giây)
+    // Ghi dữ liệu vào cache Upstash Redis (thời gian sống là 10 giây)
     try {
-      await redis.set(cacheKey, data, { ex: 60 });
+      await redis.set(cacheKey, data, { ex: 10 });
       console.log(`[GraphQL Cache] ✅ Đã lưu dữ liệu vào Redis`);
     } catch (err) {
       console.warn('[GraphQL Cache] Lỗi khi lưu vào Redis:', err);
