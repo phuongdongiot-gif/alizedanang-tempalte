@@ -1,9 +1,8 @@
-import React from "react";
 import Link from "next/link";
 
 export default function HomeLocations({ data, locale }: { data: any, locale: string }) {
   return (
-    <section className="py-24 bg-[#070A10] border-t border-white/5">
+    <section className="py-12 lg:py-24 bg-[#070A10] border-t border-white/5">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         <div className="mb-12">
           <h2 className="font-serif text-3xl md:text-4xl text-white font-light tracking-tight">{data.title}</h2>

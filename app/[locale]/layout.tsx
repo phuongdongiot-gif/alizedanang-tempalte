@@ -1,9 +1,7 @@
 import { Inter, Playfair_Display } from "next/font/google";
 import "../globals.css";
-import { getDictionary } from '../../dictionaries';
 import { Metadata } from 'next';
 import LiveChatWidget from '../../components/LiveChatWidget';
-import FloatingContact from '../../components/FloatingContact';
 import StoreShell from '../../components/StoreShell';
 
 export const dynamic = 'force-dynamic';
@@ -18,7 +16,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alizedanang.net';
-  
+
   return {
     metadataBase: new URL(baseUrl),
     alternates: {
@@ -47,7 +45,6 @@ export default async function RootLayout({
           {children}
         </StoreShell>
         <LiveChatWidget />
-        <FloatingContact />
       </body>
     </html>
   );

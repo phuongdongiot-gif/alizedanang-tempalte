@@ -8,7 +8,7 @@ interface ApartmentInvestmentProps {
 
 export default function ApartmentInvestment({ pricePerM2, estRent, estYield }: ApartmentInvestmentProps) {
   return (
-    <div className="mb-8 md:mb-12">
+    <div className="mb-4 md:mb-8">
       <h2 className="font-serif text-3xl font-light mb-8 pb-4 border-b border-white/10 flex items-center gap-3">
         <TrendingUp className="text-gold" size={28} />
         Phân Tích & Đầu Tư

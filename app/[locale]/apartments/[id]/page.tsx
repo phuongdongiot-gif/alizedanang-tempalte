@@ -75,13 +75,13 @@ export default async function ApartmentDetailPage({ params }: { params: Promise<
   };
 
   return (
-    <div className="relative w-full min-h-screen bg-[#070A10] text-pearl-white flex flex-col pt-24">
+    <div className="relative w-full min-h-screen text-pearl-white flex flex-col pt-24">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <PortalHeader nav={dict.portal.nav} locale={locale} />
 
       <ApartmentHero apt={apt} locale={locale} backLinkText={backLinkText} />
 
-      <section className="py-24 flex-1 bg-jet-black">
+      <section className="py-12 flex-1 bg-jet-black">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-3 gap-16">
 
           <div className="lg:col-span-2">

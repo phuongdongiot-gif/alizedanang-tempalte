@@ -67,8 +67,8 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
             <NavDropdown group={nav.rent} type="rent" />
             <Link href={`/${locale}/projects`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{nav.projects}</Link>
             <Link href={`/${locale}/map`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{locale === 'vi' ? 'Bản Đồ' : 'Map'}</Link>
-            <Link href={`/${locale}/blog`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{nav.news}</Link>
             <Link href={`/${locale}/shop`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{locale === 'vi' ? 'Cửa Hàng' : 'Shop'}</Link>
+            <Link href={`/${locale}/blog`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{nav.news}</Link>
             <Link href={`/${locale}/services`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{locale === 'vi' ? 'Dịch Vụ' : 'Services'}</Link>
           </nav>
 
@@ -193,8 +193,8 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
         {[
           { href: `/${locale}/projects`, label: nav.projects },
           { href: `/${locale}/map`, label: locale === 'vi' ? 'BẢN ĐỒ' : 'MAP' },
-          { href: `/${locale}/blog`, label: nav.news },
           { href: `/${locale}/shop`, label: locale === 'vi' ? 'CỬA HÀNG' : 'SHOP' },
+          { href: `/${locale}/blog`, label: nav.news },
           { href: `/${locale}/services`, label: locale === 'vi' ? 'DỊCH VỤ' : 'SERVICES' },
         ].map(item => (
           <Link key={item.href} onClick={() => setMobileMenuOpen(false)} href={item.href}
