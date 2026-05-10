@@ -12,6 +12,7 @@ import ApartmentHero from "../../../../components/apartments/ApartmentHero";
 import ApartmentOverview from "../../../../components/apartments/ApartmentOverview";
 import ApartmentInvestment from "../../../../components/apartments/ApartmentInvestment";
 import ApartmentSpecsSidebar from "../../../../components/apartments/ApartmentSpecsSidebar";
+import HomeTools from "../../../../components/home/HomeTools";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string, id: string }> }): Promise<Metadata> {
   const { locale, id } = await params;
@@ -109,6 +110,8 @@ export default async function ApartmentDetailPage({ params }: { params: Promise<
 
         </div>
       </section>
+
+      <HomeTools data={dict.portal.tools} locale={locale} />
 
       <PortalFooter footer={dict.portal.footer} locale={locale} />
     </div>

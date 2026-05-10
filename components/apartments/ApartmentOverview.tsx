@@ -1,5 +1,8 @@
+"use client";
+
 import { PortalProperty } from "../../types";
 import Link from "next/link";
+import { useState } from "react";
 
 interface ApartmentOverviewProps {
   apt: PortalProperty;
@@ -8,13 +11,27 @@ interface ApartmentOverviewProps {
 }
 
 export default function ApartmentOverview({ apt, locale, projectLinkText }: ApartmentOverviewProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <>
       <h2 className="font-serif text-3xl font-light mb-8 pb-4 border-b border-white/10">Tổng Quan</h2>
-      <div 
-        className="text-champagne/70 text-base md:text-lg font-light leading-relaxed mb-12 prose prose-invert max-w-none"
-        dangerouslySetInnerHTML={{ __html: apt.desc }}
-      />
+      <div className="mb-12 relative">
+        <div 
+          className={`text-champagne/70 text-base md:text-lg font-light leading-relaxed prose prose-invert max-w-none transition-all duration-500 overflow-hidden ${isExpanded ? '' : 'max-h-[150px]'}`}
+          dangerouslySetInnerHTML={{ __html: apt.desc }}
+        />
+        {!isExpanded && (
+          <div className="absolute bottom-0 left-0 w-full h-[80px] bg-gradient-to-t from-jet-black to-transparent pointer-events-none" />
+        )}
+        <button 
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="mt-4 text-gold text-sm font-medium hover:underline flex items-center gap-1 uppercase tracking-widest"
+        >
+          {isExpanded ? (locale === 'vi' ? 'Thu gọn' : 'Show less') : (locale === 'vi' ? 'Xem thêm' : 'Read more')}
+          <span className="text-[10px]">{isExpanded ? '▲' : '▼'}</span>
+        </button>
+      </div>
 
       {/* ĐẶC ĐIỂM BẤT ĐỘNG SẢN */}
       {apt.features && Object.values(apt.features).some(v => v !== null && v !== undefined && v !== '') && (
