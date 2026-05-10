@@ -12,7 +12,7 @@ export default function HomeNews({ wpPosts, data, locale }: { wpPosts: any[], da
           </div>
           <Link href={`/${locale}/blog`} className="hidden md:inline-block border-b border-gold/50 text-gold text-sm tracking-widest uppercase pb-1 hover:border-gold transition-colors font-light">Xem Tất Cả</Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8 pb-4 md:pb-0">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8 pb-4 md:pb-0">
           {wpPosts && wpPosts.length > 0 ? (
             wpPosts.map((post: any, idx: number) => {
               const img = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/can-ho-view-bien-my-khe-alize.webp';

@@ -11,7 +11,6 @@ interface ApartmentOverviewProps {
 }
 
 export default function ApartmentOverview({ apt, locale, projectLinkText }: ApartmentOverviewProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const images = apt.gallery?.length > 0 ? apt.gallery : [apt.img];
@@ -29,15 +28,15 @@ export default function ApartmentOverview({ apt, locale, projectLinkText }: Apar
       {/* HÌNH ẢNH CAROUSEL */}
       {images.length > 0 && (
         <div className="mb-12 relative group rounded-xl overflow-hidden aspect-[16/9] md:aspect-[21/9] bg-black/50 border border-white/10 shadow-2xl">
-          <div 
+          <div
             className="flex h-full transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
           >
             {images.map((img, idx) => (
               <div key={idx} className="w-full h-full flex-shrink-0 relative">
-                <img 
-                  src={img} 
-                  alt={`${apt.name} - ${idx + 1}`} 
+                <img
+                  src={img}
+                  alt={`${apt.name} - ${idx + 1}`}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -47,14 +46,14 @@ export default function ApartmentOverview({ apt, locale, projectLinkText }: Apar
           {images.length > 1 && (
             <>
               {/* Nút điều hướng */}
-              <button 
+              <button
                 onClick={prevImage}
                 className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-gold text-white hover:text-black rounded-full backdrop-blur transition-all opacity-0 group-hover:opacity-100 shadow-lg"
                 aria-label="Previous image"
               >
                 &#10094;
               </button>
-              <button 
+              <button
                 onClick={nextImage}
                 className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-gold text-white hover:text-black rounded-full backdrop-blur transition-all opacity-0 group-hover:opacity-100 shadow-lg"
                 aria-label="Next image"
@@ -68,11 +67,10 @@ export default function ApartmentOverview({ apt, locale, projectLinkText }: Apar
                   <button
                     key={idx}
                     onClick={() => setCurrentImageIndex(idx)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      idx === currentImageIndex 
-                        ? "bg-gold w-4" 
+                    className={`w-2 h-2 rounded-full transition-all ${idx === currentImageIndex
+                        ? "bg-gold w-4"
                         : "bg-white/50 hover:bg-white"
-                    }`}
+                      }`}
                     aria-label={`Go to image ${idx + 1}`}
                   />
                 ))}
@@ -83,7 +81,7 @@ export default function ApartmentOverview({ apt, locale, projectLinkText }: Apar
       )}
 
       <h2 className="font-serif text-3xl font-light mb-8 pb-4 border-b border-white/10">Tổng Quan</h2>
-      <div 
+      <div
         className="text-champagne/70 text-base md:text-lg font-light leading-relaxed mb-12 prose prose-invert max-w-none"
         dangerouslySetInnerHTML={{ __html: apt.desc }}
       />
@@ -133,14 +131,6 @@ export default function ApartmentOverview({ apt, locale, projectLinkText }: Apar
           )}
         </div>
       )}
-
-      <div className="bg-charcoal/30 p-8 rounded border border-gold/20 flex flex-col items-center text-center mt-12 mb-12">
-        <h3 className="font-serif text-2xl font-light mb-4">Thuộc Mảng Ghép Dự Án {apt.projectName}</h3>
-        <p className="text-sm font-light text-champagne/60 mb-6 max-w-lg">Căn hộ này được phát triển như một phần của dự án {apt.projectName}, thừa hưởng toàn bộ chuỗi tiện ích đẳng cấp 5 sao và không gian sống thượng lưu.</p>
-        <Link href={`/${locale}/projects/${apt.projectId}`} className="px-8 py-3 bg-gold text-jet-black text-[11px] uppercase tracking-widest font-semibold hover:bg-white transition-colors">
-          {projectLinkText}
-        </Link>
-      </div>
     </>
   );
 }

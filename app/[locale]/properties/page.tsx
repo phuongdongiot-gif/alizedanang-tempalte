@@ -61,6 +61,8 @@ export default async function PropertiesPage({
   const priceRange = typeof sp?.price === 'string' ? sp.price : 'all';
   const areaRange = typeof sp?.area === 'string' ? sp.area : 'all';
   const viewMode = typeof sp?.view === 'string' ? sp.view : 'list';
+  const page = typeof sp?.page === 'string' ? parseInt(sp.page, 10) : 1;
+  const ITEMS_PER_PAGE = 16;
   
   const dict = getDictionary(locale);
   const data = dict.portal.properties;
@@ -101,6 +103,9 @@ export default async function PropertiesPage({
   const pageTitle = transaction === 'sale' 
       ? (locale === 'vi' ? 'Mua bán nhà đất toàn quốc' : 'Properties for Sale Nationwide')
       : (locale === 'vi' ? 'Cho thuê nhà đất toàn quốc' : 'Properties for Rent Nationwide');
+      
+  const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+  const paginatedItems = filteredItems.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
       
   return (
     <div className="relative w-full min-h-screen bg-[#070A10] text-pearl-white flex flex-col pt-24 font-sans">
@@ -150,9 +155,25 @@ export default async function PropertiesPage({
                    </Link>
                  </div>
               ) : (
-                filteredItems.map(apt => (
-                  <PropertyCardList key={apt.id} property={apt} locale={locale} />
-                ))
+                <>
+                  {paginatedItems.map(apt => (
+                    <PropertyCardList key={apt.id} property={apt} locale={locale} />
+                  ))}
+                  
+                  {totalPages > 1 && (
+                    <div className="flex justify-center gap-2 mt-8 mb-4">
+                      {Array.from({ length: totalPages }).map((_, i) => (
+                        <Link
+                          key={i}
+                          href={`/${locale}/properties?transaction=${transaction}&category=${category}&q=${keyword}&price=${priceRange}&area=${areaRange}&view=${viewMode}&page=${i + 1}`}
+                          className={`w-10 h-10 flex items-center justify-center text-sm rounded transition-colors ${page === i + 1 ? 'bg-gold text-jet-black font-medium' : 'bg-jet-black/50 text-white/70 hover:bg-white/10 border border-white/5'}`}
+                        >
+                          {i + 1}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </>
               )}
            </div>
 

@@ -50,8 +50,8 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
 
   // Fetch recent properties for the new section
   const recentProperties = await getProperties(locale);
-  const featuredProperties = recentProperties.slice(0, 12); // Fetch up to 12 to enable carousel
-  const featuredApartments = recentProperties.filter(p => p.propertyCategory === 'apartments').slice(0, 12);
+  const featuredProperties = recentProperties.slice(0, 8); // Fetch up to 8
+  const featuredApartments = recentProperties.filter(p => p.propertyCategory === 'apartments').slice(0, 8);
 
   let shopProducts: any[] = [];
   let shopCategories: any[] = [];
@@ -108,7 +108,7 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
 
   try {
     const WP_API = process.env.NEXT_PUBLIC_WP_API_URL || 'https://atservice.vn/wp-json/wp/v2';
-    const wpRes = await fetch(`${WP_API}/posts?per_page=3&_embed`, { next: { revalidate: 3600 } });
+    const wpRes = await fetch(`${WP_API}/posts?per_page=8&_embed`, { next: { revalidate: 3600 } });
     if (wpRes.ok) wpPosts = await wpRes.json();
   } catch (error) {
     console.warn("Lỗi kéo dữ liệu News:", error);
