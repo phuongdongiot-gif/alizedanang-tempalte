@@ -72,9 +72,10 @@ export default function PropertyCardList({ property, locale }: { property: Porta
               </span>
            </div>
            
-           <p className="text-sm text-champagne/60 font-light mt-3 line-clamp-2 leading-relaxed hidden md:block">
-              {property.desc}
-           </p>
+           <div 
+             className="text-sm text-champagne/60 font-light mt-3 line-clamp-3 leading-relaxed hidden md:block"
+             dangerouslySetInnerHTML={{ __html: property.desc || '' }} 
+           />
            
            <div className="flex justify-between items-center mt-6 pt-4 border-t border-white/5">
               <div className="flex items-center gap-2">
