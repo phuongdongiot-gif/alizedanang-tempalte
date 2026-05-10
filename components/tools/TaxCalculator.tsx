@@ -40,9 +40,9 @@ export default function TaxCalculator({ dict }: { dict: TaxDict }) {
     <div className="max-w-3xl mx-auto animate-fade-in-up">
       {/* Input */}
       <div className="bg-charcoal/30 backdrop-blur-md rounded-2xl p-6 border border-white/5 mb-8">
-        <div className="flex justify-between mb-2">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-2">
           <label className="text-gray-300 font-medium">{dict.propertyValue}</label>
-          <span className="text-gold font-bold text-xl">{formatCurrency(propertyValue)}</span>
+          <span className="text-gold font-bold text-xl sm:text-2xl break-words">{formatCurrency(propertyValue)}</span>
         </div>
         <input 
           type="range" min="500000000" max="50000000000" step="50000000"

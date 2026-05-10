@@ -52,7 +52,7 @@ export default function MortgageCalculator({ dict }: { dict: MortgageDict }) {
       <div className="flex flex-col gap-6">
         {/* Tùy chỉnh Giá Trị */}
         <div>
-          <div className="flex justify-between mb-2">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-2">
             <label className="text-gray-300 font-medium">{dict.propertyValue}</label>
             <span className="text-gold font-bold">{formatCurrency(propertyValue)}</span>
           </div>
@@ -65,7 +65,7 @@ export default function MortgageCalculator({ dict }: { dict: MortgageDict }) {
 
         {/* Tỷ lệ vay */}
         <div>
-          <div className="flex justify-between mb-2">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-2">
             <label className="text-gray-300 font-medium">{dict.loanPercent}</label>
             <span className="text-gold font-bold">{loanPercent}%</span>
           </div>
@@ -78,7 +78,7 @@ export default function MortgageCalculator({ dict }: { dict: MortgageDict }) {
 
         {/* Lãi suất */}
         <div>
-          <div className="flex justify-between mb-2">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-2">
             <label className="text-gray-300 font-medium">{dict.interestRate}</label>
             <span className="text-gold font-bold">{interestRate}%</span>
           </div>
@@ -91,7 +91,7 @@ export default function MortgageCalculator({ dict }: { dict: MortgageDict }) {
 
         {/* Thời gian vay */}
         <div>
-          <div className="flex justify-between mb-2">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-2">
             <label className="text-gray-300 font-medium">{dict.loanTerm}</label>
             <span className="text-gold font-bold">{loanTerm} {dict.loanTerm.includes('Years') || dict.loanTerm.includes('Năm') ? (dict.loanTerm.includes('Years') ? 'years' : 'năm') : ''}</span>
           </div>
@@ -108,9 +108,9 @@ export default function MortgageCalculator({ dict }: { dict: MortgageDict }) {
         <h3 className="text-xl font-bold text-white mb-6 uppercase tracking-wider">{dict.resultsTitle}</h3>
         
         {/* Kết quả chính */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-6 w-full">
           <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">{dict.monthlyPayment}</p>
-          <p className="text-4xl lg:text-5xl font-light text-gold tracking-tight">{formatCurrency(monthlyPayment)}</p>
+          <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-gold tracking-tight break-words">{formatCurrency(monthlyPayment)}</p>
         </div>
 
         {/* Biểu đồ Donut */}
@@ -136,14 +136,14 @@ export default function MortgageCalculator({ dict }: { dict: MortgageDict }) {
         </div>
 
         {/* Thống kê Footer */}
-        <div className="w-full grid grid-cols-2 gap-4 mt-4 border-t border-white/10 pt-4">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 border-t border-white/10 pt-4">
           <div className="text-center">
             <p className="text-gray-400 text-xs uppercase mb-1">{dict.totalPrincipal}</p>
-            <p className="font-semibold text-white">{formatCurrency(principalAmount)}</p>
+            <p className="font-semibold text-white break-words">{formatCurrency(principalAmount)}</p>
           </div>
           <div className="text-center">
             <p className="text-gray-400 text-xs uppercase mb-1">{dict.totalInterest}</p>
-            <p className="font-semibold text-white">{formatCurrency(totalInterest)}</p>
+            <p className="font-semibold text-white break-words">{formatCurrency(totalInterest)}</p>
           </div>
         </div>
       </div>

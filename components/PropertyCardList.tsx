@@ -1,8 +1,12 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { PortalProperty } from '../types';
 
 export default function PropertyCardList({ property, locale }: { property: PortalProperty, locale: string }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   // Take up to 4 images (1 main, 3 side)
   const images = property.gallery && property.gallery.length > 0 ? property.gallery : [property.img || '/images/can-ho-view-bien-my-khe-alize.webp'];
   const mainImage = images[0];
@@ -72,10 +76,19 @@ export default function PropertyCardList({ property, locale }: { property: Porta
               </span>
            </div>
            
-           <div 
-             className="text-sm text-champagne/60 font-light mt-3 line-clamp-3 leading-relaxed hidden md:block"
-             dangerouslySetInnerHTML={{ __html: property.desc || '' }} 
-           />
+           <div className="mt-3 hidden md:block">
+             <div 
+               className={`text-sm text-champagne/60 font-light leading-relaxed wp-content transition-all duration-500 overflow-hidden ${isExpanded ? '' : 'line-clamp-3'}`}
+               dangerouslySetInnerHTML={{ __html: property.desc || '' }} 
+             />
+             <button 
+               onClick={() => setIsExpanded(!isExpanded)}
+               className="mt-2 text-gold text-[11px] font-medium hover:underline flex items-center gap-1 uppercase tracking-widest"
+             >
+               {isExpanded ? (locale === 'vi' ? 'Thu gọn' : 'Show less') : (locale === 'vi' ? 'Xem thêm' : 'Read more')}
+               <span className="text-[9px]">{isExpanded ? '▲' : '▼'}</span>
+             </button>
+           </div>
            
            <div className="flex justify-between items-center mt-6 pt-4 border-t border-white/5">
               <div className="flex items-center gap-2">

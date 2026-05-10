@@ -45,7 +45,7 @@ export default function RentalYieldCalculator({ dict }: { dict: YieldDict }) {
       {/* Cột Trái: Input Controls */}
       <div className="flex flex-col gap-6">
         <div>
-          <div className="flex justify-between mb-2">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-2">
             <label className="text-gray-300 font-medium">{dict.propertyValue}</label>
             <span className="text-gold font-bold">{formatCurrency(propertyValue)}</span>
           </div>
@@ -57,7 +57,7 @@ export default function RentalYieldCalculator({ dict }: { dict: YieldDict }) {
         </div>
 
         <div>
-          <div className="flex justify-between mb-2">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-2">
             <label className="text-gray-300 font-medium">{dict.monthlyRent}</label>
             <span className="text-gold font-bold">{formatCurrency(monthlyRent)}</span>
           </div>
@@ -69,7 +69,7 @@ export default function RentalYieldCalculator({ dict }: { dict: YieldDict }) {
         </div>
 
         <div>
-          <div className="flex justify-between mb-2">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-2">
             <label className="text-gray-300 font-medium">{dict.operatingCost}</label>
             <span className="text-gold font-bold">{operatingCost}%</span>
           </div>
@@ -119,14 +119,14 @@ export default function RentalYieldCalculator({ dict }: { dict: YieldDict }) {
         </div>
 
         {/* Thống kê Footer */}
-        <div className="w-full grid grid-cols-2 gap-4 mt-6 border-t border-white/10 pt-4">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 border-t border-white/10 pt-4">
           <div className="text-center">
             <p className="text-gray-400 text-xs uppercase mb-1">{dict.annualIncome}</p>
-            <p className="font-semibold text-white">{formatCurrency(annualRent)}</p>
+            <p className="font-semibold text-white break-words">{formatCurrency(annualRent)}</p>
           </div>
           <div className="text-center">
             <p className="text-gray-400 text-xs uppercase mb-1">{dict.annualExpenses}</p>
-            <p className="font-semibold text-rose-400">-{formatCurrency(annualExpenses)}</p>
+            <p className="font-semibold text-rose-400 break-words">-{formatCurrency(annualExpenses)}</p>
           </div>
         </div>
       </div>
