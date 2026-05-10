@@ -59,6 +59,17 @@ export default async function ProjectsHubPage({ params }: { params: Promise<{ lo
     console.error("Lỗi khi load Projects từ GraphQL:", err);
   }
 
+  // Fallback to static data if no dynamic projects are found
+  if (dynamicProjects.length === 0 && dict.portal.featuredProjects?.items) {
+    dynamicProjects = dict.portal.featuredProjects.items.map((item: any) => ({
+      id: item.id,
+      name: item.name,
+      slug: item.href,
+      hero_img: item.img, // mapping for HoverVideoCard
+      location: { name: item.location },
+    }));
+  }
+
   return (
     <div className="bg-[#070A10] min-h-screen text-pearl-white flex flex-col font-sans">
       <PortalHeader nav={dict.portal.nav} locale={locale} />

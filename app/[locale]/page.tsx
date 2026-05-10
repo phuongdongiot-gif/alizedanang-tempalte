@@ -131,9 +131,9 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
       
       <HomeCategoryProducts categories={shopCategories} products={shopProducts} locale={locale} />
 
-      <HomeTools data={data.tools} locale={locale} />
-      
       <HomeNews wpPosts={wpPosts} data={data.news} locale={locale} />
+
+      <HomeTools data={data.tools} locale={locale} />
 
       <PortalFooter footer={data.footer} locale={locale} />
     </div>

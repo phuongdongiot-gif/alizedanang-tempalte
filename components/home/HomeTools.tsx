@@ -12,18 +12,18 @@ export default function HomeTools({ data, locale }: { data: any, locale: string 
   if (!t || !t.tabs) return null;
 
   return (
-    <section className="py-20 md:py-28 px-4 md:px-8 max-w-7xl mx-auto w-full relative">
-      <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 animate-fade-in-up">
-        <h2 className="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">
+    <section className="py-12 md:py-16 px-4 md:px-8 max-w-5xl mx-auto w-full relative border-t border-white/5">
+      <div className="text-center max-w-2xl mx-auto mb-8 animate-fade-in-up">
+        <h2 className="text-2xl md:text-3xl font-light text-white mb-3 tracking-tight">
           {t.title}
         </h2>
-        <p className="text-gray-400 text-lg">
+        <p className="text-gray-400 text-sm">
           {t.subtitle}
         </p>
       </div>
 
       {/* Cụm Tabs */}
-      <div className="flex flex-wrap justify-center gap-2 mb-12 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
+      <div className="flex flex-wrap justify-center gap-2 mb-8 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
         <button
           onClick={() => setActiveTab("mortgage")}
           className={`px-6 pb-2 border-b-[3px] border-double text-sm uppercase tracking-wider font-medium transition-all duration-300 ${
