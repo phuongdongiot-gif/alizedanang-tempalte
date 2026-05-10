@@ -12,9 +12,76 @@ interface ApartmentOverviewProps {
 
 export default function ApartmentOverview({ apt, locale, projectLinkText }: ApartmentOverviewProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const images = apt.gallery?.length > 0 ? apt.gallery : [apt.img];
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
 
   return (
     <>
+      {/* HÌNH ẢNH CAROUSEL */}
+      {images.length > 0 && (
+        <div className="mb-12 relative group rounded-xl overflow-hidden aspect-[16/9] md:aspect-[21/9] bg-black/50 border border-white/10 shadow-2xl">
+          <div 
+            className="flex h-full transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+          >
+            {images.map((img, idx) => (
+              <div key={idx} className="w-full h-full flex-shrink-0 relative">
+                <img 
+                  src={img} 
+                  alt={`${apt.name} - ${idx + 1}`} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+
+          {images.length > 1 && (
+            <>
+              {/* Nút điều hướng */}
+              <button 
+                onClick={prevImage}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-gold text-white hover:text-black rounded-full backdrop-blur transition-all opacity-0 group-hover:opacity-100 shadow-lg"
+                aria-label="Previous image"
+              >
+                &#10094;
+              </button>
+              <button 
+                onClick={nextImage}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-gold text-white hover:text-black rounded-full backdrop-blur transition-all opacity-0 group-hover:opacity-100 shadow-lg"
+                aria-label="Next image"
+              >
+                &#10095;
+              </button>
+
+              {/* Chấm phân trang */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-2 bg-black/40 backdrop-blur rounded-full">
+                {images.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentImageIndex(idx)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      idx === currentImageIndex 
+                        ? "bg-gold w-4" 
+                        : "bg-white/50 hover:bg-white"
+                    }`}
+                    aria-label={`Go to image ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      )}
+
       <h2 className="font-serif text-3xl font-light mb-8 pb-4 border-b border-white/10">Tổng Quan</h2>
       <div className="mb-12 relative">
         <div 
@@ -63,16 +130,7 @@ export default function ApartmentOverview({ apt, locale, projectLinkText }: Apar
         </div>
       )}
 
-      <h2 className="font-serif text-3xl font-light mb-8 pb-4 border-b border-white/10">Thư Viện Ảnh</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 md:mb-12">
-        {apt.gallery.map((imgUrl, idx) => (
-          <div key={idx} className="aspect-[4/3] rounded overflow-hidden">
-            <img src={imgUrl} alt={`Gallery ${idx + 1}`} className="w-full h-full object-cover filter brightness-90 hover:brightness-110 transition-all duration-500 hover:scale-105" />
-          </div>
-        ))}
-      </div>
 
-      {/* VIDEO & 3D TOUR */}
       {apt.media && (apt.media.video_url || apt.media.tour_3d_url) && (
         <div className="mb-8 md:mb-12 flex flex-wrap gap-4">
           {apt.media.video_url && (
