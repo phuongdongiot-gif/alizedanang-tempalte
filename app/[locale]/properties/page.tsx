@@ -71,6 +71,10 @@ export default async function PropertiesPage({
   const allProperties = await getProperties(locale);
 
   // Filter Logic
+  const removeAccents = (str: string) => {
+    return str ? str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D') : '';
+  };
+
   let filteredItems = allProperties.filter((item: PortalProperty) => {
     // Transaction matching
     if (item.transactionType !== transaction) return false;
@@ -78,10 +82,11 @@ export default async function PropertiesPage({
     if (category && item.propertyCategory !== category) return false;
     // Keyword matching
     if (keyword) {
-      const nameStr = (item.name || '').toLowerCase();
-      const locStr = (item.location || '').toLowerCase();
-      const projStr = (item.projectName || '').toLowerCase();
-      if (!nameStr.includes(keyword) && !locStr.includes(keyword) && !projStr.includes(keyword)) {
+      const searchKw = removeAccents(keyword.toLowerCase());
+      const nameStr = removeAccents((item.name || '').toLowerCase());
+      const locStr = removeAccents((item.location || '').toLowerCase());
+      const projStr = removeAccents((item.projectName || '').toLowerCase());
+      if (!nameStr.includes(searchKw) && !locStr.includes(searchKw) && !projStr.includes(searchKw)) {
         return false;
       }
     }

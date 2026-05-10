@@ -33,8 +33,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // 2. Dynamic Blog Posts & Categories from WordPress
   try {
+    const WP_API = process.env.NEXT_PUBLIC_WP_API_URL || 'https://atservice.vn/wp-json/wp/v2';
     // Categories
-    const catRes = await fetch('https://atservice.vn/wp-json/wp/v2/categories?hide_empty=true', { next: { revalidate: 3600 } });
+    const catRes = await fetch(`${WP_API}/categories?hide_empty=true`, { next: { revalidate: 3600 } });
     if (catRes.ok) {
       const categories = await catRes.json();
       if (Array.isArray(categories)) {
@@ -52,7 +53,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
 
     // Posts
-    const postRes = await fetch('https://atservice.vn/wp-json/wp/v2/posts?per_page=100', { next: { revalidate: 3600 } });
+    const postRes = await fetch(`${WP_API}/posts?per_page=100`, { next: { revalidate: 3600 } });
     if (postRes.ok) {
       const posts = await postRes.json();
       if (Array.isArray(posts)) {

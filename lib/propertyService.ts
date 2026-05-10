@@ -140,9 +140,14 @@ export async function getProperties(locale: string): Promise<PortalProperty[]> {
     console.log(`✅ [Frontend] Nhận Data từ Backend:`, res ? `Có ${res.properties?.length || 0} bản ghi` : 'null');
 
     if (res && res.properties && res.properties.length > 0) {
-      return res.properties.map((item: any) => ({
+      return res.properties.map((item: any) => {
+        let tType = item.transaction_type || 'sale';
+        if (tType.toLowerCase() === 'mua bán') tType = 'sale';
+        if (tType.toLowerCase() === 'cho thuê') tType = 'rent';
+
+        return {
         id: item.id,
-        transactionType: item.transaction_type || 'sale',
+        transactionType: tType,
         propertyCategory: item.property_category || 'apartments',
         isNew: item.is_new || false,
         name: item.name,
@@ -181,7 +186,8 @@ export async function getProperties(locale: string): Promise<PortalProperty[]> {
           video_url: item.video_url,
           tour_3d_url: item.tour_3d_url,
         }
-      }));
+      };
+      });
     } else {
       console.log("GraphQL chạy thành công nhưng trả về null/empty:", res);
     }

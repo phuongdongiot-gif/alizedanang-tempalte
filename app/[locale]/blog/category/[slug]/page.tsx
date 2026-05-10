@@ -34,10 +34,12 @@ export default async function BlogCategoryPage({ params, searchParams }: { param
   const currentPage = parseInt(resolvedSearchParams.page || '1', 10);
   const dict = getDictionary(locale);
 
+  const WP_API = process.env.NEXT_PUBLIC_WP_API_URL || 'https://atservice.vn/wp-json/wp/v2';
+
   // FETCH DANH MỤC (CATEGORIES) TỪ WORDPRESS
   let categories = [];
   try {
-    const catRes = await fetch('https://atservice.vn/wp-json/wp/v2/categories?hide_empty=true', { next: { revalidate: 3600 } });
+    const catRes = await fetch(`${WP_API}/categories?hide_empty=true`, { next: { revalidate: 3600 } });
     categories = await catRes.json();
   } catch(e) {
     console.error("Lỗi kéo danh mục WP", e);
@@ -53,7 +55,7 @@ export default async function BlogCategoryPage({ params, searchParams }: { param
   let totalPages = 1;
   if (categoryId) {
     try {
-      const API_URL = `https://atservice.vn/wp-json/wp/v2/posts?_embed=1&per_page=12&page=${currentPage}&categories=${categoryId}`;
+      const API_URL = `${WP_API}/posts?_embed=1&per_page=12&page=${currentPage}&categories=${categoryId}`;
       const res = await fetch(API_URL, {
         next: { revalidate: 3600 } 
       });

@@ -10,9 +10,10 @@ import BlogCard from "../../../../components/BlogCard";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string, slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alizedanang.net";
+  const WP_API = process.env.NEXT_PUBLIC_WP_API_URL || 'https://atservice.vn/wp-json/wp/v2';
 
   try {
-    const res = await fetch(`https://atservice.vn/wp-json/wp/v2/posts?slug=${slug}&_embed=1`);
+    const res = await fetch(`${WP_API}/posts?slug=${slug}&_embed=1`);
     const posts = await res.json();
     if (posts && posts.length > 0) {
       const p = posts[0];
@@ -34,9 +35,10 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ loc
   const { locale, slug } = await params;
   const dict = getDictionary(locale);
 
+  const WP_API = process.env.NEXT_PUBLIC_WP_API_URL || 'https://atservice.vn/wp-json/wp/v2';
   let post = null;
   try {
-    const res = await fetch(`https://atservice.vn/wp-json/wp/v2/posts?slug=${slug}&_embed=1`, {
+    const res = await fetch(`${WP_API}/posts?slug=${slug}&_embed=1`, {
       next: { revalidate: 3600 }
     });
     const posts = await res.json();
@@ -54,7 +56,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ loc
   // Lấy thêm danh sách bài viết liên quan (loại trừ bài hiện tại)
   let relatedPosts: any[] = [];
   try {
-    const relRes = await fetch(`https://atservice.vn/wp-json/wp/v2/posts?_embed=1&per_page=7&exclude=${post.id}`, {
+    const relRes = await fetch(`${WP_API}/posts?_embed=1&per_page=7&exclude=${post.id}`, {
       next: { revalidate: 3600 }
     });
     relatedPosts = await relRes.json();

@@ -107,7 +107,8 @@ export default async function PortalHomePage({ params }: { params: Promise<{ loc
   }
 
   try {
-    const wpRes = await fetch("https://atservice.vn/wp-json/wp/v2/posts?per_page=3&_embed", { next: { revalidate: 3600 } });
+    const WP_API = process.env.NEXT_PUBLIC_WP_API_URL || 'https://atservice.vn/wp-json/wp/v2';
+    const wpRes = await fetch(`${WP_API}/posts?per_page=3&_embed`, { next: { revalidate: 3600 } });
     if (wpRes.ok) wpPosts = await wpRes.json();
   } catch (error) {
     console.warn("Lỗi kéo dữ liệu News:", error);
