@@ -67,7 +67,7 @@ export default async function PropertiesPage({
   const dict = getDictionary(locale);
   const data = dict.portal.properties;
   const saleNav = dict.portal.nav.sale;
-  const rentNav = dict.portal.nav.rent;
+  const rentNav = (dict.portal.nav as any).rent || { label: '', items: [] };
 
   // Fetch properties from the mock service
   const allProperties = await getProperties(locale);
