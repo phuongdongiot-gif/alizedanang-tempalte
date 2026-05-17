@@ -67,9 +67,26 @@ export async function getHomeData(locale: string): Promise<HomeData> {
     console.warn("Lỗi kéo dữ liệu Shop Categories:", medusaCategoriesRes.reason);
   }
 
-  // Ghi chú: Nhờ việc thêm expand=categories vào getProducts trong medusa.ts,
-  // Dữ liệu shopProducts lúc này ĐÃ BAO GỒM cả thông tin danh mục của từng sản phẩm.
-  // Không cần vòng lặp Promise.all(shopCategories.map(...)) gây N+1 Query nữa.
+  // --- Map Categories to Products ---
+  if (shopCategories.length > 0 && shopProducts.length > 0) {
+    await Promise.all(shopCategories.map(async (cat) => {
+      try {
+        const { getProducts } = await import('./medusa');
+        const cpRes = await getProducts({ category_id: [cat.id], limit: 20 });
+        if (cpRes.products) {
+          cpRes.products.forEach((cp: any) => {
+            const p = shopProducts.find(prod => prod.id === cp.id);
+            if (p) {
+              if (!p.categories) p.categories = [];
+              if (!p.categories.some((existing: any) => existing.id === cat.id)) {
+                p.categories.push({ id: cat.id, name: cat.name });
+              }
+            }
+          });
+        }
+      } catch (e) {}
+    }));
+  }
 
   // --- Xử lý kết quả GraphQL Projects ---
   if (graphqlProjectsRes.status === 'fulfilled') {

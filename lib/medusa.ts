@@ -51,8 +51,7 @@ export async function getProducts(params?: { limit?: number; offset?: number; ca
   if (params?.category_id) {
     params.category_id.forEach(id => url.searchParams.append("category_id[]", id));
   }
-  // Thêm expand categories để tránh lỗi N+1 Query khi fetch dữ liệu Shop
-  url.searchParams.append("expand", "categories,variants,variants.prices");
+  // Removed expand parameter which caused 400 Bad Request in Medusa
   
   const res = await fetch(url.toString(), {
     headers: { "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || "" },
