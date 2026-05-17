@@ -41,7 +41,7 @@
     "styled-components": "^6.4.0",
     "supercluster": "^8.0.1",
     "use-supercluster": "^1.2.0",
-    "viem": "^2.49.3",
-    "wagmi": "^3.6.15"
+    "viem": "^2.21.0",
+    "wagmi": "^2.19.5"
   }
 }
