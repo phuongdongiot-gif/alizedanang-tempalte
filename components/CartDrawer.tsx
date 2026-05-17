@@ -22,7 +22,7 @@ export default function CartDrawer({ locale }: { locale: string }) {
         <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">
           <div className="flex items-center gap-3">
             <ShoppingBag size={20} className="text-gold" />
-            <h2 className="text-white font-serif text-xl">Giỏ Hàng</h2>
+            <h2 className="text-white font-serif text-xl">Danh Sách Tư Vấn</h2>
             {cart.length > 0 && (
               <span className="bg-gold text-jet-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                 {cart.reduce((s, i) => s + i.quantity, 0)}
@@ -44,7 +44,7 @@ export default function CartDrawer({ locale }: { locale: string }) {
           {cart.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center py-12 md:py-10 md:py-12">
               <ShoppingBag size={56} className="text-white/10 mb-4" />
-              <p className="text-white/40 font-light">Giỏ hàng đang trống</p>
+              <p className="text-white/40 font-light">Danh sách tư vấn đang trống</p>
               <p className="text-white/25 text-sm mt-1">Khám phá sản phẩm & dịch vụ của chúng tôi</p>
               <Link href={`/${locale}/shop`} onClick={() => setCartOpen(false)}
                 className="mt-6 px-6 py-3 border border-gold/40 text-gold text-sm tracking-widest uppercase hover:bg-gold hover:text-jet-black transition-all">
@@ -112,7 +112,7 @@ export default function CartDrawer({ locale }: { locale: string }) {
             <p className="text-white/30 text-xs mb-4 text-center">Đặt hàng sẽ được xác nhận qua điện thoại</p>
             <Link href={`/${locale}/checkout`} onClick={() => setCartOpen(false)}
               className="flex items-center justify-center gap-2 w-full bg-gold text-jet-black py-4 font-semibold uppercase tracking-widest text-sm hover:bg-gold/90 transition-colors rounded-lg">
-              Tiến Hành Đặt Hàng <ArrowRight size={16} />
+              Gửi Yêu Cầu Tư Vấn <ArrowRight size={16} />
             </Link>
             <button onClick={() => setCartOpen(false)}
               className="w-full text-center text-white/40 text-sm mt-3 hover:text-white transition-colors">

@@ -76,6 +76,10 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
             <button onClick={toggleLocale} className="text-[11px] uppercase tracking-widest font-light text-champagne/70 hover:text-gold transition-colors">
               {locale === 'vi' ? 'EN' : 'VI'}
             </button>
+            
+            {/* Web3 Connect Wallet Button */}
+            {/* @ts-ignore: Web component from Web3Modal */}
+            <w3m-button size="sm" balance="hide" />
 
             {/* Cart */}
             <button onClick={() => setCartOpen(true)} className="relative text-pearl-white/70 hover:text-gold transition-colors p-1.5">

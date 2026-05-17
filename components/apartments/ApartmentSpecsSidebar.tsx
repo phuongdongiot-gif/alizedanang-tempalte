@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PortalProperty } from "../../types";
+import { PurchaseButton } from "../web3/PurchaseButton";
 
 interface ApartmentSpecsSidebarProps {
   apt: PortalProperty;
@@ -39,9 +40,22 @@ export default function ApartmentSpecsSidebar({ apt, locale, bookBtnText }: Apar
         {bookBtnText}
       </button>
 
-      <button className="w-full text-center border-b-[3px] border-double border-white/30 text-white pb-2 text-[11px] uppercase tracking-widest font-semibold hover:border-white transition-all">
+      <button className="w-full text-center border-b-[3px] border-double border-white/30 text-white pb-2 text-[11px] uppercase tracking-widest font-semibold hover:border-white transition-all mb-8">
         Tải Brochure
       </button>
+
+      {/* WEB3 FRACTIONAL OWNERSHIP BUTTON */}
+      <div className="pt-6 border-t border-white/10">
+        <h3 className="text-sm font-semibold text-[#D4AF37] uppercase tracking-widest mb-4">
+          {locale === 'vi' ? 'Đầu tư Token Hóa (Web3)' : 'Fractional Investment (Web3)'}
+        </h3>
+        <PurchaseButton 
+          propertyId={apt.id.split('-')[0].replace(/\D/g, '') || 1} 
+          amount={1} 
+          priceNative={Math.max((apt.priceNum || 1000000000) / 10000000000, 0.01).toFixed(2)} 
+          locale={locale} 
+        />
+      </div>
 
       {/* AGENT INFO */}
       {apt.agent && apt.agent.name && (

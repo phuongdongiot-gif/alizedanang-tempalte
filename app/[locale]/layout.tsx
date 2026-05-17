@@ -3,6 +3,7 @@ import "../globals.css";
 import { Metadata } from 'next';
 import LiveChatWidget from '../../components/LiveChatWidget';
 import StoreShell from '../../components/StoreShell';
+import { Web3Provider } from '../../components/web3/Web3Provider';
 
 export const dynamic = 'force-dynamic';
 
@@ -41,9 +42,11 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`scroll-smooth ${inter.variable} ${playfair.variable}`}>
       <body className="bg-jet-black text-pearl-white font-sans antialiased selection:bg-gold selection:text-jet-black overflow-x-hidden min-h-screen">
-        <StoreShell locale={locale}>
-          {children}
-        </StoreShell>
+        <Web3Provider>
+          <StoreShell locale={locale}>
+            {children}
+          </StoreShell>
+        </Web3Provider>
         <LiveChatWidget />
       </body>
     </html>

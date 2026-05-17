@@ -87,9 +87,9 @@ export default function CheckoutPage({ params }: { params: Promise<{ locale: str
         <PortalHeader nav={dict.portal.nav} locale={locale} />
         <div className="flex flex-col items-center justify-center min-h-[80vh] text-center px-6">
           <CheckCircle2 size={80} className="text-green-400 mb-6" />
-          <h1 className="font-serif text-3xl md:text-4xl font-light mb-4">Đặt Hàng Thành Công!</h1>
+          <h1 className="font-serif text-3xl md:text-4xl font-light mb-4">Gửi Yêu Cầu Thành Công!</h1>
           <p className="text-champagne/60 text-sm max-w-md mx-auto mb-8">
-            Cảm ơn bạn đã tin tưởng Alize Đà Nẵng. Chuyên viên của chúng tôi sẽ sớm liên hệ theo số điện thoại bạn cung cấp để xác nhận đơn hàng và thời gian giao hàng.
+            Cảm ơn bạn đã quan tâm đến sản phẩm của Alize Đà Nẵng. Chuyên viên của chúng tôi sẽ sớm liên hệ theo số điện thoại bạn cung cấp để tư vấn và báo giá chi tiết.
           </p>
           <div className="flex gap-4">
             <Link href={`/${locale}/shop`} className="px-8 py-3 bg-white/5 border border-white/20 text-white text-sm uppercase tracking-widest hover:bg-white/10 transition-all">
@@ -114,12 +114,12 @@ export default function CheckoutPage({ params }: { params: Promise<{ locale: str
           <ArrowLeft size={16} /> <span className="text-sm uppercase tracking-widest">Quay Lại</span>
         </div>
 
-        <h1 className="font-serif text-4xl font-light mb-10">Thanh Toán</h1>
+        <h1 className="font-serif text-4xl font-light mb-10">Yêu Cầu Tư Vấn</h1>
 
         {cart.length === 0 ? (
           <div className="text-center py-24 bg-[#0A0C10] border border-white/5 rounded-2xl">
             <ShoppingBag size={56} className="text-white/10 mx-auto mb-4" />
-            <p className="text-white/40 text-lg mb-4">Giỏ hàng của bạn đang trống</p>
+            <p className="text-white/40 text-lg mb-4">Danh sách tư vấn của bạn đang trống</p>
             <Link href={`/${locale}/shop`} className="text-gold border-b border-gold/40 hover:border-gold pb-1 text-sm">
               Khám phá sản phẩm
             </Link>
@@ -129,7 +129,7 @@ export default function CheckoutPage({ params }: { params: Promise<{ locale: str
             {/* Form */}
             <div className="lg:col-span-3">
               <div className="bg-[#0A0C10] border border-white/5 rounded-2xl p-6 md:p-8">
-                <h2 className="text-xl font-serif mb-6 border-b border-white/10 pb-4">Thông tin giao hàng</h2>
+                <h2 className="text-xl font-serif mb-6 border-b border-white/10 pb-4">Thông tin liên hệ</h2>
                 <form id="checkout-form" onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
@@ -149,14 +149,14 @@ export default function CheckoutPage({ params }: { params: Promise<{ locale: str
                       className="w-full bg-white/5 border border-white/10 text-white rounded-lg px-4 py-3 text-sm outline-none focus:border-gold/50" placeholder="email@example.com" />
                   </div>
                   <div>
-                    <label className="text-white/40 text-xs block mb-2">Địa chỉ giao hàng *</label>
-                    <input required value={form.address} onChange={e => set("address", e.target.value)}
+                    <label className="text-white/40 text-xs block mb-2">Địa chỉ (tùy chọn)</label>
+                    <input value={form.address} onChange={e => set("address", e.target.value)}
                       className="w-full bg-white/5 border border-white/10 text-white rounded-lg px-4 py-3 text-sm outline-none focus:border-gold/50" placeholder="Số nhà, Tên đường, Phường/Xã, Quận/Huyện, Tỉnh/TP" />
                   </div>
                   <div>
-                    <label className="text-white/40 text-xs block mb-2">Ghi chú đơn hàng</label>
+                    <label className="text-white/40 text-xs block mb-2">Nội dung cần tư vấn</label>
                     <textarea value={form.notes} onChange={e => set("notes", e.target.value)} rows={3}
-                      className="w-full bg-white/5 border border-white/10 text-white rounded-lg px-4 py-3 text-sm outline-none focus:border-gold/50 resize-none" placeholder="Yêu cầu đặc biệt..." />
+                      className="w-full bg-white/5 border border-white/10 text-white rounded-lg px-4 py-3 text-sm outline-none focus:border-gold/50 resize-none" placeholder="Yêu cầu đặc biệt, câu hỏi về sản phẩm..." />
                   </div>
 
                   {errorMsg && (
@@ -169,7 +169,7 @@ export default function CheckoutPage({ params }: { params: Promise<{ locale: str
             {/* Order Summary */}
             <div className="lg:col-span-2">
               <div className="bg-[#0A0C10] border border-white/5 rounded-2xl p-6 md:p-8 sticky top-32">
-                <h2 className="text-xl font-serif mb-6 border-b border-white/10 pb-4">Tóm tắt đơn hàng</h2>
+                <h2 className="text-xl font-serif mb-6 border-b border-white/10 pb-4">Danh sách sản phẩm quan tâm</h2>
                 
                 <div className="space-y-4 mb-6 max-h-[40vh] overflow-y-auto pr-2">
                   {cart.map(item => (
@@ -192,12 +192,8 @@ export default function CheckoutPage({ params }: { params: Promise<{ locale: str
 
                 <div className="border-t border-white/10 pt-4 space-y-3 mb-6">
                   <div className="flex justify-between text-white/60 text-sm">
-                    <span>Tạm tính</span>
+                    <span>Tạm tính (tham khảo)</span>
                     <span>{formatPrice(cartTotal)}</span>
-                  </div>
-                  <div className="flex justify-between text-white/60 text-sm">
-                    <span>Phí giao hàng</span>
-                    <span>Miễn phí</span>
                   </div>
                   <div className="flex justify-between items-center border-t border-white/5 pt-4">
                     <span className="text-white font-medium">Tổng cộng</span>
@@ -206,16 +202,16 @@ export default function CheckoutPage({ params }: { params: Promise<{ locale: str
                 </div>
 
                 <div className="bg-gold/10 border border-gold/20 rounded-lg p-4 mb-6">
-                  <h4 className="text-gold text-xs uppercase tracking-widest font-semibold mb-2">Phương thức thanh toán</h4>
+                  <h4 className="text-gold text-xs uppercase tracking-widest font-semibold mb-2">Lưu ý</h4>
                   <p className="text-white/60 text-xs leading-relaxed">
-                    Đơn hàng sẽ được nhân viên của chúng tôi liên hệ xác nhận. Bạn có thể thanh toán qua hình thức chuyển khoản hoặc tiền mặt khi nhận hàng (COD).
+                    Yêu cầu tư vấn của bạn sẽ được gửi tới hệ thống. Chuyên viên của chúng tôi sẽ liên hệ lại với bạn trong thời gian sớm nhất để tư vấn trực tiếp và báo giá chính xác.
                   </p>
                 </div>
 
                 <button type="submit" form="checkout-form" disabled={status === "loading"}
                   className="w-full bg-gold text-jet-black font-bold py-4 rounded-xl text-sm uppercase tracking-widest hover:bg-gold/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
                   {status === "loading" ? <Loader2 size={18} className="animate-spin" /> : null}
-                  Xác Nhận Đặt Hàng
+                  Gửi Yêu Cầu Tư Vấn
                 </button>
               </div>
             </div>

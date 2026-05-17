@@ -7,10 +7,11 @@ import ConsultationModal from "../../../../components/ConsultationModal";
 
 interface ProductDetailClientProps {
   product: any;
+  relatedProducts?: any[];
   locale: string;
 }
 
-export default function ProductDetailClient({ product, locale }: ProductDetailClientProps) {
+export default function ProductDetailClient({ product, relatedProducts = [], locale }: ProductDetailClientProps) {
   const { addToCart } = useStore();
   const [selectedImage, setSelectedImage] = useState(product.thumbnail || product.images?.[0]?.url || "");
   const [selectedVariant, setSelectedVariant] = useState(product.variants?.[0]);
@@ -145,7 +146,7 @@ export default function ProductDetailClient({ product, locale }: ProductDetailCl
               </div>
               
               <button onClick={handleAddToCart} className="flex-1 bg-gold text-jet-black py-3 px-8 rounded-lg font-bold text-sm tracking-widest uppercase hover:bg-gold/90 transition-all flex items-center justify-center gap-2">
-                <ShoppingBag size={18} /> Thêm Vào Giỏ
+                <ShoppingBag size={18} /> Thêm Vào Giỏ Để Tư Vấn
               </button>
               
               <button className="w-14 h-14 flex items-center justify-center rounded-lg border border-white/10 text-white/50 hover:text-gold hover:border-gold transition-all">
@@ -192,22 +193,29 @@ export default function ProductDetailClient({ product, locale }: ProductDetailCl
           </div>
         )}
 
-        {/* Related Products Mock */}
+        {/* Related Products */}
         <div className="mt-10 md:mt-14 border-t border-white/5 pt-16">
           <h2 className="font-serif text-2xl text-white mb-8">Có Thể Bạn Cũng Thích</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {/* Mocks for visual */}
-            {[1,2,3,4].map(i => (
-              <div key={i} className="group cursor-pointer">
-                <div className="aspect-[4/3] bg-white/5 rounded-xl mb-3 overflow-hidden">
-                  <div className="w-full h-full flex items-center justify-center text-white/10 group-hover:scale-105 transition-transform">
-                    <ShoppingBag size={32} />
+            {relatedProducts.length > 0 ? (
+              relatedProducts.map((rp: any) => (
+                <Link href={`/${locale}/shop/${rp.handle || rp.id}`} key={rp.id} className="group cursor-pointer block">
+                  <div className="aspect-[4/3] bg-white/5 border border-white/5 group-hover:border-gold/30 rounded-xl mb-3 overflow-hidden relative">
+                    {rp.thumbnail ? (
+                      <img src={rp.thumbnail} alt={rp.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-white/10 group-hover:scale-105 transition-transform">
+                        <ShoppingBag size={32} />
+                      </div>
+                    )}
                   </div>
-                </div>
-                <h4 className="text-white text-sm line-clamp-1 group-hover:text-gold transition-colors">Sản phẩm liên quan {i}</h4>
-                <p className="text-gold text-sm font-semibold mt-1">Liên hệ</p>
-              </div>
-            ))}
+                  <h4 className="text-white text-sm line-clamp-2 group-hover:text-gold transition-colors">{rp.title}</h4>
+                  <p className="text-gold/80 text-xs mt-2 uppercase tracking-widest">Liên hệ tư vấn</p>
+                </Link>
+              ))
+            ) : (
+              <p className="text-white/40 col-span-full">Chưa có sản phẩm liên quan.</p>
+            )}
           </div>
         </div>
       </div>
@@ -224,8 +232,8 @@ export default function ProductDetailClient({ product, locale }: ProductDetailCl
           <button onClick={() => setIsConsultOpen(true)} className="w-12 h-12 flex items-center justify-center border border-gold/40 text-gold rounded-lg flex-shrink-0">
             <Phone size={18} />
           </button>
-          <button onClick={handleAddToCart} className="flex-1 bg-gold text-jet-black font-bold uppercase tracking-widest text-sm rounded-lg flex items-center justify-center gap-2">
-            Thêm Vào Giỏ
+          <button onClick={handleAddToCart} className="flex-1 bg-gold text-jet-black font-bold uppercase tracking-widest text-xs rounded-lg flex items-center justify-center gap-2">
+            Thêm Vào Giỏ Để Tư Vấn
           </button>
         </div>
       </div>

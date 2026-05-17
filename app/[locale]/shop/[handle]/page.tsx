@@ -1,5 +1,5 @@
 import React from "react";
-import { getProductByHandle, getProduct } from "../../../../lib/medusa";
+import { getProductByHandle, getProduct, getProducts } from "../../../../lib/medusa";
 import { getDictionary } from "../../../../dictionaries";
 import PortalHeader from "../../../../components/PortalHeader";
 import PortalFooter from "../../../../components/PortalFooter";
@@ -72,6 +72,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     );
   }
 
+  // Lấy 8 sản phẩm mới nhất làm "Có thể bạn cũng thích" (nếu chưa có API related)
+  let relatedProducts = [];
+  try {
+    const res = await getProducts({ limit: 8 });
+    if (res && res.products) {
+      relatedProducts = res.products.filter((p: any) => p.id !== product.id).slice(0, 8);
+    }
+  } catch (e) {}
+
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alizedanang.net";
   const jsonLd = {
     "@context": "https://schema.org",
@@ -97,7 +106,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <PortalHeader nav={data.nav} locale={locale} />
       
-      <ProductDetailClient product={product} locale={locale} />
+      <ProductDetailClient product={product} relatedProducts={relatedProducts} locale={locale} />
 
       <PortalFooter footer={data.footer} locale={locale} />
     </div>
