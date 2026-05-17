@@ -141,32 +141,43 @@ export async function getProperties(locale: string): Promise<PortalProperty[]> {
 
     if (res && res.properties && res.properties.length > 0) {
       return res.properties.map((item: any) => {
-        let tType = item.transaction_type || 'sale';
-        if (tType.toLowerCase() === 'mua bán') tType = 'sale';
-        if (tType.toLowerCase() === 'cho thuê') tType = 'rent';
+        let tType = (item.transaction_type || '').toLowerCase();
+        if (tType.includes('bán') || tType.includes('sale') || tType === 'mua bán') tType = 'sale';
+        else if (tType.includes('thuê') || tType.includes('rent') || tType === 'cho thuê') tType = 'rent';
+        else tType = 'sale';
+
+        let category = item.property_category || 'apartments';
+        let rawCat = category.toLowerCase();
+        if (rawCat.includes('căn hộ') || rawCat.includes('chung cư')) category = 'apartments';
+        else if (rawCat.includes('biệt thự') || rawCat.includes('liền kề')) category = 'villas';
+        else if (rawCat.includes('shophouse') || rawCat.includes('thương mại')) category = 'shophouses';
+        else if (rawCat.includes('mặt phố')) category = 'townhouses';
+        else if (rawCat.includes('đất')) category = 'land';
+        else if (rawCat.includes('riêng')) category = 'private-houses';
 
         return {
         id: item.id,
         transactionType: tType,
-        propertyCategory: item.property_category || 'apartments',
+        propertyCategory: category,
         isNew: item.is_new || false,
-        name: item.name,
+        name: item.name || 'Cập nhật sau',
         projectId: item.project_id || 'alize',
         projectName: item.project_name || 'Được tải từ GraphQL API',
         price: item.price || 'Liên hệ',
-        priceNum: item.price_num || 0,
+        priceNum: Number(item.price_num) || 0,
         location: item.location || 'Đang cập nhật',
         type: item.property_category || 'Bất động sản',
         specs: {
           area: item.area || '... m²',
-          areaNum: item.area_num || 0,
-          beds: item.beds || 0,
-          baths: item.baths || 0
+          areaNum: Number(item.area_num) || 0,
+          beds: Number(item.beds) || 0,
+          baths: Number(item.baths) || 0
         },
         desc: item.description || 'Truy xuất trực tiếp từ cổng Backend GraphQL.',
         img: item.img_url || '',
         gallery: item.gallery || [],
-        coordinates: { lat: item.lat || 16.0544, lng: item.lng || 108.2022 }, // Fallback to Da Nang center
+        coordinates: { lat: Number(item.lat) || 16.0544, lng: Number(item.lng) || 108.2022 },
+
         features: {
           legal_status: item.legal_status,
           furniture: item.furniture,

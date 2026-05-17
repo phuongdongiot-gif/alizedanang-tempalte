@@ -5,6 +5,7 @@ import { getDictionary } from "../../../dictionaries";
 import { Metadata } from "next";
 import Link from "next/link";
 import Pagination from "../../../components/Pagination";
+import { getBlogHomeData } from "../../../lib/blogService";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -34,49 +35,7 @@ export default async function BlogIndexPage({ params, searchParams }: { params: 
   const currentPage = parseInt(resolvedSearchParams.page || '1', 10);
   const dict = getDictionary(locale);
 
-  const WP_API = process.env.NEXT_PUBLIC_WP_API_URL || 'https://atservice.vn/wp-json/wp/v2';
-
-  // FETCH DANH MỤC (CATEGORIES) TỪ WORDPRESS
-  let categories = [];
-  try {
-    const catRes = await fetch(`${WP_API}/categories?hide_empty=true`, { next: { revalidate: 3600 } });
-    categories = await catRes.json();
-  } catch (e) {
-    console.error("Lỗi kéo danh mục WP", e);
-  }
-
-  // FETCH BÀI VIẾT NỔI BẬT DÀNH CHO HERO VÀ TRENDING (chỉ lấy khi ở trang 1)
-  let heroPosts: any[] = [];
-  let trendingPosts: any[] = [];
-  if (currentPage === 1) {
-    try {
-      const resGlobal = await fetch(`${WP_API}/posts?_embed=1&per_page=9`, {
-        next: { revalidate: 3600 }
-      });
-      const globalPosts = await resGlobal.json();
-      if (Array.isArray(globalPosts)) {
-        heroPosts = globalPosts.slice(0, 5); // 1 main + 4 small
-        trendingPosts = globalPosts.slice(5, 9); // 4 posts for trending
-      }
-    } catch (error) {
-      console.error("Lỗi kéo tin tức Global WordPress:", error);
-    }
-  }
-
-  // FETCH BÀI VIẾT (POSTS) CHO TIMELINE CHÍNH (KÈM PHÂN TRANG)
-  let wpPosts = [];
-  let totalPages = 1;
-  try {
-    const API_URL = `${WP_API}/posts?_embed=1&per_page=10&page=${currentPage}`;
-    const res = await fetch(API_URL, {
-      next: { revalidate: 3600 }
-    });
-    wpPosts = await res.json();
-    totalPages = parseInt(res.headers.get('X-WP-TotalPages') || '1', 10);
-  } catch (error) {
-    console.error("Lỗi kéo tin tức WordPress:", error);
-  }
-
+  const { categories, heroPosts, trendingPosts, wpPosts, totalPages } = await getBlogHomeData(currentPage);
   const hasPosts = Array.isArray(wpPosts) && wpPosts.length > 0;
 
   // HÀM HELPER FORMAT NGÀY

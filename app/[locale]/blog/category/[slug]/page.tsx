@@ -5,6 +5,7 @@ import { getDictionary } from "../../../../../dictionaries";
 import { Metadata } from "next";
 import Link from "next/link";
 import Pagination from "../../../../../components/Pagination";
+import { getBlogCategoryData } from "../../../../../lib/blogService";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string, slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
@@ -34,37 +35,10 @@ export default async function BlogCategoryPage({ params, searchParams }: { param
   const currentPage = parseInt(resolvedSearchParams.page || '1', 10);
   const dict = getDictionary(locale);
 
-  const WP_API = process.env.NEXT_PUBLIC_WP_API_URL || 'https://atservice.vn/wp-json/wp/v2';
-
-  // FETCH DANH MỤC (CATEGORIES) TỪ WORDPRESS
-  let categories = [];
-  try {
-    const catRes = await fetch(`${WP_API}/categories?hide_empty=true`, { next: { revalidate: 3600 } });
-    categories = await catRes.json();
-  } catch(e) {
-    console.error("Lỗi kéo danh mục WP", e);
-  }
-
-  // Lấy Category Name và ID từ danh sách category dựa trên slug
-  const matchedCat = categories.find((c: any) => c.slug === slug);
-  const categoryId = matchedCat ? matchedCat.id : null;
-  const categoryName = matchedCat ? matchedCat.name : slug;
-
-  // FETCH BÀI VIẾT (POSTS) THEO CATEGORY KÈM PHÂN TRANG
-  let wpPosts = [];
-  let totalPages = 1;
-  if (categoryId) {
-    try {
-      const API_URL = `${WP_API}/posts?_embed=1&per_page=12&page=${currentPage}&categories=${categoryId}`;
-      const res = await fetch(API_URL, {
-        next: { revalidate: 3600 } 
-      });
-      wpPosts = await res.json();
-      totalPages = parseInt(res.headers.get('X-WP-TotalPages') || '1', 10);
-    } catch (error) {
-      console.error("Lỗi kéo tin tức WordPress theo danh mục:", error);
-    }
-  }
+  const { categories, currentCategory, posts: wpPosts, totalPages } = await getBlogCategoryData(slug, currentPage);
+  
+  const categoryId = currentCategory ? currentCategory.id : null;
+  const categoryName = currentCategory ? currentCategory.name : slug;
 
   const hasPosts = Array.isArray(wpPosts) && wpPosts.length > 0;
 

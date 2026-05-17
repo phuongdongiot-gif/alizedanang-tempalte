@@ -16,10 +16,7 @@ export default function HomeLocations({ data, locale }: { data: any, locale: str
               <div className="absolute inset-0 bg-gradient-to-t from-jet-black via-jet-black/40 to-transparent opacity-90 transition-opacity group-hover:opacity-100"></div>
               <div className="absolute bottom-0 left-0 p-4 md:p-8 w-full">
                 <h3 className="text-white text-xl md:text-3xl font-semibold mb-1 md:mb-2 group-hover:text-gold transition-colors">{data.items[0].city}</h3>
-                <span className="text-champagne/80 text-[11px] md:text-sm font-light flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E53935]"></span>
-                  {data.items[0].count} {locale === 'vi' ? 'tin đăng' : 'listings'}
-                </span>
+
               </div>
             </Link>
           )}
@@ -31,10 +28,7 @@ export default function HomeLocations({ data, locale }: { data: any, locale: str
               <div className="absolute inset-0 bg-gradient-to-t from-jet-black via-black/20 to-transparent opacity-90 transition-opacity group-hover:opacity-100"></div>
               <div className="absolute bottom-0 left-0 p-3 md:p-5 w-full">
                 <h3 className="text-white text-sm md:text-xl font-semibold mb-1 group-hover:text-gold transition-colors line-clamp-1">{loc.city}</h3>
-                <span className="text-champagne/80 text-[9px] md:text-xs font-light flex items-center gap-1 md:gap-2">
-                  <span className="w-1 h-1 rounded-full bg-[#E53935]"></span>
-                  {loc.count} {locale === 'vi' ? 'tin' : 'listings'}
-                </span>
+
               </div>
             </Link>
           ))}

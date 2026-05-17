@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import FinanceSidebar from "../../../../../components/finance/FinanceSidebar";
 import FinanceLatestUpdates from "../../../../../components/finance/FinanceLatestUpdates";
 import { notFound } from "next/navigation";
+import { getFinanceCategoryData } from "../../../../../lib/financeService";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string, slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
@@ -30,31 +31,10 @@ export default async function FinanceCategoryPage({ params }: { params: Promise<
   const dict = getDictionary(locale);
   const financeDict: any = dict.finance || dict.blog;
 
-  const WP_API = process.env.NEXT_PUBLIC_FINANCE_WP_API_URL || 'https://atservice.com.vn/wp-json/wp/v2';
+  const { wpPosts, categories, currentCategory } = await getFinanceCategoryData(slug);
 
-  let wpPosts: any[] = [];
-  let categories: any[] = [];
-  let currentCategory = null;
-
-  try {
-    // 1. Fetch Categories to find the current category ID
-    const catsRes = await fetch(`${WP_API}/categories?hide_empty=true&per_page=100`, { next: { revalidate: 3600 } });
-    if (catsRes.ok) {
-      categories = await catsRes.json();
-      currentCategory = categories.find((c: any) => c.slug === slug);
-    }
-
-    if (!currentCategory) {
-      return notFound();
-    }
-
-    // 2. Fetch Initial Posts for this category
-    const postsRes = await fetch(`${WP_API}/posts?_embed=1&per_page=6&categories=${currentCategory.id}`, { next: { revalidate: 3600 } });
-    if (postsRes.ok) {
-      wpPosts = await postsRes.json();
-    }
-  } catch (error) {
-    console.error("Lỗi kéo tin tức Danh mục Tài Chính WordPress:", error);
+  if (!currentCategory) {
+    return notFound();
   }
 
   return (
