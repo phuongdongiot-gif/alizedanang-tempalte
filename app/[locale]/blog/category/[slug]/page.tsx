@@ -106,7 +106,7 @@ export default async function BlogCategoryPage({ params, searchParams }: { param
                    <Link key={post.id} href={`/${locale}/blog/${post.slug}`} className="group flex flex-col bg-white/5 border border-white/5 hover:border-white/10 hover:bg-white/10 transition-all overflow-hidden h-full shadow-lg">
                      <div className="w-full aspect-[4/3] relative overflow-hidden">
                        <img src={img} alt="" className="w-full h-full object-cover filter brightness-90 group-hover:scale-105 transition-transform duration-700" />
-                       <div className="absolute top-4 left-4 bg-blue-600 text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 w-fit border-b-[3px] border-double border-white/40">
+                       <div className="absolute top-4 left-4 bg-gold text-jet-black text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 w-fit border-b-[3px] border-double border-jet-black/20">
                          {categoryName}
                        </div>
                      </div>

@@ -65,7 +65,7 @@ export default async function BlogIndexPage({ params, searchParams }: { params: 
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10" />
                       <img src={img} alt="featured" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                       <div className="absolute bottom-0 left-0 w-full p-8 z-20 flex flex-col gap-3">
-                        <span className="bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 w-fit border-b-[3px] border-double border-white/40">{cat}</span>
+                        <span className="bg-gold text-jet-black text-[10px] font-bold uppercase tracking-wider px-3 py-1 w-fit border-b-[3px] border-double border-jet-black/20">{cat}</span>
                         <h2 className="text-3xl lg:text-4xl font-serif text-white leading-tight line-clamp-3">{post.title.rendered.replace(/<[^>]+>/g, '')}</h2>
                         <div className="flex items-center gap-3 mt-2 text-white/70 text-xs font-light">
                           <span>Alize Editor</span>
@@ -87,7 +87,7 @@ export default async function BlogIndexPage({ params, searchParams }: { params: 
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent z-10" />
                         <img src={img} alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                         <div className="absolute bottom-0 left-0 w-full p-5 z-20 flex flex-col gap-2">
-                          <span className="bg-blue-600 text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 w-fit border-b-[3px] border-double border-white/40">{cat}</span>
+                          <span className="bg-gold text-jet-black text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 w-fit border-b-[3px] border-double border-jet-black/20">{cat}</span>
                           <h3 className="text-base lg:text-lg font-serif text-white leading-snug line-clamp-2">{post.title.rendered.replace(/<[^>]+>/g, '')}</h3>
                         </div>
                       </Link>
@@ -133,7 +133,7 @@ export default async function BlogIndexPage({ params, searchParams }: { params: 
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10" />
                         <img src={img} alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                         <div className="absolute bottom-0 left-0 w-full p-5 z-20 flex flex-col gap-2">
-                          <span className="bg-blue-600 text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 w-fit border-b-[3px] border-double border-white/40">{cat}</span>
+                          <span className="bg-gold text-jet-black text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 w-fit border-b-[3px] border-double border-jet-black/20">{cat}</span>
                           <h3 className="text-sm font-serif text-white leading-snug line-clamp-3">{post.title.rendered.replace(/<[^>]+>/g, '')}</h3>
                         </div>
                       </Link>

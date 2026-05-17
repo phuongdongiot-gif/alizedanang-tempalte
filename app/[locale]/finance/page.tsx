@@ -82,7 +82,7 @@ export default async function FinanceIndexPage({ params }: { params: Promise<{ l
           <p className="text-champagne/70 text-base lg:text-lg font-light">{financeDict.hero?.subtitle || ''}</p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full items-start">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full items-stretch">
           
           {/* SIDEBAR DANH MỤC */}
           <aside className="w-full lg:w-[280px] shrink-0">

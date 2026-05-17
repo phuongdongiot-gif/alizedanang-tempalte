@@ -51,7 +51,7 @@ export default async function FinanceCategoryPage({ params }: { params: Promise<
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full items-start">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full items-stretch">
           
           {/* SIDEBAR DANH MỤC */}
           <aside className="w-full lg:w-[280px] shrink-0">
