@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import LiveChatWidget from '../../components/LiveChatWidget';
 import StoreShell from '../../components/StoreShell';
 import { Web3Provider } from '../../components/web3/Web3Provider';
+import { Analytics } from "@vercel/analytics/next";
 
 export const dynamic = 'force-dynamic';
 
@@ -41,13 +42,33 @@ export default async function RootLayout({
   const { locale } = await params;
   return (
     <html lang={locale} className={`scroll-smooth ${inter.variable} ${playfair.variable}`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MPCMB7DV');`,
+          }}
+        />
+      </head>
       <body className="bg-jet-black text-pearl-white font-sans antialiased selection:bg-gold selection:text-jet-black overflow-x-hidden min-h-screen">
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-MPCMB7DV"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
         <Web3Provider>
           <StoreShell locale={locale}>
             {children}
           </StoreShell>
         </Web3Provider>
         <LiveChatWidget />
+        <Analytics />
       </body>
     </html>
   );
