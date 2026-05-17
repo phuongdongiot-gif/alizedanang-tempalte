@@ -176,6 +176,7 @@ export interface PortalData {
     sale: NavGroup;
     rent: NavGroup;
     news: string;
+    finance: string;
     tools: string;
     about: string;
     contact: string;
@@ -314,6 +315,18 @@ export interface BlogData {
   readMoreBtn: string;
 }
 
+export interface FinanceData {
+  seo: SEOData;
+  hero: {
+    title: string;
+    subtitle: string;
+  };
+  topStories: string;
+  latestUpdates: string;
+  investmentInsights: string;
+  readMoreBtn: string;
+}
+
 export interface Dictionary {
   seo: SEOData;
   nav: NavigationData;
@@ -329,6 +342,7 @@ export interface Dictionary {
   subpages: SubpagesData;
   portal: PortalData;
   blog: BlogData;
+  finance?: FinanceData;
 }
 
 export interface GallerySubpageData {

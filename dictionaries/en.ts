@@ -166,6 +166,7 @@ export const enDict: Dictionary = {
         ]
       },
       news: "News",
+      finance: "Finance",
       tools: "Tools",
       about: "About Us",
       contact: "Contact",
@@ -317,5 +318,22 @@ export const enDict: Dictionary = {
         content: "<p>In a solemn and classy atmosphere, the launching ceremony of ALIZE Residence project officially took place on the morning of April 5, 2026.</p><br/><p>The project quickly made a big splash in the market with its unique 'twisting face' design philosophy, providing breathtaking Panoramic views straight to My Khe beach.</p><p>More than 50% of the first phase's inventory was registered with intent within the first 2 hours of sale.</p>"
       }
     ]
+  },
+  finance: {
+    seo: {
+      title: "Finance News - G-Estate",
+      description: "Fastest updates on market news, financial reports, and investment insights.",
+      keywords: "finance news, financial reports, investment insights, stock market",
+      ogImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2070",
+      footerText: "In-depth financial analysis - G-Estate."
+    },
+    hero: {
+      title: "Market Highlights",
+      subtitle: "Featured finance news and the latest stock market updates."
+    },
+    topStories: "Top Stories",
+    latestUpdates: "Latest Updates",
+    investmentInsights: "Investment Insights",
+    readMoreBtn: "Read More"
   }
 };

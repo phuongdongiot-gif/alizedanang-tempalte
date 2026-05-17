@@ -4,7 +4,7 @@ export default function HomeHero({ data, locale }: { data: any, locale: string }
   return (
     <section className="relative h-[90vh] min-h-[700px] w-full flex items-center justify-center">
       <div className="absolute inset-0 z-0 bg-jet-black">
-        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=2070" className="w-full h-full object-cover filter brightness-[0.4] grayscale-[20%]" alt="G-Estate Hero" />
+        <img fetchPriority="high" loading="eager" decoding="sync" src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=2070" className="w-full h-full object-cover filter brightness-[0.4] grayscale-[20%]" alt="G-Estate Hero" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#070A10] via-black/30 to-transparent" />
       </div>
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto w-full pt-16">

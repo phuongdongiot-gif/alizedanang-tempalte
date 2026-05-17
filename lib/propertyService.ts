@@ -136,7 +136,7 @@ import { fetchGraphQL, GET_PROPERTIES_QUERY } from "./graphql";
 export async function getProperties(locale: string): Promise<PortalProperty[]> {
   console.log(`\n📡 [Frontend] Gọi Hàm getProperties(${locale}) - Chuẩn bị Fetch GraphQL...`);
   try {
-    const res: any = await fetchGraphQL(GET_PROPERTIES_QUERY, {}, { cache: 'no-store' });
+    const res: any = await fetchGraphQL(GET_PROPERTIES_QUERY, {}, { next: { revalidate: 60 } });
     console.log(`✅ [Frontend] Nhận Data từ Backend:`, res ? `Có ${res.properties?.length || 0} bản ghi` : 'null');
 
     if (res && res.properties && res.properties.length > 0) {

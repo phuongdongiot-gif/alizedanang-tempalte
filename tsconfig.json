@@ -38,6 +38,9 @@
   "exclude": [
     "node_modules",
     "backend",
-    "crawler"
+    "crawler",
+    "crawler-bds",
+    "medusa",
+    "admin"
   ]
 }

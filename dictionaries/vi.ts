@@ -165,6 +165,7 @@ export const viDict: Dictionary = {
         ]
       },
       news: "Tin Tức",
+      finance: "Tài Chính",
       tools: "Công Cụ",
       about: "Về Chúng Tôi",
       contact: "Liên Hệ",
@@ -316,5 +317,22 @@ export const viDict: Dictionary = {
         content: "<p>Trong không khí trang trọng và đẳng cấp, lễ ra mắt dự án ALIZE Residence đã chính thức diễn ra vào sáng ngày 05/04/2026.</p><br/><p>Dự án nhanh chóng gây tiếng vang lớn trên thị trường với triết lý thiết kế 'xoay mặt' độc đáo, mang đến tầm nhìn Panorama tuyệt mỹ trực diện biển Mỹ Khê.</p><p>Hơn 50% rổ hàng đợt 1 đã được đăng ký nguyện vọng chỉ trong vòng 2 giờ đầu tiên mở bán.</p>"
       }
     ]
+  },
+  finance: {
+    seo: {
+      title: "Tin tức Tài chính - G-Estate",
+      description: "Cập nhật nhanh nhất tin tức thị trường, báo cáo tài chính và góc nhìn đầu tư.",
+      keywords: "tin tức tài chính, báo cáo tài chính, góc nhìn đầu tư, thị trường chứng khoán",
+      ogImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2070",
+      footerText: "Phân tích tài chính chuyên sâu - G-Estate."
+    },
+    hero: {
+      title: "Tiêu Điểm Thị Trường",
+      subtitle: "Tin tức tài chính nổi bật và thông tin thị trường chứng khoán mới nhất."
+    },
+    topStories: "Tiêu Điểm Đầu Tư",
+    latestUpdates: "Cập Nhật Mới Nhất",
+    investmentInsights: "Góc Nhìn Đầu Tư",
+    readMoreBtn: "Đọc Tiếp"
   }
 };
