@@ -7,6 +7,7 @@ import { getDictionary } from "../../../dictionaries";
 import { ArrowLeft, CheckCircle2, ShoppingBag, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { MEDUSA_URL } from "../../../lib/medusa";
+import { sendGTMEvent } from '@next/third-parties/google';
 
 function formatPrice(amount: number) {
   return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(amount);
@@ -73,6 +74,13 @@ export default function CheckoutPage({ params }: { params: Promise<{ locale: str
         await new Promise(r => setTimeout(r, 1500));
       }
 
+      sendGTMEvent({ 
+        event: 'generate_lead', 
+        value: cartTotal, 
+        currency: 'VND',
+        email: form.email,
+        name: form.name
+      });
       setStatus("success");
       clearCart();
     } catch (err: any) {

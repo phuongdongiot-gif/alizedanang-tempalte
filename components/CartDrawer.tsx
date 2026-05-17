@@ -3,6 +3,7 @@ import React from "react";
 import { useStore } from "../lib/store-context";
 import { X, ShoppingBag, Trash2, Plus, Minus, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { sendGTMEvent } from '@next/third-parties/google';
 
 function formatPrice(amount: number) {
   return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(amount);
@@ -110,7 +111,10 @@ export default function CartDrawer({ locale }: { locale: string }) {
               <span className="text-gold font-semibold text-lg">{formatPrice(cartTotal)}</span>
             </div>
             <p className="text-white/30 text-xs mb-4 text-center">Đặt hàng sẽ được xác nhận qua điện thoại</p>
-            <Link href={`/${locale}/checkout`} onClick={() => setCartOpen(false)}
+            <Link href={`/${locale}/checkout`} onClick={() => {
+              sendGTMEvent({ event: 'begin_checkout', value: cartTotal, currency: 'VND' });
+              setCartOpen(false);
+            }}
               className="flex items-center justify-center gap-2 w-full bg-gold text-jet-black py-4 font-semibold uppercase tracking-widest text-sm hover:bg-gold/90 transition-colors rounded-lg">
               Gửi Yêu Cầu Tư Vấn <ArrowRight size={16} />
             </Link>

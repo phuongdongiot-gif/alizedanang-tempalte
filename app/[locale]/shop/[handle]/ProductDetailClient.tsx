@@ -4,6 +4,7 @@ import { useStore } from "../../../../lib/store-context";
 import { ChevronRight, Heart, Minus, Plus, ShoppingBag, ShieldCheck, Truck, Share2, Phone } from "lucide-react";
 import Link from "next/link";
 import ConsultationModal from "../../../../components/ConsultationModal";
+import { sendGTMEvent } from '@next/third-parties/google';
 
 interface ProductDetailClientProps {
   product: any;
@@ -19,6 +20,20 @@ export default function ProductDetailClient({ product, relatedProducts = [], loc
   const [isConsultOpen, setIsConsultOpen] = useState(false);
   const [showStickyBottom, setShowStickyBottom] = useState(false);
 
+  useEffect(() => {
+    sendGTMEvent({
+      event: 'view_item',
+      value: product.variants?.[0]?.prices?.find((p: any) => p.currency_code === "vnd")?.amount || 0,
+      currency: 'VND',
+      items: [
+        {
+          item_id: product.id,
+          item_name: product.title,
+        }
+      ]
+    });
+  }, [product.id, product.title, product.variants]);
+
   const price = selectedVariant?.prices?.find((p: any) => p.currency_code === "vnd");
   const formattedPrice = price 
     ? new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price.amount) 
@@ -31,6 +46,20 @@ export default function ProductDetailClient({ product, relatedProducts = [], loc
       thumbnail: product.thumbnail || product.images?.[0]?.url,
       unit_price: price?.amount || 0,
       variant_title: selectedVariant?.title || ""
+    });
+
+    sendGTMEvent({
+      event: 'add_to_cart',
+      value: (price?.amount || 0) * quantity,
+      currency: 'VND',
+      items: [
+        {
+          item_id: product.id,
+          item_name: product.title,
+          price: price?.amount || 0,
+          quantity: quantity
+        }
+      ]
     });
   };
 
