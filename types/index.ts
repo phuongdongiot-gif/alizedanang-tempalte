@@ -174,9 +174,7 @@ export interface PortalData {
     home: string;
     projects: string;
     sale: NavGroup;
-    rent: NavGroup;
-    news: string;
-    finance: string;
+    news: NavGroup;
     tools: string;
     about: string;
     contact: string;

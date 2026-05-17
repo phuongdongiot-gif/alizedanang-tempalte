@@ -28,15 +28,15 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
     window.location.href = `/${newLocale}${pathWithoutLocale}`;
   };
 
-  const NavDropdown = ({ group, type }: { group: NavGroup, type: "sale" | "rent" }) => (
+  const NavDropdown = ({ group, type }: { group: NavGroup, type: "sale" | "rent" | "news" }) => (
     <div className="relative group/nav py-4">
-      <Link href={`/${locale}/properties?transaction=${type}`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white group-hover/nav:text-gold transition-colors flex items-center gap-1">
+      <Link href={type === 'news' ? `/${locale}/${group.items[0]?.id}` : `/${locale}/properties?transaction=${type}`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white group-hover/nav:text-gold transition-colors flex items-center gap-1">
         {group.label}
         <svg className="w-3 h-3 opacity-50 group-hover/nav:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
       </Link>
       <div className="absolute top-full left-0 w-[500px] bg-jet-black/95 backdrop-blur-xl border border-white/10 rounded overflow-hidden shadow-2xl opacity-0 invisible group-hover/nav:opacity-100 group-hover/nav:visible transition-all duration-300 translate-y-2 group-hover/nav:translate-y-0 p-6 grid grid-cols-2 gap-x-8 gap-y-4 z-50">
         {group.items.map((item: NavItem, idx: number) => (
-          <Link key={idx} href={`/${locale}/properties?transaction=${type}&category=${item.id}`} className="block text-xs font-light text-champagne/80 hover:text-gold hover:translate-x-1 transition-all">
+          <Link key={idx} href={type === 'news' ? `/${locale}/${item.id}` : `/${locale}/properties?transaction=${type}&category=${item.id}`} className="block text-xs font-light text-champagne/80 hover:text-gold hover:translate-x-1 transition-all">
             {item.label}
             {item.isNew && <span className="ml-2 inline-block bg-[#E53935] text-white text-[8px] uppercase tracking-widest px-1 py-0.5 rounded">Mới</span>}
           </Link>
@@ -64,12 +64,10 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
           {/* DESKTOP NAV */}
           <nav className="hidden lg:flex items-center gap-7">
             <NavDropdown group={nav.sale} type="sale" />
-            <NavDropdown group={nav.rent} type="rent" />
             <Link href={`/${locale}/projects`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{nav.projects}</Link>
             <Link href={`/${locale}/map`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{locale === 'vi' ? 'Bản Đồ' : 'Map'}</Link>
             <Link href={`/${locale}/shop`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{locale === 'vi' ? 'Cửa Hàng' : 'Shop'}</Link>
-            <Link href={`/${locale}/blog`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{nav.news}</Link>
-            <Link href={`/${locale}/finance`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{nav.finance}</Link>
+            <NavDropdown group={nav.news} type="news" />
             <Link href={`/${locale}/services`} className="text-[11px] uppercase tracking-[0.2em] font-light text-pearl-white hover:text-gold transition-colors">{locale === 'vi' ? 'Dịch Vụ' : 'Services'}</Link>
           </nav>
 
@@ -176,7 +174,7 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
           </div>
         )}
 
-        {[{ key: "sale", label: nav.sale.label, items: nav.sale.items, txn: "sale" }, { key: "rent", label: nav.rent.label, items: nav.rent.items, txn: "rent" }].map(grp => (
+        {[{ key: "sale", label: nav.sale.label, items: nav.sale.items, type: "sale" }, { key: "news", label: nav.news.label, items: nav.news.items, type: "news" }].map(grp => (
           <div key={grp.key} className="border-b border-white/10 pb-4">
             <button onClick={() => toggleMobileAccordion(grp.key)} className="w-full flex justify-between items-center text-xl uppercase tracking-[0.2em] font-light text-pearl-white">
               {grp.label}
@@ -184,7 +182,7 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
             </button>
             <div className={`flex flex-col gap-4 overflow-hidden transition-all duration-300 ${mobileExpandedSection === grp.key ? 'max-h-[1000px] mt-6 opacity-100' : 'max-h-0 opacity-0'}`}>
               {grp.items.map((item: NavItem, idx: number) => (
-                <Link key={idx} onClick={() => setMobileMenuOpen(false)} href={`/${locale}/properties?transaction=${grp.txn}&category=${item.id}`}
+                <Link key={idx} onClick={() => setMobileMenuOpen(false)} href={grp.type === 'news' ? `/${locale}/${item.id}` : `/${locale}/properties?transaction=${grp.type}&category=${item.id}`}
                   className="text-sm font-light text-champagne/70 pl-4 border-l border-gold/30 block py-1">{item.label}</Link>
               ))}
             </div>
@@ -195,8 +193,6 @@ export default function PortalHeader({ nav, locale }: { nav: any; locale: string
           { href: `/${locale}/projects`, label: nav.projects },
           { href: `/${locale}/map`, label: locale === 'vi' ? 'BẢN ĐỒ' : 'MAP' },
           { href: `/${locale}/shop`, label: locale === 'vi' ? 'CỬA HÀNG' : 'SHOP' },
-          { href: `/${locale}/blog`, label: nav.news },
-          { href: `/${locale}/finance`, label: nav.finance },
           { href: `/${locale}/services`, label: locale === 'vi' ? 'DỊCH VỤ' : 'SERVICES' },
         ].map(item => (
           <Link key={item.href} onClick={() => setMobileMenuOpen(false)} href={item.href}

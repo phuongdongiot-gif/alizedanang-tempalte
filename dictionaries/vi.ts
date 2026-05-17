@@ -153,19 +153,13 @@ export const viDict: Dictionary = {
           { id: "others", label: "Bán loại bất động sản khác" }
         ]
       },
-      rent: {
-        label: "Nhà đất cho thuê",
+      news: {
+        label: "Tin Tức",
         items: [
-          { id: "apartments", label: "Cho thuê căn hộ chung cư" },
-          { id: "rooms", label: "Cho thuê phòng trọ" },
-          { id: "private-houses", label: "Cho thuê nhà riêng" },
-          { id: "offices", label: "Cho thuê văn phòng" },
-          { id: "retail-space", label: "Cho thuê mặt bằng, nptm" },
-          { id: "warehouses", label: "Cho thuê kho, nhà xưởng, đất" }
+          { id: "blog", label: "Tin dự án" },
+          { id: "finance", label: "Tài chính" }
         ]
       },
-      news: "Tin Tức",
-      finance: "Tài Chính",
       tools: "Công Cụ",
       about: "Về Chúng Tôi",
       contact: "Liên Hệ",

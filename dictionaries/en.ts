@@ -154,19 +154,13 @@ export const enDict: Dictionary = {
           { id: "others", label: "Other types of real estate for sale" }
         ]
       },
-      rent: {
-        label: "Properties for Rent",
+      news: {
+        label: "News",
         items: [
-          { id: "apartments", label: "Apartments for rent" },
-          { id: "rooms", label: "Rooms for rent" },
-          { id: "private-houses", label: "Private houses for rent" },
-          { id: "offices", label: "Offices for rent" },
-          { id: "retail-space", label: "Retail space for rent" },
-          { id: "warehouses", label: "Warehouses, factories, land for rent" }
+          { id: "blog", label: "Project News" },
+          { id: "finance", label: "Finance" }
         ]
       },
-      news: "News",
-      finance: "Finance",
       tools: "Tools",
       about: "About Us",
       contact: "Contact",
