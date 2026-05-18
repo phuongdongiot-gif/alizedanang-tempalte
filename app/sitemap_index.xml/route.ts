@@ -5,29 +5,61 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alizedanang.net";
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  let blogTotalPages = 1;
+  let financeTotalPages = 1;
+
+  try {
+    const BLOG_API = process.env.NEXT_PUBLIC_WP_API_URL || 'https://atservice.vn/wp-json/wp/v2';
+    const res = await fetch(`${BLOG_API}/posts?per_page=100&page=1`, { next: { revalidate: 3600 } });
+    if (res.ok) {
+      blogTotalPages = parseInt(res.headers.get('x-wp-totalpages') || '1', 10);
+    }
+  } catch (error) {
+    console.warn("Failed to fetch Blog total pages for sitemap index", error);
+  }
+
+  try {
+    const FINANCE_API = process.env.NEXT_PUBLIC_FINANCE_WP_API_URL || 'https://atservice.com.vn/wp-json/wp/v2';
+    const res = await fetch(`${FINANCE_API}/posts?per_page=100&page=1`, { next: { revalidate: 3600 } });
+    if (res.ok) {
+      financeTotalPages = parseInt(res.headers.get('x-wp-totalpages') || '1', 10);
+    }
+  } catch (error) {
+    console.warn("Failed to fetch Finance total pages for sitemap index", error);
+  }
+
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="/main-sitemap.xsl"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+
+  const staticSitemaps = ['page-sitemap.xml', 'category-sitemap.xml', 'product-sitemap.xml', 'property-sitemap.xml'];
+  for (const sm of staticSitemaps) {
+    xml += `
   <sitemap>
-    <loc>${baseUrl}/page-sitemap.xml</loc>
+    <loc>${baseUrl}/${sm}</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
-  </sitemap>
+  </sitemap>`;
+  }
+
+  // Dynamic Blog Sitemaps
+  for (let i = 1; i <= Math.max(1, blogTotalPages); i++) {
+    xml += `
   <sitemap>
-    <loc>${baseUrl}/post-sitemap.xml</loc>
+    <loc>${baseUrl}/post-sitemap-${i}.xml</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
-  </sitemap>
+  </sitemap>`;
+  }
+
+  // Dynamic Finance Sitemaps
+  for (let i = 1; i <= Math.max(1, financeTotalPages); i++) {
+    xml += `
   <sitemap>
-    <loc>${baseUrl}/category-sitemap.xml</loc>
+    <loc>${baseUrl}/finance-sitemap-${i}.xml</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>${baseUrl}/product-sitemap.xml</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>${baseUrl}/property-sitemap.xml</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-  </sitemap>
+  </sitemap>`;
+  }
+
+  xml += `
 </sitemapindex>
 <!-- XML Sitemap generated similarly to Yoast SEO -->
 `;
