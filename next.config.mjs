@@ -19,6 +19,14 @@ const nextConfig = {
       {
         source: '/api/medusa/:path*',
         destination: `${process.env.NEXT_PUBLIC_MEDUSA_URL || "http://localhost:9000"}/:path*`
+      },
+      {
+        source: '/post-sitemap-:id.xml',
+        destination: '/post-sitemap/:id'
+      },
+      {
+        source: '/finance-sitemap-:id.xml',
+        destination: '/finance-sitemap/:id'
       }
     ];
   },
